@@ -68,13 +68,13 @@
       "languageVersion": "2.17"
     },
     {
-      "name": "dart_videostreaming_api_collection",
+      "name": "dart_api_collection",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-09T20:42:38.611311Z",
+  "generated": "2023-08-09T21:11:44.272377Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }
