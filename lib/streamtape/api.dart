@@ -2,15 +2,19 @@
 part of 'main.dart';
 
 class StreamtapeApi {
-  StreamtapeApi(this._user, this._apiKey);
+  StreamtapeApi(this._user, this._apiKey, {bool enableLog = false}) {
+    if (enableLog) {
+      this
+          ._dio
+          .interceptors
+          .add(LogInterceptor(requestBody: true, responseBody: true));
+    }
+  }
   final String _user;
   final String _apiKey;
   final String _base = 'api.streamtape.com';
 
-  final _dio = Dio()
-    ..interceptors.add(
-      LogInterceptor(responseBody: true, requestBody: true),
-    );
+  final _dio = Dio();
 
   Uri _apiUri(
     String unencodedPath, {

@@ -2,14 +2,18 @@
 part of 'main.dart';
 
 class DoodStreamApi {
-  DoodStreamApi(this._apiKey);
+  DoodStreamApi(this._apiKey, {bool enableLog = false}) {
+    if (enableLog) {
+      this
+          ._dio
+          .interceptors
+          .add(LogInterceptor(requestBody: true, responseBody: true));
+    }
+  }
   final String _apiKey;
   final String _base = 'doodapi.com';
 
-  final _dio = Dio()
-    ..interceptors.add(
-      LogInterceptor(responseBody: true, requestBody: true),
-    );
+  final _dio = Dio();
 
   Uri _apiUri(String unencodedPath, [Map<String, dynamic>? queryParameters]) =>
       Uri.https(

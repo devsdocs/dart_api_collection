@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import '../main.dart';
+import 'package:dart_api_collection/streamtape/main.dart';
 
 void main() async {
   final _user = Platform.environment['STREAMTAPE_USER']!;
