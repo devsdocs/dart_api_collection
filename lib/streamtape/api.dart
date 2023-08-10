@@ -1,7 +1,7 @@
 part of 'main.dart';
 
 class StreamtapeApi {
-  StreamtapeApi(this._user, this._apiKey, {this.enableLog = false}) {
+  StreamtapeApi(this._user, this._apiKey, {bool enableLog = false}) {
     if (enableLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
@@ -10,7 +10,6 @@ class StreamtapeApi {
   final String _user;
   final String _apiKey;
   final String _base = 'api.streamtape.com';
-  final bool enableLog;
 
   final _dio = Dio();
 

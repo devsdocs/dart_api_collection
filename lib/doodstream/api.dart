@@ -1,7 +1,7 @@
 part of 'main.dart';
 
 class DoodStreamApi {
-  DoodStreamApi(this._apiKey, {this.enableLog = false}) {
+  DoodStreamApi(this._apiKey, {bool enableLog = false}) {
     if (enableLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
@@ -9,7 +9,6 @@ class DoodStreamApi {
   }
   final String _apiKey;
   final String _base = 'doodapi.com';
-  final bool enableLog;
 
   final _dio = Dio();
 
