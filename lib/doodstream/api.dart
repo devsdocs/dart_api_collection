@@ -1,12 +1,9 @@
-// ignore_for_file: avoid_dynamic_calls
 part of 'main.dart';
 
 class DoodStreamApi {
   DoodStreamApi(this._apiKey, {this.enableLog = false}) {
     if (enableLog) {
-      this
-          ._dio
-          .interceptors
+      _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
     }
   }
@@ -57,6 +54,7 @@ class DoodStreamApi {
       () => _dio.getUri<String>(_apiUri('upload/server')),
     );
 
+    // ignore: avoid_dynamic_calls
     final uploadServer = jsonDecode(getUploadLink.data!)['result'] as String;
 
     final formData = FormData.fromMap({

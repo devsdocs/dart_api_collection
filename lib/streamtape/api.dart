@@ -1,12 +1,9 @@
-// ignore_for_file: avoid_dynamic_calls
 part of 'main.dart';
 
 class StreamtapeApi {
   StreamtapeApi(this._user, this._apiKey, {this.enableLog = false}) {
     if (enableLog) {
-      this
-          ._dio
-          .interceptors
+      _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
     }
   }
@@ -129,7 +126,7 @@ class StreamtapeApi {
     }
   }
 
-  Future<RemoteUploadAdd> addRemoteUpload(
+  Future<RemoteUploadAdd> remoteUploadAdd(
     String url, {
     String? folderId,
     String? customName,
@@ -150,21 +147,174 @@ class StreamtapeApi {
         return RemoteUploadAdd.fromJson(fetch.data!);
       });
 
-  Future<RemoteUploadRemove> removeRemoteUpload({
+//! If remoteUploadId is null, remove all current remote upload task
+  Future<CommonResult> remoteUploadRemove([
     String? id,
-    required bool removeAll,
-  }) async =>
+  ]) async =>
       Isolate.run(() async {
+        final params = {'id': id ?? '"all"'};
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'remotedl/remove',
             isNeedCredentials: true,
+            queryParameters: params,
+          ),
+        );
+
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+//! If remoteUploadId is null or non exist, returning all remote upload status
+  Future<RemoteUploadCheck> remoteUploadCheck([String? remoteUploadId]) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'remotedl/status',
+            isNeedCredentials: true,
             queryParameters: {
-              'id': removeAll ? 'all' : id,
+              'id': remoteUploadId,
             },
           ),
         );
 
-        return RemoteUploadRemove.fromJson(fetch.data!);
+        return RemoteUploadCheck.fromJson(fetch.data!);
+      });
+
+  Future<FileAndFolderList> fileAndFolderList([String? folderId]) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/listfolder',
+            isNeedCredentials: true,
+            queryParameters: {
+              'folder': folderId,
+            },
+          ),
+        );
+
+        return FileAndFolderList.fromJson(fetch.data!);
+      });
+
+  Future<FolderCreate> folderCreate(
+    String name, [
+    String? parentFoolderId,
+  ]) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'folder/createfolder',
+            isNeedCredentials: true,
+            queryParameters: {
+              'name': name,
+              'pid': parentFoolderId,
+            },
+          ),
+        );
+
+        return FolderCreate.fromJson(fetch.data!);
+      });
+
+  //TODO: rename folder not working somehow
+  Future<CommonResult> renameFolder(String folderId, String newName) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/renamefolder',
+            isNeedCredentials: true,
+            queryParameters: {'folder': folderId, 'name': newName},
+          ),
+        );
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+  //TODO: delete folder not working somehow
+  Future<CommonResult> deleteFolder(String folderId) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/deletefolder',
+            isNeedCredentials: true,
+            queryParameters: {'folder': folderId},
+          ),
+        );
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+  Future<FileThumbnail> fileThumbnail(String fileId) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/getsplash',
+            isNeedCredentials: true,
+            queryParameters: {'file': fileId},
+          ),
+        );
+
+        return FileThumbnail.fromJson(fetch.data!);
+      });
+
+  Future<CommonResult> fileRename(String fileId, String newName) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/rename',
+            isNeedCredentials: true,
+            queryParameters: {
+              'file': fileId,
+              'name': newName,
+            },
+          ),
+        );
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+  Future<CommonResult> fileMove(
+    String fileId,
+    String destinationFolderId,
+  ) async =>
+      Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/move',
+            isNeedCredentials: true,
+            queryParameters: {'file': fileId, 'folder': destinationFolderId},
+          ),
+        );
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+  Future<CommonResult> fileDelete(String fileId) async => Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/delete',
+            isNeedCredentials: true,
+            queryParameters: {'file': fileId},
+          ),
+        );
+        return CommonResult.fromJson(fetch.data!);
+      });
+
+  Future<ConvertRunning> convertRunning() async => Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/runningconverts',
+            isNeedCredentials: true,
+            queryParameters: {},
+          ),
+        );
+
+        return ConvertRunning.fromJson(fetch.data!);
+      });
+
+  Future<ConvertFailed> convertFailed() async => Isolate.run(() async {
+        final fetch = await _dio.getUri<String>(
+          _apiUri(
+            'file/failedconverts',
+            isNeedCredentials: true,
+            queryParameters: {},
+          ),
+        );
+
+        return ConvertFailed.fromJson(fetch.data!);
       });
 }
