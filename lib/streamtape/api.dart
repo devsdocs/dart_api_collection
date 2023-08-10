@@ -2,7 +2,7 @@
 part of 'main.dart';
 
 class StreamtapeApi {
-  StreamtapeApi(this._user, this._apiKey, {bool enableLog = false}) {
+  StreamtapeApi(this._user, this._apiKey, {this.enableLog = false}) {
     if (enableLog) {
       this
           ._dio
@@ -13,6 +13,7 @@ class StreamtapeApi {
   final String _user;
   final String _apiKey;
   final String _base = 'api.streamtape.com';
+  final bool enableLog;
 
   final _dio = Dio();
 

@@ -2,7 +2,7 @@
 part of 'main.dart';
 
 class DoodStreamApi {
-  DoodStreamApi(this._apiKey, {bool enableLog = false}) {
+  DoodStreamApi(this._apiKey, {this.enableLog = false}) {
     if (enableLog) {
       this
           ._dio
@@ -12,6 +12,7 @@ class DoodStreamApi {
   }
   final String _apiKey;
   final String _base = 'doodapi.com';
+  final bool enableLog;
 
   final _dio = Dio();
 
