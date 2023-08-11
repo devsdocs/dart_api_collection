@@ -16,24 +16,18 @@ class MixdropApi {
 
   Uri _apiUri(
     String unencodedPath, {
-    bool? isNotNeedCredentials,
+    bool isNotNeedCredentials = false,
     Map<String, dynamic>? queryParameters,
-    bool? isPost,
-    bool? isOverride,
+    bool isPost = false,
+    bool isOverride = false,
   }) {
-    final params = (isNotNeedCredentials != null
-        ? isNotNeedCredentials
-            ? <String, dynamic>{}
-            : <String, dynamic>{'email': _email, 'key': _apiKey}
+    final params = (isNotNeedCredentials
+        ? <String, dynamic>{}
         : <String, dynamic>{'email': _email, 'key': _apiKey})
       ..addAll(queryParameters ?? <String, dynamic>{})
       ..removeWhere((_, v) => v == null);
 
-    final authority = isPost != null
-        ? isPost
-            ? _postBase
-            : _base
-        : _base;
+    final authority = isPost ? _postBase : _base;
 
     final uri = Uri.https(
       authority,
@@ -43,11 +37,7 @@ class MixdropApi {
 
     final parseDecode = Uri.parse(Uri.decodeFull(uri.toString()));
 
-    final finalUri = isOverride != null
-        ? isOverride
-            ? parseDecode
-            : uri
-        : uri;
+    final finalUri = isOverride ? parseDecode : uri;
 
     return finalUri;
   }

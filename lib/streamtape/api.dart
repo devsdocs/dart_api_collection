@@ -15,7 +15,7 @@ class StreamtapeApi {
 
   Uri _apiUri(
     String unencodedPath, {
-    required bool isNeedCredentials,
+    bool isNeedCredentials = true,
     Map<String, dynamic>? queryParameters,
   }) {
     final params = (isNeedCredentials
@@ -28,7 +28,7 @@ class StreamtapeApi {
 
   Future<StreamtapeAccountInfo> accountInfo() async => Isolate.run(() async {
         final fetch = await _dio.getUri<String>(
-          _apiUri('account/info', isNeedCredentials: true),
+          _apiUri('account/info'),
         );
         return StreamtapeAccountInfo.fromJson(fetch.data!);
       });
@@ -40,7 +40,6 @@ class StreamtapeApi {
         _apiUri(
           'file/dlticket',
           queryParameters: ticketParams,
-          isNeedCredentials: true,
         ),
       );
 
@@ -76,7 +75,6 @@ class StreamtapeApi {
           _apiUri(
             'file/info',
             queryParameters: params,
-            isNeedCredentials: true,
           ),
         );
 
@@ -91,7 +89,6 @@ class StreamtapeApi {
       final fetch = await _dio.getUri<String>(
         _apiUri(
           'file/ul',
-          isNeedCredentials: true,
           queryParameters: {'folder': folderId},
         ),
       );
@@ -141,7 +138,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'remotedl/add',
-            isNeedCredentials: true,
             queryParameters: {
               'url': url,
               'folder': folderId,
@@ -162,7 +158,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'remotedl/remove',
-            isNeedCredentials: true,
             queryParameters: params,
           ),
         );
@@ -178,7 +173,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'remotedl/status',
-            isNeedCredentials: true,
             queryParameters: {
               'id': remoteUploadId,
             },
@@ -195,7 +189,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/listfolder',
-            isNeedCredentials: true,
             queryParameters: {
               'folder': folderId,
             },
@@ -213,7 +206,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'folder/createfolder',
-            isNeedCredentials: true,
             queryParameters: {
               'name': name,
               'pid': parentFoolderId,
@@ -233,7 +225,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/renamefolder',
-            isNeedCredentials: true,
             queryParameters: {'folder': folderId, 'name': newName},
           ),
         );
@@ -246,7 +237,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/deletefolder',
-            isNeedCredentials: true,
             queryParameters: {'folder': folderId},
           ),
         );
@@ -258,7 +248,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/getsplash',
-            isNeedCredentials: true,
             queryParameters: {'file': fileId},
           ),
         );
@@ -274,7 +263,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/rename',
-            isNeedCredentials: true,
             queryParameters: {
               'file': fileId,
               'name': newName,
@@ -292,7 +280,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/move',
-            isNeedCredentials: true,
             queryParameters: {'file': fileId, 'folder': destinationFolderId},
           ),
         );
@@ -304,7 +291,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/delete',
-            isNeedCredentials: true,
             queryParameters: {'file': fileId},
           ),
         );
@@ -316,7 +302,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/runningconverts',
-            isNeedCredentials: true,
             queryParameters: {},
           ),
         );
@@ -329,7 +314,6 @@ class StreamtapeApi {
         final fetch = await _dio.getUri<String>(
           _apiUri(
             'file/failedconverts',
-            isNeedCredentials: true,
             queryParameters: {},
           ),
         );

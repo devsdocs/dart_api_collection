@@ -38,6 +38,8 @@ extension ListOfStringExt on List<String> {
     final pathSeparator = Platform.pathSeparator;
     return join(pathSeparator);
   }
+
+  String get joinDot => join('.');
 }
 
 extension StringExt on String {
