@@ -1,7 +1,7 @@
 part of 'main.dart';
 
-class DoodStreamApi {
-  DoodStreamApi(this._apiKey, {bool enableLog = false}) {
+class DoodstreamApi {
+  DoodstreamApi(this._apiKey, {bool enableLog = false}) {
     if (enableLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
