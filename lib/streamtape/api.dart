@@ -101,7 +101,7 @@ class StreamtapeApi {
 
     if (uploadLink.result != null) {
       final id = await file.id;
-      final url = Uri.parse(uploadLink.result!.url!);
+      final url = uploadLink.result!.url!.toUri;
 
       final form = FormData(camelCaseContentDisposition: true)
         ..files.add(
@@ -115,9 +115,9 @@ class StreamtapeApi {
         url,
         data: form,
         options: Options(headers: {'Content-Length': form.length}),
-        onSendProgress: (current, total) => fileTransferProgress.add(
-          FileTransferProgress(
-            'streamtape_$id',
+        onSendProgress: (current, total) => streamtapeFileTransferProgress.add(
+          StreamTapeFileTransferProgress(
+            id,
             name: file.fileNameAndExt,
             current: current,
             total: total,

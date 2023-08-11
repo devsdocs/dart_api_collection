@@ -1,5 +1,6 @@
 library doodstream;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
@@ -8,6 +9,8 @@ import 'package:dart_api_collection/common.dart';
 import 'package:dio/dio.dart';
 
 part 'doodstream/api.dart';
+
+part 'doodstream/helper/progress.dart';
 
 part 'doodstream/model/doodstream_account_info.dart';
 part 'doodstream/model/doodstream_account_report.dart';

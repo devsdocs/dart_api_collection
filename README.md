@@ -1,4 +1,4 @@
-# Dart wrappers for popular services on internet
+# Dart wrappers for known media services on internet
 
 
 ### ⚠️ Not all error catched (yet), please open an issue or PR, if any error exist

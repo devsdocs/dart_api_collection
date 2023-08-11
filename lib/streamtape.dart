@@ -1,5 +1,6 @@
 library streamtape;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
@@ -10,6 +11,7 @@ import 'package:dio/dio.dart';
 part 'streamtape/api.dart';
 
 part 'streamtape/helper/extension.dart';
+part 'streamtape/helper/progress.dart';
 
 part 'streamtape/model/streamtape_account_info.dart';
 part 'streamtape/model/streamtape_common_result.dart';

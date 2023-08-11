@@ -15,9 +15,10 @@ extension Downloader on StreamtapeDownloadLink {
         .downloadUri(
           uri,
           saveDestinaton,
-          onReceiveProgress: (current, total) => fileTransferProgress.add(
-            FileTransferProgress(
-              'streamtape_$uri',
+          onReceiveProgress: (current, total) =>
+              streamtapeFileTransferProgress.add(
+            StreamTapeFileTransferProgress(
+              '$uri',
               name: fileNameAndExt,
               current: current,
               total: total,

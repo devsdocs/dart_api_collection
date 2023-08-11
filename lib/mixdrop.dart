@@ -1,5 +1,6 @@
 library mixdrop;
 
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
@@ -8,6 +9,9 @@ import 'package:dart_api_collection/common.dart';
 import 'package:dio/dio.dart';
 
 part 'mixdrop/api.dart';
+
+part 'mixdrop/helper/progress.dart';
+part 'mixdrop/helper/subtitle_language.dart';
 
 part 'mixdrop/model/mixdrop_add_subtitle.dart';
 part 'mixdrop/model/mixdrop_file_duplicate.dart';
@@ -20,5 +24,3 @@ part 'mixdrop/model/mixdrop_folder_rename.dart';
 part 'mixdrop/model/mixdrop_local_upload.dart';
 part 'mixdrop/model/mixdrop_remote_upload_status.dart';
 part 'mixdrop/model/mixdrop_remote_upload.dart';
-
-part 'mixdrop/helper/subtitle_language.dart';

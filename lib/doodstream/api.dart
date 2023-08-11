@@ -66,9 +66,9 @@ class DoodstreamApi {
     final upload = await _dio.post<String>(
       '$uploadServer?$_apiKey',
       data: formData,
-      onSendProgress: (current, total) => fileTransferProgress.add(
-        FileTransferProgress(
-          'doodstream_$id',
+      onSendProgress: (current, total) => doodstreamFileTransferProgress.add(
+        DoodstreamFileTransferProgress(
+          id,
           name: name,
           current: current,
           total: total,

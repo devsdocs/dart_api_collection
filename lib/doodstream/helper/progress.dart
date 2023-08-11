@@ -1,10 +1,11 @@
-part of '../common.dart';
+part of '../../doodstream.dart';
 
-StreamController<FileTransferProgress> fileTransferProgress =
-    StreamController<FileTransferProgress>.broadcast();
+StreamController<DoodstreamFileTransferProgress>
+    doodstreamFileTransferProgress =
+    StreamController<DoodstreamFileTransferProgress>.broadcast();
 
-class FileTransferProgress {
-  FileTransferProgress(
+class DoodstreamFileTransferProgress {
+  DoodstreamFileTransferProgress(
     this.id, {
     required this.name,
     required this.current,
