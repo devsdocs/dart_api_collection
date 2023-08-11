@@ -2,15 +2,16 @@
 
 part of '../../mixdrop.dart';
 
-class FileInfo {
-  FileInfo({
+class MixdropFileInfo {
+  MixdropFileInfo({
     this.result,
     this.success,
   });
 
-  factory FileInfo.fromJson(String str) => FileInfo.fromMap(json.decode(str));
+  factory MixdropFileInfo.fromJson(String str) =>
+      MixdropFileInfo.fromMap(json.decode(str));
 
-  factory FileInfo.fromMap(Map<String, dynamic> json) => FileInfo(
+  factory MixdropFileInfo.fromMap(Map<String, dynamic> json) => MixdropFileInfo(
         result: Map.from(json['result']!).map(
           (k, v) =>
               MapEntry<String, FileInfoResult>(k, FileInfoResult.fromMap(v)),
@@ -20,11 +21,11 @@ class FileInfo {
   final Map<String, FileInfoResult>? result;
   final bool? success;
 
-  FileInfo copyWith({
+  MixdropFileInfo copyWith({
     Map<String, FileInfoResult>? result,
     bool? success,
   }) =>
-      FileInfo(
+      MixdropFileInfo(
         result: result ?? this.result,
         success: success ?? this.success,
       );

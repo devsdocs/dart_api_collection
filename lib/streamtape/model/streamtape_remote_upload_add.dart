@@ -2,17 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class RemoteUploadAdd {
-  RemoteUploadAdd({
+class StreamtapeRemoteUploadAdd {
+  StreamtapeRemoteUploadAdd({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory RemoteUploadAdd.fromJson(String str) =>
-      RemoteUploadAdd.fromMap(json.decode(str));
+  factory StreamtapeRemoteUploadAdd.fromJson(String str) =>
+      StreamtapeRemoteUploadAdd.fromMap(json.decode(str));
 
-  factory RemoteUploadAdd.fromMap(Map<String, dynamic> json) => RemoteUploadAdd(
+  factory StreamtapeRemoteUploadAdd.fromMap(Map<String, dynamic> json) =>
+      StreamtapeRemoteUploadAdd(
         msg: json['msg'],
         result: json['result'] == null
             ? null
@@ -23,12 +24,12 @@ class RemoteUploadAdd {
   final RemoteUploadAddResult? result;
   final int? status;
 
-  RemoteUploadAdd copyWith({
+  StreamtapeRemoteUploadAdd copyWith({
     String? msg,
     RemoteUploadAddResult? result,
     int? status,
   }) =>
-      RemoteUploadAdd(
+      StreamtapeRemoteUploadAdd(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

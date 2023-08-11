@@ -2,35 +2,37 @@
 
 part of '../../streamtape.dart';
 
-class RemoteUploadCheck {
-
-  RemoteUploadCheck({
+class StreamtapeRemoteUploadCheck {
+  StreamtapeRemoteUploadCheck({
     this.status,
     this.msg,
     this.result,
   });
 
-  factory RemoteUploadCheck.fromJson(String str) =>
-      RemoteUploadCheck.fromMap(json.decode(str));
+  factory StreamtapeRemoteUploadCheck.fromJson(String str) =>
+      StreamtapeRemoteUploadCheck.fromMap(json.decode(str));
 
-  factory RemoteUploadCheck.fromMap(Map<String, dynamic> json) =>
-      RemoteUploadCheck(
+  factory StreamtapeRemoteUploadCheck.fromMap(Map<String, dynamic> json) =>
+      StreamtapeRemoteUploadCheck(
         status: json['status'],
         msg: json['msg'],
-        result: Map.from(json['result']!).map((k, v) =>
-            MapEntry<String, RemoteUploadCheckResult>(
-                k, RemoteUploadCheckResult.fromMap(v),),),
+        result: Map.from(json['result']!).map(
+          (k, v) => MapEntry<String, RemoteUploadCheckResult>(
+            k,
+            RemoteUploadCheckResult.fromMap(v),
+          ),
+        ),
       );
   final int? status;
   final String? msg;
   final Map<String, RemoteUploadCheckResult>? result;
 
-  RemoteUploadCheck copyWith({
+  StreamtapeRemoteUploadCheck copyWith({
     int? status,
     String? msg,
     Map<String, RemoteUploadCheckResult>? result,
   }) =>
-      RemoteUploadCheck(
+      StreamtapeRemoteUploadCheck(
         status: status ?? this.status,
         msg: msg ?? this.msg,
         result: result ?? this.result,
@@ -47,7 +49,6 @@ class RemoteUploadCheck {
 }
 
 class RemoteUploadCheckResult {
-
   RemoteUploadCheckResult({
     this.id,
     this.remoteurl,

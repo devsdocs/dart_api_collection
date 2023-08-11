@@ -2,17 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class UploadResult {
-  UploadResult({
+class StreamtapeUploadResult {
+  StreamtapeUploadResult({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory UploadResult.fromJson(String str) =>
-      UploadResult.fromMap(json.decode(str));
+  factory StreamtapeUploadResult.fromJson(String str) =>
+      StreamtapeUploadResult.fromMap(json.decode(str));
 
-  factory UploadResult.fromMap(Map<String, dynamic> json) => UploadResult(
+  factory StreamtapeUploadResult.fromMap(Map<String, dynamic> json) =>
+      StreamtapeUploadResult(
         msg: json['msg'],
         result: json['result'] == null
             ? null
@@ -23,12 +24,12 @@ class UploadResult {
   final UploadResultDetail? result;
   final int? status;
 
-  UploadResult copyWith({
+  StreamtapeUploadResult copyWith({
     String? msg,
     UploadResultDetail? result,
     int? status,
   }) =>
-      UploadResult(
+      StreamtapeUploadResult(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

@@ -2,16 +2,17 @@
 
 part of '../../mixdrop.dart';
 
-class RemoteUpload {
-  RemoteUpload({
+class MixdropRemoteUpload {
+  MixdropRemoteUpload({
     this.result,
     this.success,
   });
 
-  factory RemoteUpload.fromJson(String str) =>
-      RemoteUpload.fromMap(json.decode(str));
+  factory MixdropRemoteUpload.fromJson(String str) =>
+      MixdropRemoteUpload.fromMap(json.decode(str));
 
-  factory RemoteUpload.fromMap(Map<String, dynamic> json) => RemoteUpload(
+  factory MixdropRemoteUpload.fromMap(Map<String, dynamic> json) =>
+      MixdropRemoteUpload(
         result: json['result'] == null
             ? null
             : RemoteUploadResult.fromMap(json['result']),
@@ -20,11 +21,11 @@ class RemoteUpload {
   final RemoteUploadResult? result;
   final bool? success;
 
-  RemoteUpload copyWith({
+  MixdropRemoteUpload copyWith({
     RemoteUploadResult? result,
     bool? success,
   }) =>
-      RemoteUpload(
+      MixdropRemoteUpload(
         result: result ?? this.result,
         success: success ?? this.success,
       );

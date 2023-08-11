@@ -2,31 +2,34 @@
 
 part of '../../streamtape.dart';
 
-class DownloadLink {
-  DownloadLink({
+class StreamtapeDownloadLink {
+  StreamtapeDownloadLink({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory DownloadLink.fromJson(String str) =>
-      DownloadLink.fromMap(json.decode(str));
+  factory StreamtapeDownloadLink.fromJson(String str) =>
+      StreamtapeDownloadLink.fromMap(json.decode(str));
 
-  factory DownloadLink.fromMap(Map<String, dynamic> json) => DownloadLink(
+  factory StreamtapeDownloadLink.fromMap(Map<String, dynamic> json) =>
+      StreamtapeDownloadLink(
         msg: json['msg'],
-        result: json['result'] == null ? null : DownloadLinkResult.fromMap(json['result']),
+        result: json['result'] == null
+            ? null
+            : DownloadLinkResult.fromMap(json['result']),
         status: json['status'],
       );
   final String? msg;
   final DownloadLinkResult? result;
   final int? status;
 
-  DownloadLink copyWith({
+  StreamtapeDownloadLink copyWith({
     String? msg,
     DownloadLinkResult? result,
     int? status,
   }) =>
-      DownloadLink(
+      StreamtapeDownloadLink(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

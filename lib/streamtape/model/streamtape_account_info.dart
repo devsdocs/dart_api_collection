@@ -2,17 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class AccountInfo {
-  AccountInfo({
+class StreamtapeAccountInfo {
+  StreamtapeAccountInfo({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory AccountInfo.fromJson(String str) =>
-      AccountInfo.fromMap(json.decode(str));
+  factory StreamtapeAccountInfo.fromJson(String str) =>
+      StreamtapeAccountInfo.fromMap(json.decode(str));
 
-  factory AccountInfo.fromMap(Map<String, dynamic> json) => AccountInfo(
+  factory StreamtapeAccountInfo.fromMap(Map<String, dynamic> json) =>
+      StreamtapeAccountInfo(
         msg: json['msg'],
         result: json['result'] == null
             ? null
@@ -23,12 +24,12 @@ class AccountInfo {
   final AccountInfoResult? result;
   final int? status;
 
-  AccountInfo copyWith({
+  StreamtapeAccountInfo copyWith({
     String? msg,
     AccountInfoResult? result,
     int? status,
   }) =>
-      AccountInfo(
+      StreamtapeAccountInfo(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

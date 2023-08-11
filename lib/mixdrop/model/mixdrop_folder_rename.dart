@@ -2,16 +2,17 @@
 
 part of '../../mixdrop.dart';
 
-class FolderRename {
-  FolderRename({
+class MixdropFolderRename {
+  MixdropFolderRename({
     this.result,
     this.success,
   });
 
-  factory FolderRename.fromJson(String str) =>
-      FolderRename.fromMap(json.decode(str));
+  factory MixdropFolderRename.fromJson(String str) =>
+      MixdropFolderRename.fromMap(json.decode(str));
 
-  factory FolderRename.fromMap(Map<String, dynamic> json) => FolderRename(
+  factory MixdropFolderRename.fromMap(Map<String, dynamic> json) =>
+      MixdropFolderRename(
         result: json['result'] == null
             ? null
             : FolderRenameResult.fromMap(json['result']),
@@ -20,11 +21,11 @@ class FolderRename {
   final FolderRenameResult? result;
   final bool? success;
 
-  FolderRename copyWith({
+  MixdropFolderRename copyWith({
     FolderRenameResult? result,
     bool? success,
   }) =>
-      FolderRename(
+      MixdropFolderRename(
         result: result ?? this.result,
         success: success ?? this.success,
       );

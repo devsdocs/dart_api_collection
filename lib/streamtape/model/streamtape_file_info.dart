@@ -2,16 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class FileInfo {
-  FileInfo({
+class StreamtapeFileInfo {
+  StreamtapeFileInfo({
     this.status,
     this.msg,
     this.result,
   });
 
-  factory FileInfo.fromJson(String str) => FileInfo.fromMap(json.decode(str));
+  factory StreamtapeFileInfo.fromJson(String str) =>
+      StreamtapeFileInfo.fromMap(json.decode(str));
 
-  factory FileInfo.fromMap(Map<String, dynamic> json) => FileInfo(
+  factory StreamtapeFileInfo.fromMap(Map<String, dynamic> json) =>
+      StreamtapeFileInfo(
         status: json['status'],
         msg: json['msg'],
         result: Map.from(json['result']!).map(
@@ -23,12 +25,12 @@ class FileInfo {
   final String? msg;
   final Map<String, FileInfoResult>? result;
 
-  FileInfo copyWith({
+  StreamtapeFileInfo copyWith({
     int? status,
     String? msg,
     Map<String, FileInfoResult>? result,
   }) =>
-      FileInfo(
+      StreamtapeFileInfo(
         status: status ?? this.status,
         msg: msg ?? this.msg,
         result: result ?? this.result,

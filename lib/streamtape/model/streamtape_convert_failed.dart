@@ -2,34 +2,36 @@
 
 part of '../../streamtape.dart';
 
-class ConvertRunning {
-  ConvertRunning({
+class StreamtapeConvertFailed {
+  StreamtapeConvertFailed({
     this.msg,
     this.result,
     this.status,
   });
-  factory ConvertRunning.fromJson(String str) =>
-      ConvertRunning.fromMap(json.decode(str));
 
-  factory ConvertRunning.fromMap(Map<String, dynamic> json) => ConvertRunning(
+  factory StreamtapeConvertFailed.fromJson(String str) =>
+      StreamtapeConvertFailed.fromMap(json.decode(str));
+
+  factory StreamtapeConvertFailed.fromMap(Map<String, dynamic> json) =>
+      StreamtapeConvertFailed(
         msg: json['msg'],
         result: json['result'] == null
             ? []
-            : List<ConvertRunningResult>.from(
-                json['result']!.map((x) => ConvertRunningResult.fromMap(x)),
+            : List<ConvertFailedResult>.from(
+                json['result']!.map((x) => ConvertFailedResult.fromMap(x)),
               ),
         status: json['status'],
       );
   final String? msg;
-  final List<ConvertRunningResult>? result;
+  final List<ConvertFailedResult>? result;
   final int? status;
 
-  ConvertRunning copyWith({
+  StreamtapeConvertFailed copyWith({
     String? msg,
-    List<ConvertRunningResult>? result,
+    List<ConvertFailedResult>? result,
     int? status,
   }) =>
-      ConvertRunning(
+      StreamtapeConvertFailed(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,
@@ -46,8 +48,8 @@ class ConvertRunning {
       };
 }
 
-class ConvertRunningResult {
-  ConvertRunningResult({
+class ConvertFailedResult {
+  ConvertFailedResult({
     this.folderid,
     this.link,
     this.linkid,
@@ -57,16 +59,16 @@ class ConvertRunningResult {
     this.status,
   });
 
-  factory ConvertRunningResult.fromJson(String str) =>
-      ConvertRunningResult.fromMap(json.decode(str));
+  factory ConvertFailedResult.fromJson(String str) =>
+      ConvertFailedResult.fromMap(json.decode(str));
 
-  factory ConvertRunningResult.fromMap(Map<String, dynamic> json) =>
-      ConvertRunningResult(
+  factory ConvertFailedResult.fromMap(Map<String, dynamic> json) =>
+      ConvertFailedResult(
         folderid: json['folderid'],
         link: json['link'],
         linkid: json['linkid'],
         name: json['name'],
-        progress: json['progress']?.toDouble(),
+        progress: json['progress'],
         retries: json['retries'],
         status: json['status'],
       );
@@ -74,20 +76,20 @@ class ConvertRunningResult {
   final String? link;
   final String? linkid;
   final String? name;
-  final double? progress;
+  final int? progress;
   final int? retries;
   final String? status;
 
-  ConvertRunningResult copyWith({
+  ConvertFailedResult copyWith({
     String? folderid,
     String? link,
     String? linkid,
     String? name,
-    double? progress,
+    int? progress,
     int? retries,
     String? status,
   }) =>
-      ConvertRunningResult(
+      ConvertFailedResult(
         folderid: folderid ?? this.folderid,
         link: link ?? this.link,
         linkid: linkid ?? this.linkid,

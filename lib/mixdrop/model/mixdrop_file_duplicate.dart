@@ -2,29 +2,30 @@
 
 part of '../../mixdrop.dart';
 
-class LocalUpload {
-  LocalUpload({
+class MixdropFileDuplicate {
+  MixdropFileDuplicate({
     this.result,
     this.success,
   });
 
-  factory LocalUpload.fromJson(String str) =>
-      LocalUpload.fromMap(json.decode(str));
+  factory MixdropFileDuplicate.fromJson(String str) =>
+      MixdropFileDuplicate.fromMap(json.decode(str));
 
-  factory LocalUpload.fromMap(Map<String, dynamic> json) => LocalUpload(
+  factory MixdropFileDuplicate.fromMap(Map<String, dynamic> json) =>
+      MixdropFileDuplicate(
         result: json['result'] == null
             ? null
-            : LocalUploadResult.fromMap(json['result']),
+            : FileDuplicateResult.fromMap(json['result']),
         success: json['success'],
       );
-  final LocalUploadResult? result;
+  final FileDuplicateResult? result;
   final bool? success;
 
-  LocalUpload copyWith({
-    LocalUploadResult? result,
+  MixdropFileDuplicate copyWith({
+    FileDuplicateResult? result,
     bool? success,
   }) =>
-      LocalUpload(
+      MixdropFileDuplicate(
         result: result ?? this.result,
         success: success ?? this.success,
       );
@@ -37,24 +38,24 @@ class LocalUpload {
       };
 }
 
-class LocalUploadResult {
-  LocalUploadResult({
+class FileDuplicateResult {
+  FileDuplicateResult({
     this.fileref,
   });
 
-  factory LocalUploadResult.fromJson(String str) =>
-      LocalUploadResult.fromMap(json.decode(str));
+  factory FileDuplicateResult.fromJson(String str) =>
+      FileDuplicateResult.fromMap(json.decode(str));
 
-  factory LocalUploadResult.fromMap(Map<String, dynamic> json) =>
-      LocalUploadResult(
+  factory FileDuplicateResult.fromMap(Map<String, dynamic> json) =>
+      FileDuplicateResult(
         fileref: json['fileref'],
       );
   final String? fileref;
 
-  LocalUploadResult copyWith({
+  FileDuplicateResult copyWith({
     String? fileref,
   }) =>
-      LocalUploadResult(
+      FileDuplicateResult(
         fileref: fileref ?? this.fileref,
       );
 

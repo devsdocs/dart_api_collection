@@ -2,17 +2,18 @@
 
 part of '../../mixdrop.dart';
 
-class FileRemoved {
-  FileRemoved({
+class MixdropFileRemoved {
+  MixdropFileRemoved({
     this.pages,
     this.result,
     this.success,
   });
 
-  factory FileRemoved.fromJson(String str) =>
-      FileRemoved.fromMap(json.decode(str));
+  factory MixdropFileRemoved.fromJson(String str) =>
+      MixdropFileRemoved.fromMap(json.decode(str));
 
-  factory FileRemoved.fromMap(Map<String, dynamic> json) => FileRemoved(
+  factory MixdropFileRemoved.fromMap(Map<String, dynamic> json) =>
+      MixdropFileRemoved(
         pages: json['pages'],
         result: json['result'] == null
             ? []
@@ -25,12 +26,12 @@ class FileRemoved {
   final List<FileRemovedResult>? result;
   final bool? success;
 
-  FileRemoved copyWith({
+  MixdropFileRemoved copyWith({
     int? pages,
     List<FileRemovedResult>? result,
     bool? success,
   }) =>
-      FileRemoved(
+      MixdropFileRemoved(
         pages: pages ?? this.pages,
         result: result ?? this.result,
         success: success ?? this.success,

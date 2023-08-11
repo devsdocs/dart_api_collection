@@ -1,6 +1,6 @@
 part of '../../streamtape.dart';
 
-extension Downloader on DownloadLink {
+extension Downloader on StreamtapeDownloadLink {
   Future<bool> download([String? destinationFolderDir]) async {
     if (result == null) return false;
     final dio = Dio();

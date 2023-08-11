@@ -2,31 +2,32 @@
 
 part of '../../streamtape.dart';
 
-class FileThumbnail {
-  FileThumbnail({
+class StreamtapeCommonResult {
+  StreamtapeCommonResult({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory FileThumbnail.fromJson(String str) =>
-      FileThumbnail.fromMap(json.decode(str));
+  factory StreamtapeCommonResult.fromJson(String str) =>
+      StreamtapeCommonResult.fromMap(json.decode(str));
 
-  factory FileThumbnail.fromMap(Map<String, dynamic> json) => FileThumbnail(
+  factory StreamtapeCommonResult.fromMap(Map<String, dynamic> json) =>
+      StreamtapeCommonResult(
         msg: json['msg'],
         result: json['result'],
         status: json['status'],
       );
   final String? msg;
-  final String? result;
+  final bool? result;
   final int? status;
 
-  FileThumbnail copyWith({
+  StreamtapeCommonResult copyWith({
     String? msg,
-    String? result,
+    bool? result,
     int? status,
   }) =>
-      FileThumbnail(
+      StreamtapeCommonResult(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

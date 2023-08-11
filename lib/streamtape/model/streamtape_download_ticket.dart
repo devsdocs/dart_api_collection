@@ -2,17 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class DownloadTicket {
-  DownloadTicket({
+class StreamtapeDownloadTicket {
+  StreamtapeDownloadTicket({
     this.msg,
     this.result,
     this.status,
   });
 
-  factory DownloadTicket.fromJson(String str) =>
-      DownloadTicket.fromMap(json.decode(str));
+  factory StreamtapeDownloadTicket.fromJson(String str) =>
+      StreamtapeDownloadTicket.fromMap(json.decode(str));
 
-  factory DownloadTicket.fromMap(Map<String, dynamic> json) => DownloadTicket(
+  factory StreamtapeDownloadTicket.fromMap(Map<String, dynamic> json) =>
+      StreamtapeDownloadTicket(
         msg: json['msg'],
         result: json['result'] == null
             ? null
@@ -23,12 +24,12 @@ class DownloadTicket {
   final DownloadTicketResult? result;
   final int? status;
 
-  DownloadTicket copyWith({
+  StreamtapeDownloadTicket copyWith({
     String? msg,
     DownloadTicketResult? result,
     int? status,
   }) =>
-      DownloadTicket(
+      StreamtapeDownloadTicket(
         msg: msg ?? this.msg,
         result: result ?? this.result,
         status: status ?? this.status,

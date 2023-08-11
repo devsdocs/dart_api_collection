@@ -6,6 +6,10 @@ extension FileExt on File {
   String get fileNameAndExt => uri.fileNameAndExt;
   String get fileName => uri.fileName;
   String get fileExt => uri.fileExt;
+
+  Future<MultipartFile> get toMultipart async => MultipartFile.fromFile(path);
+  Future<MultipartFile> get toMultipartWithName async =>
+      MultipartFile.fromFile(path, filename: fileNameAndExt);
 }
 
 extension DirectoryExt on Directory {

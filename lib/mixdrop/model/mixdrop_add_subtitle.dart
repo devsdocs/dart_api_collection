@@ -2,27 +2,28 @@
 
 part of '../../mixdrop.dart';
 
-class AddSubtitle {
-  AddSubtitle({
+class MixdropAddSubtitle {
+  MixdropAddSubtitle({
     this.result,
     this.success,
   });
 
-  factory AddSubtitle.fromJson(String str) =>
-      AddSubtitle.fromMap(json.decode(str));
+  factory MixdropAddSubtitle.fromJson(String str) =>
+      MixdropAddSubtitle.fromMap(json.decode(str));
 
-  factory AddSubtitle.fromMap(Map<String, dynamic> json) => AddSubtitle(
+  factory MixdropAddSubtitle.fromMap(Map<String, dynamic> json) =>
+      MixdropAddSubtitle(
         result: json['result'],
         success: json['success'],
       );
   final String? result;
   final bool? success;
 
-  AddSubtitle copyWith({
+  MixdropAddSubtitle copyWith({
     String? result,
     bool? success,
   }) =>
-      AddSubtitle(
+      MixdropAddSubtitle(
         result: result ?? this.result,
         success: success ?? this.success,
       );

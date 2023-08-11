@@ -2,16 +2,17 @@
 
 part of '../../mixdrop.dart';
 
-class FileRename {
-  FileRename({
+class MixdropFileRename {
+  MixdropFileRename({
     this.result,
     this.success,
   });
 
-  factory FileRename.fromJson(String str) =>
-      FileRename.fromMap(json.decode(str));
+  factory MixdropFileRename.fromJson(String str) =>
+      MixdropFileRename.fromMap(json.decode(str));
 
-  factory FileRename.fromMap(Map<String, dynamic> json) => FileRename(
+  factory MixdropFileRename.fromMap(Map<String, dynamic> json) =>
+      MixdropFileRename(
         result: json['result'] == null
             ? null
             : FileRenameResult.fromMap(json['result']),
@@ -20,11 +21,11 @@ class FileRename {
   final FileRenameResult? result;
   final bool? success;
 
-  FileRename copyWith({
+  MixdropFileRename copyWith({
     FileRenameResult? result,
     bool? success,
   }) =>
-      FileRename(
+      MixdropFileRename(
         result: result ?? this.result,
         success: success ?? this.success,
       );

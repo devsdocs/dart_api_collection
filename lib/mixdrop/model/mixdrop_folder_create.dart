@@ -1,51 +1,47 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../../streamtape.dart';
+part of '../../mixdrop.dart';
 
-class FolderCreate {
-  FolderCreate({
-    this.status,
-    this.msg,
+class MixdropFolderCreate {
+  MixdropFolderCreate({
     this.result,
+    this.success,
   });
 
-  factory FolderCreate.fromJson(String str) =>
-      FolderCreate.fromMap(json.decode(str));
+  factory MixdropFolderCreate.fromJson(String str) =>
+      MixdropFolderCreate.fromMap(json.decode(str));
 
-  factory FolderCreate.fromMap(Map<String, dynamic> json) => FolderCreate(
-        status: json['status'],
-        msg: json['msg'],
+  factory MixdropFolderCreate.fromMap(Map<String, dynamic> json) =>
+      MixdropFolderCreate(
         result: json['result'] == null
             ? null
             : FolderCreateResult.fromMap(json['result']),
+        success: json['success'],
       );
-  final int? status;
-  final String? msg;
   final FolderCreateResult? result;
+  final bool? success;
 
-  FolderCreate copyWith({
-    int? status,
-    String? msg,
+  MixdropFolderCreate copyWith({
     FolderCreateResult? result,
+    bool? success,
   }) =>
-      FolderCreate(
-        status: status ?? this.status,
-        msg: msg ?? this.msg,
+      MixdropFolderCreate(
         result: result ?? this.result,
+        success: success ?? this.success,
       );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'status': status,
-        'msg': msg,
         'result': result?.toMap(),
+        'success': success,
       };
 }
 
 class FolderCreateResult {
   FolderCreateResult({
-    this.folderid,
+    this.id,
+    this.msg,
   });
 
   factory FolderCreateResult.fromJson(String str) =>
@@ -53,20 +49,25 @@ class FolderCreateResult {
 
   factory FolderCreateResult.fromMap(Map<String, dynamic> json) =>
       FolderCreateResult(
-        folderid: json['folderid'],
+        id: json['id'],
+        msg: json['msg'],
       );
-  final String? folderid;
+  final int? id;
+  final String? msg;
 
   FolderCreateResult copyWith({
-    String? folderid,
+    int? id,
+    String? msg,
   }) =>
       FolderCreateResult(
-        folderid: folderid ?? this.folderid,
+        id: id ?? this.id,
+        msg: msg ?? this.msg,
       );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'folderid': folderid,
+        'id': id,
+        'msg': msg,
       };
 }

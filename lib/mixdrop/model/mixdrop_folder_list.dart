@@ -2,17 +2,18 @@
 
 part of '../../mixdrop.dart';
 
-class FolderList {
-  FolderList({
+class MixdropFolderList {
+  MixdropFolderList({
     this.pages,
     this.result,
     this.success,
   });
 
-  factory FolderList.fromJson(String str) =>
-      FolderList.fromMap(json.decode(str));
+  factory MixdropFolderList.fromJson(String str) =>
+      MixdropFolderList.fromMap(json.decode(str));
 
-  factory FolderList.fromMap(Map<String, dynamic> json) => FolderList(
+  factory MixdropFolderList.fromMap(Map<String, dynamic> json) =>
+      MixdropFolderList(
         pages: json['pages'],
         result: json['result'] == null
             ? null
@@ -23,12 +24,12 @@ class FolderList {
   final FolderListResult? result;
   final bool? success;
 
-  FolderList copyWith({
+  MixdropFolderList copyWith({
     int? pages,
     FolderListResult? result,
     bool? success,
   }) =>
-      FolderList(
+      MixdropFolderList(
         pages: pages ?? this.pages,
         result: result ?? this.result,
         success: success ?? this.success,

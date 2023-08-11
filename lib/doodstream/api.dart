@@ -60,7 +60,7 @@ class DoodstreamApi {
 
     final formData = FormData.fromMap({
       'api_key': _apiKey,
-      'file': await MultipartFile.fromFile(file.path),
+      'file': await file.toMultipart,
     });
 
     final upload = await _dio.post<String>(

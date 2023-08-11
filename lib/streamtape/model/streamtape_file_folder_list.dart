@@ -2,18 +2,18 @@
 
 part of '../../streamtape.dart';
 
-class FileAndFolderList {
-  FileAndFolderList({
+class StreamtapeFileAndFolderList {
+  StreamtapeFileAndFolderList({
     this.status,
     this.msg,
     this.result,
   });
 
-  factory FileAndFolderList.fromJson(String str) =>
-      FileAndFolderList.fromMap(json.decode(str));
+  factory StreamtapeFileAndFolderList.fromJson(String str) =>
+      StreamtapeFileAndFolderList.fromMap(json.decode(str));
 
-  factory FileAndFolderList.fromMap(Map<String, dynamic> json) =>
-      FileAndFolderList(
+  factory StreamtapeFileAndFolderList.fromMap(Map<String, dynamic> json) =>
+      StreamtapeFileAndFolderList(
         status: json['status'],
         msg: json['msg'],
         result: json['result'] == null
@@ -24,12 +24,12 @@ class FileAndFolderList {
   final String? msg;
   final FileAndFolderListResult? result;
 
-  FileAndFolderList copyWith({
+  StreamtapeFileAndFolderList copyWith({
     int? status,
     String? msg,
     FileAndFolderListResult? result,
   }) =>
-      FileAndFolderList(
+      StreamtapeFileAndFolderList(
         status: status ?? this.status,
         msg: msg ?? this.msg,
         result: result ?? this.result,
