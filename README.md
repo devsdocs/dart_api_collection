@@ -1,5 +1,7 @@
 # Dart wrappers for popular services on internet
 
+
+### ⚠️ Not all error catched (yet), please open an issue or PR, if any error exist
 # Services available
 
 ### - [Doodstream](https://doodstream.com)
@@ -25,13 +27,25 @@ void main() async {
 }
 ```
 
+### - [Mixdrop](https://mixdrop.co)
+
+```dart
+void main() async {
+  final user = Platform.environment['MIXDROP_EMAIL']!;
+  final key = Platform.environment['MIXDROP_KEY']!;
+  final mixdropClient = MixdropApi(user, key);
+  final listFolder = await mixdropClient.folderList();
+  print(listFolder.toJson());
+}
+```
+
 ### - TODO List:
 
 - [x] [Doodstream](https://doodstream.com)
   
 - [x] [Streamtape](https://streamtape.com)
   
-- [ ] [Mixdrop](https://mixdrop.co/)
+- [x] [Mixdrop](https://mixdrop.co)
   
 - [ ] [Gofile](https://gofile.io)
   
