@@ -2,28 +2,29 @@
 
 part of '../main.dart';
 
-class Upload {
-  Upload({
+class LocalUpload {
+  LocalUpload({
     this.result,
     this.success,
   });
 
-  factory Upload.fromJson(String str) => Upload.fromMap(json.decode(str));
+  factory LocalUpload.fromJson(String str) =>
+      LocalUpload.fromMap(json.decode(str));
 
-  factory Upload.fromMap(Map<String, dynamic> json) => Upload(
+  factory LocalUpload.fromMap(Map<String, dynamic> json) => LocalUpload(
         result: json['result'] == null
             ? null
-            : UploadResult.fromMap(json['result']),
+            : LocalUploadResult.fromMap(json['result']),
         success: json['success'],
       );
-  final UploadResult? result;
+  final LocalUploadResult? result;
   final bool? success;
 
-  Upload copyWith({
-    UploadResult? result,
+  LocalUpload copyWith({
+    LocalUploadResult? result,
     bool? success,
   }) =>
-      Upload(
+      LocalUpload(
         result: result ?? this.result,
         success: success ?? this.success,
       );
@@ -36,23 +37,24 @@ class Upload {
       };
 }
 
-class UploadResult {
-  UploadResult({
+class LocalUploadResult {
+  LocalUploadResult({
     this.fileref,
   });
 
-  factory UploadResult.fromJson(String str) =>
-      UploadResult.fromMap(json.decode(str));
+  factory LocalUploadResult.fromJson(String str) =>
+      LocalUploadResult.fromMap(json.decode(str));
 
-  factory UploadResult.fromMap(Map<String, dynamic> json) => UploadResult(
+  factory LocalUploadResult.fromMap(Map<String, dynamic> json) =>
+      LocalUploadResult(
         fileref: json['fileref'],
       );
   final String? fileref;
 
-  UploadResult copyWith({
+  LocalUploadResult copyWith({
     String? fileref,
   }) =>
-      UploadResult(
+      LocalUploadResult(
         fileref: fileref ?? this.fileref,
       );
 
