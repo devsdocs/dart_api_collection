@@ -135,18 +135,22 @@ class DoodstreamApi {
       });
 
   Future<DoodstreamRemoteUploadAction> remoteUploadAction({
-    required String restartErrors, //'1' for restart
-    String? clearErrors,
-    String? clearAll,
-    String? deleteFile,
+    required bool isRestartErrors,
+    required bool isClearErrors,
+    required bool isClearAll,
+    String? toBeDeletedRemoteUploadFileCode,
   }) async =>
       Isolate.run(() async {
+        final restartErrors = isRestartErrors ? '1' : '0';
+        final clearErrors = isClearErrors ? '1' : '0';
+        final clearAll = isClearAll ? '1' : '0';
+
         final fetch = await _dio.getUri<String>(
           _apiUri('urlupload/actions', {
             'restart_errors': restartErrors,
             'clear_errors': clearErrors,
             'clear_all': clearAll,
-            'delete_code': deleteFile,
+            'delete_code': toBeDeletedRemoteUploadFileCode,
           }),
         );
         return DoodstreamRemoteUploadAction.fromJson(fetch.data!);
