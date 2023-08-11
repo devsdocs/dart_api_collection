@@ -1,20 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class RemoteUploadStatus {
-  RemoteUploadStatus({
+class DoodstreamRemoteUploadStatus {
+  DoodstreamRemoteUploadStatus({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory RemoteUploadStatus.fromJson(String str) =>
-      RemoteUploadStatus.fromMap(json.decode(str));
+  factory DoodstreamRemoteUploadStatus.fromJson(String str) =>
+      DoodstreamRemoteUploadStatus.fromMap(json.decode(str));
 
-  factory RemoteUploadStatus.fromMap(Map<String, dynamic> json) =>
-      RemoteUploadStatus(
+  factory DoodstreamRemoteUploadStatus.fromMap(Map<String, dynamic> json) =>
+      DoodstreamRemoteUploadStatus(
         msg: json['msg'],
         result: json['result'] == null
             ? []

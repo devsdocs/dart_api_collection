@@ -1,9 +1,9 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class RemoteUploadSlot {
-  RemoteUploadSlot({
+class DoodstreamRemoteUploadSlot {
+  DoodstreamRemoteUploadSlot({
     this.msg,
     this.serverTime,
     this.status,
@@ -11,11 +11,11 @@ class RemoteUploadSlot {
     this.usedSlots,
   });
 
-  factory RemoteUploadSlot.fromJson(String str) =>
-      RemoteUploadSlot.fromMap(json.decode(str));
+  factory DoodstreamRemoteUploadSlot.fromJson(String str) =>
+      DoodstreamRemoteUploadSlot.fromMap(json.decode(str));
 
-  factory RemoteUploadSlot.fromMap(Map<String, dynamic> json) =>
-      RemoteUploadSlot(
+  factory DoodstreamRemoteUploadSlot.fromMap(Map<String, dynamic> json) =>
+      DoodstreamRemoteUploadSlot(
         msg: json['msg'],
         serverTime: json['server_time'] == null
             ? null

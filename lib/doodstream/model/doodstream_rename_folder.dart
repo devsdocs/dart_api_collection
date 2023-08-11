@@ -1,19 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class RenameFolder {
-  RenameFolder({
+class DoodstreamRenameFolder {
+  DoodstreamRenameFolder({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory RenameFolder.fromJson(String str) =>
-      RenameFolder.fromMap(json.decode(str));
+  factory DoodstreamRenameFolder.fromJson(String str) =>
+      DoodstreamRenameFolder.fromMap(json.decode(str));
 
-  factory RenameFolder.fromMap(Map<String, dynamic> json) => RenameFolder(
+  factory DoodstreamRenameFolder.fromMap(Map<String, dynamic> json) =>
+      DoodstreamRenameFolder(
         msg: json['msg'],
         result: json['result'],
         serverTime: json['server_time'] == null

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of '../../streamtape.dart';
 
 extension Downloader on DownloadLink {
   Future<bool> download([String? destinationFolderDir]) async {

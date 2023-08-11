@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dart_api_collection/mixdrop/main.dart';
+import 'package:dart_api_collection/mixdrop.dart';
 
 void main() async {
   final user = Platform.environment['MIXDROP_EMAIL']!;

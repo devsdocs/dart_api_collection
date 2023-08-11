@@ -1,19 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class FileStatus {
-  FileStatus({
+class DoodstreamFileStatus {
+  DoodstreamFileStatus({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory FileStatus.fromJson(String str) =>
-      FileStatus.fromMap(json.decode(str));
+  factory DoodstreamFileStatus.fromJson(String str) =>
+      DoodstreamFileStatus.fromMap(json.decode(str));
 
-  factory FileStatus.fromMap(Map<String, dynamic> json) => FileStatus(
+  factory DoodstreamFileStatus.fromMap(Map<String, dynamic> json) =>
+      DoodstreamFileStatus(
         msg: json['msg'],
         result: json['result'] == null
             ? []

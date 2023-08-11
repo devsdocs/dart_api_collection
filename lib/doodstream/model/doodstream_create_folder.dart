@@ -1,19 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class CreateFolder {
-  CreateFolder({
+class DoodstreamCreateFolder {
+  DoodstreamCreateFolder({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory CreateFolder.fromJson(String str) =>
-      CreateFolder.fromMap(json.decode(str));
+  factory DoodstreamCreateFolder.fromJson(String str) =>
+      DoodstreamCreateFolder.fromMap(json.decode(str));
 
-  factory CreateFolder.fromMap(Map<String, dynamic> json) => CreateFolder(
+  factory DoodstreamCreateFolder.fromMap(Map<String, dynamic> json) =>
+      DoodstreamCreateFolder(
         msg: json['msg'],
         result: json['result'] == null
             ? null
@@ -37,8 +38,9 @@ class CreateFolder {
         'status': status,
       };
 
-  String toReadableFormat() =>
-      result == null ? '$msg' : 'Success!\nFolder ID: <code>${result!.fldId}</code>';
+  String toReadableFormat() => result == null
+      ? '$msg'
+      : 'Success!\nFolder ID: <code>${result!.fldId}</code>';
 }
 
 class CreateFolderResult {

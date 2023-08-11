@@ -1,6 +1,6 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls, constant_identifier_names
 
-part of '../main.dart';
+part of '../../streamtape.dart';
 
 class FileAndFolderList {
   FileAndFolderList({

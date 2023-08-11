@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of '../doodstream.dart';
 
 class DoodstreamApi {
   DoodstreamApi(this._apiKey, {bool enableLog = false}) {
@@ -21,12 +21,12 @@ class DoodstreamApi {
           ..removeWhere((_, v) => v == null),
       );
 
-  Future<AccountInfo> accountInfo() async => Isolate.run(() async {
+  Future<DoodstreamAccountInfo> accountInfo() async => Isolate.run(() async {
         final fetch = await _dio.getUri<String>(_apiUri('account/info'));
-        return AccountInfo.fromJson(fetch.data!);
+        return DoodstreamAccountInfo.fromJson(fetch.data!);
       });
 
-  Future<AccountReport> accountReports({
+  Future<DoodstreamAccountReport> accountReports({
     String? lastXDaysReport,
     String? fromDate,
     String? toDate,
@@ -39,7 +39,7 @@ class DoodstreamApi {
             'to_date': toDate,
           }),
         );
-        return AccountReport.fromJson(fetch.data!);
+        return DoodstreamAccountReport.fromJson(fetch.data!);
       });
 
 //TODO: add model when available
@@ -48,7 +48,7 @@ class DoodstreamApi {
         return fetch.data!;
       });
 
-  Future<LocalUpload> localUpload(File file) async {
+  Future<DoodstreamLocalUpload> localUpload(File file) async {
     final id = await file.id;
     final name = file.fileNameAndExt;
     final getUploadLink = await Isolate.run(
@@ -77,10 +77,10 @@ class DoodstreamApi {
       ),
     );
 
-    return LocalUpload.fromJson(upload.data!);
+    return DoodstreamLocalUpload.fromJson(upload.data!);
   }
 
-  Future<Clone> clone(
+  Future<DoodstreamCloneFile> clone(
     String fileCode, {
     String? folderId,
   }) async =>
@@ -91,10 +91,10 @@ class DoodstreamApi {
             'fld_id': folderId,
           }),
         );
-        return Clone.fromJson(fetch.data!);
+        return DoodstreamCloneFile.fromJson(fetch.data!);
       });
 
-  Future<RemoteUpload> remoteUpload(
+  Future<DoodstreamRemoteUpload> remoteUpload(
     String url, {
     String? newTitle,
     String? folderId,
@@ -107,15 +107,16 @@ class DoodstreamApi {
             'fld_id': folderId,
           }),
         );
-        return RemoteUpload.fromJson(fetch.data!);
+        return DoodstreamRemoteUpload.fromJson(fetch.data!);
       });
 
-  Future<RemoteUploadList> remoteUploadList() async => Isolate.run(() async {
+  Future<DoodstreamRemoteUploadList> remoteUploadList() async =>
+      Isolate.run(() async {
         final fetch = await _dio.getUri<String>(_apiUri('urlupload/list'));
-        return RemoteUploadList.fromJson(fetch.data!);
+        return DoodstreamRemoteUploadList.fromJson(fetch.data!);
       });
 
-  Future<RemoteUploadStatus> remoteUploadStatus(
+  Future<DoodstreamRemoteUploadStatus> remoteUploadStatus(
     String fileCode,
   ) async =>
       Isolate.run(() async {
@@ -124,15 +125,16 @@ class DoodstreamApi {
             'file_code': fileCode,
           }),
         );
-        return RemoteUploadStatus.fromJson(fetch.data!);
+        return DoodstreamRemoteUploadStatus.fromJson(fetch.data!);
       });
 
-  Future<RemoteUploadSlot> remoteUploadSlot() async => Isolate.run(() async {
+  Future<DoodstreamRemoteUploadSlot> remoteUploadSlot() async =>
+      Isolate.run(() async {
         final fetch = await _dio.getUri<String>(_apiUri('urlupload/slots'));
-        return RemoteUploadSlot.fromJson(fetch.data!);
+        return DoodstreamRemoteUploadSlot.fromJson(fetch.data!);
       });
 
-  Future<RemoteUploadAction> remoteUploadAction({
+  Future<DoodstreamRemoteUploadAction> remoteUploadAction({
     required String restartErrors, //'1' for restart
     String? clearErrors,
     String? clearAll,
@@ -147,10 +149,10 @@ class DoodstreamApi {
             'delete_code': deleteFile,
           }),
         );
-        return RemoteUploadAction.fromJson(fetch.data!);
+        return DoodstreamRemoteUploadAction.fromJson(fetch.data!);
       });
 
-  Future<CreateFolder> createFolder(
+  Future<DoodstreamCreateFolder> createFolder(
     String folderName, {
     String? parentId,
   }) async =>
@@ -161,10 +163,10 @@ class DoodstreamApi {
             'parent_id': parentId,
           }),
         );
-        return CreateFolder.fromJson(fetch.data!);
+        return DoodstreamCreateFolder.fromJson(fetch.data!);
       });
 
-  Future<RenameFolder> renameFolder(
+  Future<DoodstreamRenameFolder> renameFolder(
     String newName, {
     required String folderId,
   }) async =>
@@ -175,10 +177,10 @@ class DoodstreamApi {
             'fld_id': folderId,
           }),
         );
-        return RenameFolder.fromJson(fetch.data!);
+        return DoodstreamRenameFolder.fromJson(fetch.data!);
       });
 
-  Future<ListFile> listFiles({
+  Future<DoodstreamListFile> listFiles({
     String? page,
     String? videosPerPage,
     String? folderId,
@@ -191,10 +193,10 @@ class DoodstreamApi {
             'fld_id': folderId,
           }),
         );
-        return ListFile.fromJson(fetch.data!);
+        return DoodstreamListFile.fromJson(fetch.data!);
       });
 
-  Future<FileStatus> fileStatus(
+  Future<DoodstreamFileStatus> fileStatus(
     String fileCode,
   ) async =>
       Isolate.run(() async {
@@ -203,10 +205,10 @@ class DoodstreamApi {
             'file_code': fileCode,
           }),
         );
-        return FileStatus.fromJson(fetch.data!);
+        return DoodstreamFileStatus.fromJson(fetch.data!);
       });
 
-  Future<FileInfo> fileInfo(
+  Future<DoodstreamFileInfo> fileInfo(
     String fileCode,
   ) async =>
       Isolate.run(() async {
@@ -215,10 +217,10 @@ class DoodstreamApi {
             'file_code': fileCode,
           }),
         );
-        return FileInfo.fromJson(fetch.data!);
+        return DoodstreamFileInfo.fromJson(fetch.data!);
       });
 
-  Future<FileImage> fileImage(
+  Future<DoodstreamFileImage> fileImage(
     String fileCode,
   ) async =>
       Isolate.run(() async {
@@ -227,10 +229,10 @@ class DoodstreamApi {
             'file_code': fileCode,
           }),
         );
-        return FileImage.fromJson(fetch.data!);
+        return DoodstreamFileImage.fromJson(fetch.data!);
       });
 
-  Future<FileRename> fileRename(
+  Future<DoodstreamFileRename> fileRename(
     String newName, {
     required String fileCode,
   }) async =>
@@ -241,15 +243,16 @@ class DoodstreamApi {
             'file_code': fileCode,
           }),
         );
-        return FileRename.fromJson(fetch.data!);
+        return DoodstreamFileRename.fromJson(fetch.data!);
       });
 
-  Future<FileSearch> fileSearch(String query) async => Isolate.run(() async {
+  Future<DoodstreamFileSearch> fileSearch(String query) async =>
+      Isolate.run(() async {
         final fetch = await _dio.getUri<String>(
           _apiUri('search/videos', {
             'search_term': query,
           }),
         );
-        return FileSearch.fromJson(fetch.data!);
+        return DoodstreamFileSearch.fromJson(fetch.data!);
       });
 }

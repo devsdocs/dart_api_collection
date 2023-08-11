@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of '../mixdrop.dart';
 
 class MixdropApi {
   MixdropApi(this._email, this._apiKey, {bool enableLog = false}) {

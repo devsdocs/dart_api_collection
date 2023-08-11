@@ -1,24 +1,25 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class FileSearch {
-  FileSearch({
+class DoodstreamFileImage {
+  DoodstreamFileImage({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory FileSearch.fromJson(String str) =>
-      FileSearch.fromMap(json.decode(str));
+  factory DoodstreamFileImage.fromJson(String str) =>
+      DoodstreamFileImage.fromMap(json.decode(str));
 
-  factory FileSearch.fromMap(Map<String, dynamic> json) => FileSearch(
+  factory DoodstreamFileImage.fromMap(Map<String, dynamic> json) =>
+      DoodstreamFileImage(
         msg: json['msg'],
         result: json['result'] == null
             ? []
-            : List<FileSearchResult>.from(
-                json['result']!.map((x) => FileSearchResult.fromMap(x)),
+            : List<FileImageResult>.from(
+                json['result']!.map((x) => FileImageResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -26,7 +27,7 @@ class FileSearch {
         status: json['status'],
       );
   final String? msg;
-  final List<FileSearchResult>? result;
+  final List<FileImageResult>? result;
   final DateTime? serverTime;
   final int? status;
 
@@ -42,52 +43,42 @@ class FileSearch {
       };
 }
 
-class FileSearchResult {
-  FileSearchResult({
-    this.canplay,
-    this.fileCode,
-    this.length,
+class FileImageResult {
+  FileImageResult({
+    this.filecode,
     this.singleImg,
     this.splashImg,
+    this.status,
+    this.thumbImg,
     this.title,
-    this.uploaded,
-    this.views,
   });
 
-  factory FileSearchResult.fromJson(String str) =>
-      FileSearchResult.fromMap(json.decode(str));
+  factory FileImageResult.fromJson(String str) =>
+      FileImageResult.fromMap(json.decode(str));
 
-  factory FileSearchResult.fromMap(Map<String, dynamic> json) =>
-      FileSearchResult(
-        canplay: json['canplay'],
-        fileCode: json['file_code'],
-        length: json['length'],
+  factory FileImageResult.fromMap(Map<String, dynamic> json) => FileImageResult(
+        filecode: json['filecode'],
         singleImg: json['single_img'],
         splashImg: json['splash_img'],
+        status: json['status'],
+        thumbImg: json['thumb_img'],
         title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
-        views: json['views'],
       );
-  final int? canplay;
-  final String? fileCode;
-  final int? length;
+  final String? filecode;
   final String? singleImg;
   final String? splashImg;
+  final int? status;
+  final String? thumbImg;
   final String? title;
-  final DateTime? uploaded;
-  final int? views;
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'file_code': fileCode,
-        'length': length,
+        'filecode': filecode,
         'single_img': singleImg,
         'splash_img': splashImg,
+        'status': status,
+        'thumb_img': thumbImg,
         'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-        'views': views,
       };
 }

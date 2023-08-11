@@ -1,28 +1,26 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class FileRename {
-  FileRename({
+class DoodstreamRemoteUploadAction {
+  DoodstreamRemoteUploadAction({
     this.msg,
-    this.result,
     this.serverTime,
     this.status,
   });
 
-  factory FileRename.fromJson(String str) =>
-      FileRename.fromMap(json.decode(str));
+  factory DoodstreamRemoteUploadAction.fromJson(String str) =>
+      DoodstreamRemoteUploadAction.fromMap(json.decode(str));
 
-  factory FileRename.fromMap(Map<String, dynamic> json) => FileRename(
+  factory DoodstreamRemoteUploadAction.fromMap(Map<String, dynamic> json) =>
+      DoodstreamRemoteUploadAction(
         msg: json['msg'],
-        result: json['result'],
         serverTime: json['server_time'] == null
             ? null
             : DateTime.parse(json['server_time']),
         status: json['status'],
       );
   final String? msg;
-  final String? result;
   final DateTime? serverTime;
   final int? status;
 
@@ -30,16 +28,7 @@ class FileRename {
 
   Map<String, dynamic> toMap() => {
         'msg': msg,
-        'result': result,
         'server_time': serverTime?.toIso8601String(),
         'status': status,
       };
-
-  String toReadableFormat() {
-    if (result == null) {
-      return msg!;
-    } else {
-      return 'Success';
-    }
-  }
 }

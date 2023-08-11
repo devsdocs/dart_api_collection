@@ -1,18 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class ListFile {
-  ListFile({
+class DoodstreamListFile {
+  DoodstreamListFile({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory ListFile.fromJson(String str) => ListFile.fromMap(json.decode(str));
+  factory DoodstreamListFile.fromJson(String str) =>
+      DoodstreamListFile.fromMap(json.decode(str));
 
-  factory ListFile.fromMap(Map<String, dynamic> json) => ListFile(
+  factory DoodstreamListFile.fromMap(Map<String, dynamic> json) =>
+      DoodstreamListFile(
         msg: json['msg'],
         result: json['result'] == null
             ? null

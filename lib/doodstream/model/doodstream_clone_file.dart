@@ -1,18 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class Clone {
-  Clone({
+class DoodstreamCloneFile {
+  DoodstreamCloneFile({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory Clone.fromJson(String str) => Clone.fromMap(json.decode(str));
+  factory DoodstreamCloneFile.fromJson(String str) =>
+      DoodstreamCloneFile.fromMap(json.decode(str));
 
-  factory Clone.fromMap(Map<String, dynamic> json) => Clone(
+  factory DoodstreamCloneFile.fromMap(Map<String, dynamic> json) =>
+      DoodstreamCloneFile(
         msg: json['msg'],
         result:
             json['result'] == null ? null : CloneResult.fromMap(json['result']),

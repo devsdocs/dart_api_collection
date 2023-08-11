@@ -1,24 +1,25 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class LocalUpload {
-  const LocalUpload({
+class DoodstreamFileInfo {
+  DoodstreamFileInfo({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory LocalUpload.fromJson(String str) =>
-      LocalUpload.fromMap(json.decode(str));
+  factory DoodstreamFileInfo.fromJson(String str) =>
+      DoodstreamFileInfo.fromMap(json.decode(str));
 
-  factory LocalUpload.fromMap(Map<String, dynamic> json) => LocalUpload(
+  factory DoodstreamFileInfo.fromMap(Map<String, dynamic> json) =>
+      DoodstreamFileInfo(
         msg: json['msg'],
         result: json['result'] == null
             ? []
-            : List<LocalUploadResult>.from(
-                json['result']!.map((x) => LocalUploadResult.fromMap(x)),
+            : List<FileInfoResult>.from(
+                json['result']!.map((x) => FileInfoResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -26,7 +27,7 @@ class LocalUpload {
         status: json['status'],
       );
   final String? msg;
-  final List<LocalUploadResult>? result;
+  final List<FileInfoResult>? result;
   final DateTime? serverTime;
   final int? status;
 
@@ -42,11 +43,11 @@ class LocalUpload {
       };
 }
 
-class LocalUploadResult {
-  const LocalUploadResult({
+class FileInfoResult {
+  FileInfoResult({
     this.canplay,
-    this.downloadUrl,
     this.filecode,
+    this.lastView,
     this.length,
     this.protectedDl,
     this.protectedEmbed,
@@ -56,16 +57,16 @@ class LocalUploadResult {
     this.status,
     this.title,
     this.uploaded,
+    this.views,
   });
 
-  factory LocalUploadResult.fromJson(String str) =>
-      LocalUploadResult.fromMap(json.decode(str));
+  factory FileInfoResult.fromJson(String str) =>
+      FileInfoResult.fromMap(json.decode(str));
 
-  factory LocalUploadResult.fromMap(Map<String, dynamic> json) =>
-      LocalUploadResult(
+  factory FileInfoResult.fromMap(Map<String, dynamic> json) => FileInfoResult(
         canplay: json['canplay'],
-        downloadUrl: json['download_url'],
         filecode: json['filecode'],
+        lastView: json['last_view'],
         length: json['length'],
         protectedDl: json['protected_dl'],
         protectedEmbed: json['protected_embed'],
@@ -76,10 +77,11 @@ class LocalUploadResult {
         title: json['title'],
         uploaded:
             json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
+        views: json['views'],
       );
   final int? canplay;
-  final String? downloadUrl;
   final String? filecode;
+  final String? lastView;
   final int? length;
   final String? protectedDl;
   final String? protectedEmbed;
@@ -89,13 +91,14 @@ class LocalUploadResult {
   final int? status;
   final String? title;
   final DateTime? uploaded;
+  final int? views;
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
         'canplay': canplay,
-        'download_url': downloadUrl,
         'filecode': filecode,
+        'last_view': lastView,
         'length': length,
         'protected_dl': protectedDl,
         'protected_embed': protectedEmbed,
@@ -105,5 +108,6 @@ class LocalUploadResult {
         'status': status,
         'title': title,
         'uploaded': uploaded?.toIso8601String(),
+        'views': views,
       };
 }

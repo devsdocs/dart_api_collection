@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-part of '../main.dart';
+part of '../../mixdrop.dart';
 
 enum SubtitleLanguage {
   AR('ar'),

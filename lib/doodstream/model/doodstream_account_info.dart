@@ -1,19 +1,20 @@
 // ignore_for_file: argument_type_not_assignable, avoid_dynamic_calls
 
-part of '../main.dart';
+part of '../../doodstream.dart';
 
-class AccountInfo {
-  AccountInfo({
+class DoodstreamAccountInfo {
+  DoodstreamAccountInfo({
     this.msg,
     this.result,
     this.serverTime,
     this.status,
   });
 
-  factory AccountInfo.fromJson(String str) =>
-      AccountInfo.fromMap(json.decode(str));
+  factory DoodstreamAccountInfo.fromJson(String str) =>
+      DoodstreamAccountInfo.fromMap(json.decode(str));
 
-  factory AccountInfo.fromMap(Map<String, dynamic> json) => AccountInfo(
+  factory DoodstreamAccountInfo.fromMap(Map<String, dynamic> json) =>
+      DoodstreamAccountInfo(
         msg: json['msg'],
         result: json['result'] == null
             ? null

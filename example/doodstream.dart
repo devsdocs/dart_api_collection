@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dart_api_collection/doodstream/main.dart';
+import 'package:dart_api_collection/doodstream.dart';
 
 void main() async {
   final key = Platform.environment['DOODSTREAM_API_KEY']!;

@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of '../streamtape.dart';
 
 class StreamtapeApi {
   StreamtapeApi(this._user, this._apiKey, {bool enableLog = false}) {
