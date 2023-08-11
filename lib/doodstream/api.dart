@@ -48,7 +48,9 @@ class DoodStreamApi {
         return fetch.data!;
       });
 
-  Future<LocalUpload> localUpload(String path) async {
+  Future<LocalUpload> localUpload(File file) async {
+    final id = await file.id;
+    final name = file.fileNameAndExt;
     final getUploadLink = await Isolate.run(
       () => _dio.getUri<String>(_apiUri('upload/server')),
     );
@@ -58,12 +60,21 @@ class DoodStreamApi {
 
     final formData = FormData.fromMap({
       'api_key': _apiKey,
-      'file': await MultipartFile.fromFile(path),
+      'file': await MultipartFile.fromFile(file.path),
     });
 
     final upload = await _dio.post<String>(
       '$uploadServer?$_apiKey',
       data: formData,
+      onSendProgress: (current, total) => fileTransferProgress.add(
+        FileTransferProgress(
+          'doodstream_$id',
+          name: name,
+          current: current,
+          total: total,
+          isUpload: true,
+        ),
+      ),
     );
 
     return LocalUpload.fromJson(upload.data!);

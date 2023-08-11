@@ -4,9 +4,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:dart_api_collection/common.dart';
 import 'package:dio/dio.dart';
 
 part 'api.dart';
+
+part 'helper/extension.dart';
 
 part 'model/account_info.dart';
 part 'model/common_result.dart';

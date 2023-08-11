@@ -33,7 +33,7 @@ class StreamtapeApi {
         return AccountInfo.fromJson(fetch.data!);
       });
 
-  Future<DownloadLink> downloadFile(String fileId) async {
+  Future<DownloadLink> getDownloadLink(String fileId) async {
     final ticketParams = {'file': fileId};
     final ticketInfo = await Isolate.run(() async {
       final fetchTicket = await _dio.getUri<String>(
@@ -52,20 +52,18 @@ class StreamtapeApi {
       final waitTime = ticketInfo.result!.waitTime;
 
 //! return null in result in file not found
-      return Isolate.run(
-        () => Future.delayed(Duration(seconds: waitTime! + 1), () async {
-          final params = {'file': fileId, 'ticket': ticket};
-          final getDlLink = await _dio.getUri<String>(
-            _apiUri(
-              'file/dl',
-              isNeedCredentials: false,
-              queryParameters: params,
-            ),
-          );
+      return Future.delayed(Duration(seconds: waitTime! + 1), () async {
+        final params = {'file': fileId, 'ticket': ticket};
+        final getDlLink = await _dio.getUri<String>(
+          _apiUri(
+            'file/dl',
+            isNeedCredentials: false,
+            queryParameters: params,
+          ),
+        );
 
-          return DownloadLink.fromJson(getDlLink.data!);
-        }),
-      );
+        return DownloadLink.fromJson(getDlLink.data!);
+      });
     } else {
       return DownloadLink();
     }
@@ -98,6 +96,7 @@ class StreamtapeApi {
     });
 
     if (uploadLink.result != null) {
+      final id = await file.id;
       final url = Uri.parse(uploadLink.result!.url!);
 
       final form = FormData(camelCaseContentDisposition: true)
@@ -106,20 +105,27 @@ class StreamtapeApi {
             'file',
             await MultipartFile.fromFile(
               file.path,
-              filename: file.uri.pathSegments.last,
+              filename: file.fileNameAndExt,
             ),
           ),
         );
 
-      return Isolate.run(() async {
-        final upload = await _dio.postUri<String>(
-          url,
-          data: form,
-          options: Options(headers: {'Content-Length': form.length}),
-        );
+      final upload = await _dio.postUri<String>(
+        url,
+        data: form,
+        options: Options(headers: {'Content-Length': form.length}),
+        onSendProgress: (current, total) => fileTransferProgress.add(
+          FileTransferProgress(
+            'streamtape_$id',
+            name: file.fileNameAndExt,
+            current: current,
+            total: total,
+            isUpload: true,
+          ),
+        ),
+      );
 
-        return UploadResult.fromJson(upload.data!);
-      });
+      return UploadResult.fromJson(upload.data!);
     } else {
       return UploadResult();
     }
