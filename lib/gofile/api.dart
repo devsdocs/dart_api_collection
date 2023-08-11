@@ -34,9 +34,9 @@ class GofileApi {
     return GofileUploadServer.fromJson(fetchServer.data!);
   }
 
-  Future<GofileUploadServer> uploadFile(File file, [String? folderId]) async {
+  Future<GofileLocalUpload> uploadFile(File file, [String? folderId]) async {
     if (_token == null && folderId != null) {
-      return GofileUploadServer(
+      return GofileLocalUpload(
         status: 'Token must not be null when passing folderId',
       );
     }
@@ -45,7 +45,7 @@ class GofileApi {
         (await Isolate.run(() async => _getUploadServer())).data?.server;
 
     if (uploadServer == null) {
-      return GofileUploadServer(status: 'Error retrieving upload server');
+      return GofileLocalUpload(status: 'Error retrieving upload server');
     }
 
     final id = await file.id;
@@ -78,6 +78,6 @@ class GofileApi {
       ),
     );
 
-    return GofileUploadServer.fromJson(fetch.data!);
+    return GofileLocalUpload.fromJson(fetch.data!);
   }
 }
