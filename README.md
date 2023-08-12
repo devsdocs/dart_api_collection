@@ -64,6 +64,7 @@ import 'dart:io';
 import 'package:dart_api_collection/dart_api_collection.dart';
 
 void main() async {
+ApiConfig.printLog = true; // Add log for easy debuging
 final file = File('video.mp4');
 final id = await file.id; // Extension on dart:io File, exported by this package
 
