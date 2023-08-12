@@ -39,6 +39,18 @@ void main() async {
 }
 ```
 
+### - [Gofile](https://gofile.io)
+
+```dart
+void main() async {
+  final token = Platform.environment['GOFILE_TOKEN']!;
+  final gofileClient = GofileApi(token);
+  final getAccount = await gofileClient.accountInfo();
+  print(getAccount.toJson());
+}
+
+```
+
 ### - TODO List:
 
 - [x] [Doodstream](https://doodstream.com)
@@ -47,6 +59,6 @@ void main() async {
   
 - [x] [Mixdrop](https://mixdrop.co)
   
-- [ ] [Gofile](https://gofile.io)
+- [x] [Gofile](https://gofile.io)
   
 - [ ] [Streamwish](https://streamwish.com)

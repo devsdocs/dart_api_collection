@@ -31,7 +31,7 @@ class GofileApi {
       );
 
   ///Retrieving specific account information
-  Future<GofileGetAccount> getAccount() async => Isolate.run(() async {
+  Future<GofileGetAccount> accountInfo() async => Isolate.run(() async {
         final fetch = await _dio.getUri<String>(
           _apiUri('getAccountDetails', isNeedTokenInParameters: true),
         );

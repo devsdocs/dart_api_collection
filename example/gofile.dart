@@ -6,6 +6,6 @@ void main() async {
   ApiConfig.printLog = true;
   final token = Platform.environment['GOFILE_TOKEN']!;
   final gofileClient = GofileApi(token);
-  final getAccount = await gofileClient.getAccount();
+  final getAccount = await gofileClient.accountInfo();
   print(getAccount.toJson());
 }
