@@ -8,6 +8,7 @@ import 'package:dart_api_collection/src/common.dart';
 import 'package:dio/dio.dart';
 
 part 'doodstream/api.dart';
+part 'doodstream/raw_api.dart';
 
 part 'doodstream/helper/extension.dart';
 
@@ -15,6 +16,7 @@ part 'doodstream/model/doodstream_account_info.dart';
 part 'doodstream/model/doodstream_account_report.dart';
 part 'doodstream/model/doodstream_clone_file.dart';
 part 'doodstream/model/doodstream_create_folder.dart';
+part 'doodstream/model/doodstream_dmca_list.dart';
 part 'doodstream/model/doodstream_file_image.dart';
 part 'doodstream/model/doodstream_file_info.dart';
 part 'doodstream/model/doodstream_file_rename.dart';

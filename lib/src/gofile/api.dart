@@ -104,7 +104,7 @@ class GofileApi {
         server: uploadServer,
       ),
       data: data,
-      onSendProgress: (current, total) => fileTransferProgress.add(
+      onSendProgress: (current, total) => transferProgress.add(
         FileTransferProgress(
           id,
           type: ServiceType.gofile,

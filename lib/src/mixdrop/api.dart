@@ -54,7 +54,7 @@ class MixdropApi {
         isNotNeedCredentials: true,
       ),
       data: form,
-      onSendProgress: (current, total) => fileTransferProgress.add(
+      onSendProgress: (current, total) => transferProgress.add(
         FileTransferProgress(
           id,
           type: ServiceType.mixdrop,

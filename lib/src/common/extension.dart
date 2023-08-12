@@ -33,6 +33,8 @@ extension IntExt on int {
 
     return '${size.toStringAsFixed(2)} ${units[unitIndex]}';
   }
+
+  Jiffy get toJiffy => Jiffy.parseFromMillisecondsSinceEpoch(this);
 }
 
 extension ListOfStringExt on List<String> {
@@ -61,4 +63,24 @@ extension UriExt on Uri {
 
 extension MapExt on Map<String, dynamic> {
   String get toJsonString => json.encode(this);
+}
+
+extension JiffyExt on Jiffy {
+  /// YYYY-MM-DD
+  String get toYYYYMMDD => yMd
+      .split('/')
+      .map((e) {
+        if (e.length == 1) {
+          return '0$e';
+        } else {
+          return e;
+        }
+      })
+      .toList()
+      .reversed
+      .join('-');
+}
+
+extension DateTimeExt on DateTime {
+  Jiffy get toJiffy => Jiffy.parseFromDateTime(this);
 }

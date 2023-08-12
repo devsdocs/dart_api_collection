@@ -17,7 +17,7 @@ extension StreamtapeApiComponentExt on StreamtapeDownloadLink {
         .downloadUri(
           uri,
           saveDestinaton,
-          onReceiveProgress: (current, total) => fileTransferProgress.add(
+          onReceiveProgress: (current, total) => transferProgress.add(
             FileTransferProgress(
               '$uri',
               type: ServiceType.streamtape,

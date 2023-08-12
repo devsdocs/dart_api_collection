@@ -8,6 +8,7 @@ environment:
 dependencies:
   crypto: ^3.0.3
   dio: ^5.3.0
+  jiffy: ^6.2.1
 
 dev_dependencies:
   lint: ^2.1.2

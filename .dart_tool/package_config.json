@@ -8,6 +8,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "clock",
+      "rootUri": "file:///C:/Users/akoap/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/clock-1.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "collection",
       "rootUri": "file:///C:/Users/akoap/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/collection-1.18.0",
       "packageUri": "lib/",
@@ -30,6 +36,18 @@
       "rootUri": "file:///C:/Users/akoap/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/http_parser-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/akoap/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/intl-0.18.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "jiffy",
+      "rootUri": "file:///C:/Users/akoap/AppData/Local/Pub/Cache/hosted/pub.flutter-io.cn/jiffy-6.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "lint",
@@ -80,7 +98,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-08-10T21:31:45.236711Z",
+  "generated": "2023-08-12T15:19:16.782134Z",
   "generator": "pub",
   "generatorVersion": "3.0.6"
 }

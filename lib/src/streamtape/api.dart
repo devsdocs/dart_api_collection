@@ -112,7 +112,7 @@ class StreamtapeApi {
         url,
         data: form,
         options: Options(headers: {'Content-Length': form.length}),
-        onSendProgress: (current, total) => fileTransferProgress.add(
+        onSendProgress: (current, total) => transferProgress.add(
           FileTransferProgress(
             id,
             type: ServiceType.streamtape,

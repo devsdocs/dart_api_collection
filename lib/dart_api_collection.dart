@@ -1,5 +1,4 @@
-export 'src/common.dart'
-    show ApiConfig, FileExt, ServiceType, fileTransferProgress;
+export 'src/common.dart' show ApiConfig, FileExt, ServiceType, transferProgress;
 
 export 'src/doodstream.dart' show DoodstreamApi, DoodstreamApiExt;
 
@@ -18,3 +17,5 @@ export 'src/mixdrop.dart' show MixdropApi, MixdropApiExt, SubtitleLanguage;
 
 export 'src/streamtape.dart'
     show StreamtapeApi, StreamtapeApiComponentExt, StreamtapeApiExt;
+
+export 'src/streamwish.dart';
