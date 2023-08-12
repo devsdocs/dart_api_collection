@@ -7,6 +7,7 @@ import 'package:dart_api_collection/src/common.dart';
 import 'package:dio/dio.dart';
 
 part 'gofile/api.dart';
+part 'gofile/raw_api.dart';
 
 part 'gofile/helper/extension.dart';
 part 'gofile/helper/content_option.dart';

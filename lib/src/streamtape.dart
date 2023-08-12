@@ -7,6 +7,7 @@ import 'package:dart_api_collection/src/common.dart';
 import 'package:dio/dio.dart';
 
 part 'streamtape/api.dart';
+part 'streamtape/raw_api.dart';
 
 part 'streamtape/helper/extension.dart';
 

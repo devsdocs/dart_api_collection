@@ -1,324 +1,160 @@
 part of '../streamtape.dart';
 
 class StreamtapeApi {
-  StreamtapeApi(this._user, this._apiKey) {
-    if (ApiConfig.printLog) {
-      _dio.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
-    }
-  }
-  final String _user;
-  final String _apiKey;
-  final String _base = 'api.streamtape.com';
+  StreamtapeApi(String user, String apiKey)
+      : _rawApi = _StreamtapeRawApi(user, apiKey);
 
-  final _dio = Dio();
+  final _StreamtapeRawApi _rawApi;
 
-  Uri _apiUri(
-    String unencodedPath, {
-    bool isNeedCredentials = true,
-    Map<String, dynamic>? queryParameters,
-  }) {
-    final params = (isNeedCredentials
-        ? <String, dynamic>{'login': _user, 'key': _apiKey}
-        : <String, dynamic>{})
-      ..addAll(queryParameters ?? <String, dynamic>{})
-      ..removeWhere((_, v) => v == null);
-    return Uri.https(_base, '/$unencodedPath', params);
+  _StreamtapeRawApi get rawApi => _rawApi;
+
+  Future<StreamtapeAccountInfo?> accountInfo() async {
+    final fetch = await _rawApi.accountInfo();
+    return fetch != null ? StreamtapeAccountInfo.fromJson(fetch) : null;
   }
 
-  Future<StreamtapeAccountInfo> accountInfo() async => Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri('account/info'),
-        );
-        return StreamtapeAccountInfo.fromJson(fetch.data!);
-      });
-
-  Future<StreamtapeDownloadLink> getDownloadLink(String fileId) async {
-    final ticketParams = {'file': fileId};
+  Future<StreamtapeDownloadLink?> getDownloadLink(String fileId) async {
     final ticketInfo = await Isolate.run(() async {
-      final fetchTicket = await _dio.getUri<String>(
-        _apiUri(
-          'file/dlticket',
-          queryParameters: ticketParams,
-        ),
-      );
+      final fetchTicket = await _rawApi.getDownloadTicket(fileId);
 
-      return StreamtapeDownloadTicket.fromJson(fetchTicket.data!);
+      return fetchTicket != null
+          ? StreamtapeDownloadTicket.fromJson(fetchTicket)
+          : null;
     });
 
-    if (ticketInfo.result != null) {
-      final ticket = ticketInfo.result!.ticket!;
-      final waitTime = ticketInfo.result!.waitTime;
+    if (ticketInfo == null) return null;
 
-//! return null in result in file not found
-      return Future.delayed(Duration(seconds: waitTime! + 1), () async {
-        final params = {'file': fileId, 'ticket': ticket};
-        final getDlLink = await _dio.getUri<String>(
-          _apiUri(
-            'file/dl',
-            isNeedCredentials: false,
-            queryParameters: params,
-          ),
-        );
+    if (ticketInfo.result == null) return null;
 
-        return StreamtapeDownloadLink.fromJson(getDlLink.data!);
-      });
-    } else {
-      return StreamtapeDownloadLink();
-    }
+    final getDlLink = await _rawApi.getDownloadLink(fileId, ticketInfo.result!);
+    return getDlLink != null
+        ? StreamtapeDownloadLink.fromJson(getDlLink)
+        : null;
   }
 
-  Future<StreamtapeFileInfo> getFileInfo(List<String> iDs) async =>
-      Isolate.run(() async {
-        final params = {'file': iDs.length == 1 ? iDs.single : iDs.join(',')};
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/info',
-            queryParameters: params,
-          ),
-        );
+  Future<StreamtapeFileInfo?> getFileInfo(List<String> iDs) async {
+    final fetch = await _rawApi.getFileInfo(iDs);
 
-        return StreamtapeFileInfo.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeFileInfo.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeUploadResult> localUpload(
+  Future<StreamtapeUploadResult?> localUpload(
     File file, {
     String? folderId,
   }) async {
     final uploadLink = await Isolate.run(() async {
-      final fetch = await _dio.getUri<String>(
-        _apiUri(
-          'file/ul',
-          queryParameters: {'folder': folderId},
-        ),
-      );
-
-      return StreamtapeUploadLink.fromJson(fetch.data!);
+      final fetch = await _rawApi.getUploadLink(folderId);
+      return fetch != null ? StreamtapeUploadLink.fromJson(fetch) : null;
     });
 
-    if (uploadLink.result != null) {
-      final id = await file.id;
-      final url = uploadLink.result!.url!.toUri;
+    if (uploadLink == null) return null;
+    if (uploadLink.result == null) return null;
 
-      final form = FormData(camelCaseContentDisposition: true)
-        ..files.add(
-          MapEntry(
-            'file',
-            await file.toMultipartWithName,
-          ),
-        );
+    final url = uploadLink.result!.url!.toUri;
 
-      final upload = await _dio.postUri<String>(
-        url,
-        data: form,
-        options: Options(headers: {'Content-Length': form.length}),
-        onSendProgress: (current, total) => transferProgress.add(
-          FileTransferProgress(
-            id,
-            type: ServiceType.streamtape,
-            name: file.fileNameAndExt,
-            current: current,
-            total: total,
-            isUpload: true,
-          ),
-        ),
-      );
+    final upload = await _rawApi.localUpload(file, url: url);
 
-      return StreamtapeUploadResult.fromJson(upload.data!);
-    } else {
-      return StreamtapeUploadResult();
-    }
+    return upload != null ? StreamtapeUploadResult.fromJson(upload) : null;
   }
 
-  Future<StreamtapeRemoteUploadAdd> remoteUploadAdd(
+  Future<StreamtapeRemoteUploadAdd?> remoteUploadAdd(
     String url, {
     String? folderId,
     String? customName,
-  }) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'remotedl/add',
-            queryParameters: {
-              'url': url,
-              'folder': folderId,
-              'name': customName,
-            },
-          ),
-        );
+  }) async {
+    final fetch = await _rawApi.remoteUploadAdd(
+      url,
+      customName: customName,
+      folderId: folderId,
+    );
 
-        return StreamtapeRemoteUploadAdd.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeRemoteUploadAdd.fromJson(fetch) : null;
+  }
 
 //! If remoteUploadId is null, remove all current remote upload task
-  Future<StreamtapeCommonResult> remoteUploadRemove([
+  Future<StreamtapeCommonResult?> remoteUploadRemove([
     String? id,
-  ]) async =>
-      Isolate.run(() async {
-        final params = {'id': id ?? '"all"'};
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'remotedl/remove',
-            queryParameters: params,
-          ),
-        );
+  ]) async {
+    final fetch = await _rawApi.remoteUploadRemove(id);
 
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
 //! If remoteUploadId is null or non exist, returning all remote upload status
-  Future<StreamtapeRemoteUploadCheck> remoteUploadCheck([
+  Future<StreamtapeRemoteUploadCheck?> remoteUploadCheck([
     String? remoteUploadId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'remotedl/status',
-            queryParameters: {
-              'id': remoteUploadId,
-            },
-          ),
-        );
+  ]) async {
+    final fetch = await _rawApi.remoteUploadCheck(remoteUploadId);
 
-        return StreamtapeRemoteUploadCheck.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeRemoteUploadCheck.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeFileAndFolderList> fileAndFolderList([
+  Future<StreamtapeFileAndFolderList?> fileAndFolderList([
     String? folderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/listfolder',
-            queryParameters: {
-              'folder': folderId,
-            },
-          ),
-        );
+  ]) async {
+    final fetch = await _rawApi.fileAndFolderList(folderId);
+    return fetch != null ? StreamtapeFileAndFolderList.fromJson(fetch) : null;
+  }
 
-        return StreamtapeFileAndFolderList.fromJson(fetch.data!);
-      });
-
-  Future<StreamtapeFolderCreate> folderCreate(
+  Future<StreamtapeFolderCreate?> folderCreate(
     String name, [
     String? parentFoolderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'folder/createfolder',
-            queryParameters: {
-              'name': name,
-              'pid': parentFoolderId,
-            },
-          ),
-        );
-
-        return StreamtapeFolderCreate.fromJson(fetch.data!);
-      });
+  ]) async {
+    final fetch = await _rawApi.folderCreate(name, parentFoolderId);
+    return fetch != null ? StreamtapeFolderCreate.fromJson(fetch) : null;
+  }
 
   //TODO: rename folder not working somehow
-  Future<StreamtapeCommonResult> renameFolder(
+  Future<StreamtapeCommonResult?> renameFolder(
     String folderId,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/renamefolder',
-            queryParameters: {'folder': folderId, 'name': newName},
-          ),
-        );
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+  ) async {
+    final fetch = await _rawApi.renameFolder(folderId, newName);
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
   //TODO: delete folder not working somehow
-  Future<StreamtapeCommonResult> deleteFolder(String folderId) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/deletefolder',
-            queryParameters: {'folder': folderId},
-          ),
-        );
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+  Future<StreamtapeCommonResult?> deleteFolder(String folderId) async {
+    final fetch = await _rawApi.deleteFolder(folderId);
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeFileThumbnail> fileThumbnail(String fileId) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/getsplash',
-            queryParameters: {'file': fileId},
-          ),
-        );
+  Future<StreamtapeFileThumbnail?> fileThumbnail(String fileId) async {
+    final fetch = await _rawApi.fileThumbnail(fileId);
 
-        return StreamtapeFileThumbnail.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeFileThumbnail.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeCommonResult> fileRename(
+  Future<StreamtapeCommonResult?> fileRename(
     String fileId,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/rename',
-            queryParameters: {
-              'file': fileId,
-              'name': newName,
-            },
-          ),
-        );
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+  ) async {
+    final fetch = await _rawApi.fileRename(fileId, newName);
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeCommonResult> fileMove(
+  Future<StreamtapeCommonResult?> fileMove(
     String fileId,
     String destinationFolderId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/move',
-            queryParameters: {'file': fileId, 'folder': destinationFolderId},
-          ),
-        );
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+  ) async {
+    final fetch = await _rawApi.fileMove(fileId, destinationFolderId);
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeCommonResult> fileDelete(String fileId) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/delete',
-            queryParameters: {'file': fileId},
-          ),
-        );
-        return StreamtapeCommonResult.fromJson(fetch.data!);
-      });
+  Future<StreamtapeCommonResult?> fileDelete(String fileId) async {
+    final fetch = await _rawApi.fileDelete(fileId);
+    return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeConvertRunning> convertRunning() async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/runningconverts',
-            queryParameters: {},
-          ),
-        );
+  Future<StreamtapeConvertRunning?> convertRunning() async {
+    final fetch = await _rawApi.convertRunning();
 
-        return StreamtapeConvertRunning.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeConvertRunning.fromJson(fetch) : null;
+  }
 
-  Future<StreamtapeConvertFailed> convertFailed() async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'file/failedconverts',
-            queryParameters: {},
-          ),
-        );
+  Future<StreamtapeConvertFailed?> convertFailed() async {
+    final fetch = await _rawApi.convertFailed();
 
-        return StreamtapeConvertFailed.fromJson(fetch.data!);
-      });
+    return fetch != null ? StreamtapeConvertFailed.fromJson(fetch) : null;
+  }
 }

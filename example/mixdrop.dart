@@ -8,5 +8,5 @@ void main() async {
   final key = Platform.environment['MIXDROP_KEY']!;
   final mixdropClient = MixdropApi(user, key);
   final listFolder = await mixdropClient.folderList();
-  print(listFolder.toJson());
+  print(listFolder?.toJson());
 }

@@ -4,40 +4,19 @@ part of '../gofile.dart';
 ///
 ///If you upload a file without specifying any parameters, a guest account and a root folder will be created, and the file will be uploaded to a new folder within the root folder. If you wish to upload multiple files, you must first upload the initial file, then obtain the folderId from the response of the request. You can then upload the remaining files one at a time, specifying the folderId as a parameter.
 class GofileApi {
-  GofileApi([this.token]) {
-    if (ApiConfig.printLog) {
-      _dio.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
-    }
-  }
+  GofileApi([this._token]) : _rawApi = _GofileRawApi(_token);
 
-  final String? token;
-  final String _base = 'gofile.io';
+  _GofileRawApi get rawApi => _rawApi;
 
-  final _dio = Dio();
+  final _GofileRawApi _rawApi;
 
-  Uri _apiUri(
-    String unencodedPath, {
-    Map<String, dynamic>? queryParameters,
-    String server = 'api',
-    bool isNeedTokenInParameters = false,
-  }) =>
-      Uri.https(
-        [server, _base].joinDot,
-        '/$unencodedPath',
-        (isNeedTokenInParameters ? <String, dynamic>{'token': token} : {})
-          ..addAll(queryParameters ?? {})
-          ..removeWhere((_, v) => v == null),
-      );
+  final String? _token;
 
   ///Retrieving specific account information
-  Future<GofileGetAccount> accountInfo() async => Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri('getAccountDetails', isNeedTokenInParameters: true),
-        );
-
-        return GofileGetAccount.fromJson(fetch.data!);
-      });
+  Future<GofileGetAccount?> accountInfo() async {
+    final str = await _rawApi.accountInfo();
+    return str != null ? GofileGetAccount.fromJson(str) : null;
+  }
 
   ///Returns the best server available to receive files.
   ///
@@ -50,11 +29,9 @@ class GofileApi {
   ///  }
   ///}
   ///```
-  Future<GofileUploadServer> _getUploadServer() async {
-    final fetchServer = await _dio
-        .getUri<String>(_apiUri('getServer', isNeedTokenInParameters: true));
-
-    return GofileUploadServer.fromJson(fetchServer.data!);
+  Future<GofileUploadServer?> _getUploadServer() async {
+    final str = await _rawApi.getUploadServer();
+    return str != null ? GofileUploadServer.fromJson(str) : null;
   }
 
   ///Upload one file on a specific server.
@@ -71,197 +48,93 @@ class GofileApi {
   ///
   ///If undefined, a new folder will be created to receive the file.
   ///
-  ///When using the folderId, you must pass the account [token] when constructing [GofileApi].
-  Future<GofileLocalUpload> uploadFile(File file, [String? folderId]) async {
-    if (token == null && folderId != null) {
+  ///When using the folderId, you must pass the account [_token] when constructing [GofileApi].
+  Future<GofileLocalUpload?> uploadFile(File file, [String? folderId]) async {
+    if (_token == null && folderId != null) {
       return GofileLocalUpload(
         status: 'Token must not be null when passing folderId',
       );
     }
 
     final uploadServer =
-        (await Isolate.run(() async => _getUploadServer())).data?.server;
+        (await Isolate.run(() async => _getUploadServer()))?.data?.server;
 
     if (uploadServer == null) {
       return GofileLocalUpload(status: 'Error retrieving upload server');
     }
 
-    final id = await file.id;
+    final str = await _rawApi.uploadFile(file, uploadServer, folderId);
 
-    final data = FormData()
-      ..files.add(MapEntry('file', await file.toMultipart));
-
-    if (token != null) {
-      data.fields.addAll([
-        MapEntry('token', token!),
-        if (folderId != null) MapEntry('folderId', folderId)
-      ]);
-    }
-
-    final fetch = await _dio.postUri<String>(
-      _apiUri(
-        'uploadFile',
-        server: uploadServer,
-      ),
-      data: data,
-      onSendProgress: (current, total) => transferProgress.add(
-        FileTransferProgress(
-          id,
-          type: ServiceType.gofile,
-          name: file.fileNameAndExt,
-          current: current,
-          total: total,
-          isUpload: true,
-        ),
-      ),
-    );
-
-    return GofileLocalUpload.fromJson(fetch.data!);
+    return str != null ? GofileLocalUpload.fromJson(str) : null;
   }
 
-  Future<GofileGetContent> getContent(String contentId) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'getContent',
-            queryParameters: {'contentId': contentId},
-            isNeedTokenInParameters: true,
-          ),
-        );
+  Future<GofileGetContent?> getContent(String contentId) async {
+    final str = await _rawApi.getContent(contentId);
+    return str != null ? GofileGetContent.fromJson(str) : null;
+  }
 
-        return GofileGetContent.fromJson(fetch.data!);
-      });
-
-  Future<GofileCommonResult> createFolder(
+  Future<GofileCommonResult?> createFolder(
     String folderName,
     String parentFolderId,
-  ) async =>
-      Isolate.run(() async {
-        if (token == null) {
-          return GofileCommonResult(status: 'Token must not be null');
-        }
+  ) async {
+    if (_token == null) {
+      return GofileCommonResult(status: 'Token must not be null');
+    }
 
-        final data = <String, dynamic>{
-          'token': token,
-          'folderName': folderName,
-          'parentFolderId': parentFolderId,
-        }.toJsonString;
+    final str = await _rawApi.createFolder(folderName, parentFolderId);
 
-        final fetch = await _dio.putUri<String>(
-          _apiUri('createFolder'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+    return str != null ? GofileCommonResult.fromJson(str) : null;
+  }
 
-        return GofileCommonResult.fromJson(fetch.data!);
-      });
-
-  Future<GofileCommonResult> setOption(
+  Future<GofileCommonResult?> setOption(
     String contentId,
     _GofileOption gofileOption,
-  ) async =>
-      Isolate.run(() async {
-        if (token == null) {
-          return GofileCommonResult(status: 'Token must not be null');
-        }
+  ) async {
+    if (_token == null) {
+      return GofileCommonResult(status: 'Token must not be null');
+    }
 
-        final type = (await getContent(contentId)).data?.type;
+    final type = (await getContent(contentId))?.data?.type;
 
-        if (type == null) {
-          return GofileCommonResult(status: 'Filed to check contentId type');
-        }
+    if (type == null) {
+      return GofileCommonResult(status: 'Filed to check contentId type');
+    }
 
-        final isFolder = type == 'folder';
+    final isFolder = type == 'folder';
 
-        if (isFolder && gofileOption is GofileDirectLinkOption) {
-          return GofileCommonResult(status: 'Content id must be a file');
-        }
+    if (isFolder && gofileOption is GofileDirectLinkOption) {
+      return GofileCommonResult(status: 'Content id must be a file');
+    }
 
-        if (!isFolder && gofileOption is! GofileDirectLinkOption) {
-          return GofileCommonResult(status: 'Content id must be a folder');
-        }
+    if (!isFolder && gofileOption is! GofileDirectLinkOption) {
+      return GofileCommonResult(status: 'Content id must be a folder');
+    }
 
-        final option = gofileOption.name!;
+    final str = await _rawApi.setOption(contentId, gofileOption);
 
-        final value = gofileOption.value!;
+    return str != null ? GofileCommonResult.fromJson(str) : null;
+  }
 
-        final data = <String, dynamic>{
-          'token': token,
-          'contentId': contentId,
-          'option': option,
-          'value': value,
-        }.toJsonString;
-
-        final fetch = await _dio.putUri<String>(
-          _apiUri('setOption'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
-
-        return GofileCommonResult.fromJson(fetch.data!);
-      });
-
-  Future<GofileCommonResult> copyContent(
+  Future<GofileCommonResult?> copyContent(
     List<String> contentsIds,
     String destinationFolderId,
-  ) async =>
-      Isolate.run(() async {
-        if (token == null) {
-          return GofileCommonResult(status: 'Token must not be null');
-        }
+  ) async {
+    if (_token == null) {
+      return GofileCommonResult(status: 'Token must not be null');
+    }
 
-        final joinContentIds = contentsIds.joinComma;
+    final str = await _rawApi.copyContent(contentsIds, destinationFolderId);
 
-        final data = <String, dynamic>{
-          'token': token,
-          'folderIdDest': destinationFolderId,
-          'contentsId': joinContentIds,
-        }.toJsonString;
+    return str != null ? GofileCommonResult.fromJson(str) : null;
+  }
 
-        final fetch = await _dio.putUri<String>(
-          _apiUri('copyContent'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+  Future<GofileCommonResult?> deleteContent(List<String> contentsIds) async {
+    if (_token == null) {
+      return GofileCommonResult(status: 'Token must not be null');
+    }
 
-        return GofileCommonResult.fromJson(fetch.data!);
-      });
+    final str = await _rawApi.deleteContent(contentsIds);
 
-  Future<GofileCommonResult> deleteContent(List<String> contentsIds) async =>
-      Isolate.run(() async {
-        if (token == null) {
-          return GofileCommonResult(status: 'Token must not be null');
-        }
-
-        final joinContentIds = contentsIds.joinComma;
-
-        final data = <String, dynamic>{
-          'token': token,
-          'contentsId': joinContentIds,
-        }.toJsonString;
-
-        final fetch = await _dio.deleteUri<String>(
-          _apiUri('deleteContent'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
-
-        return GofileCommonResult.fromJson(fetch.data!);
-      });
+    return str != null ? GofileCommonResult.fromJson(str) : null;
+  }
 }

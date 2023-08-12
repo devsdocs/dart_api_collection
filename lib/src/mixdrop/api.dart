@@ -1,173 +1,68 @@
 part of '../mixdrop.dart';
 
 class MixdropApi {
-  MixdropApi(this._email, this._apiKey) {
-    if (ApiConfig.printLog) {
-      _dio.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
-    }
-  }
-  final String _email;
-  final String _apiKey;
-  final String _base = 'mixdrop.co';
+  MixdropApi(String email, String apiKey)
+      : _rawApi = _MixdropRawApi(email, apiKey);
 
-  final _dio = Dio();
+  final _MixdropRawApi _rawApi;
 
-  Uri _apiUri(
-    String unencodedPath, {
-    bool isNotNeedCredentials = false,
-    Map<String, dynamic>? queryParameters,
-    String server = 'api',
-    bool isNeedDecode = false,
-  }) {
-    final params = (isNotNeedCredentials
-        ? <String, dynamic>{}
-        : <String, dynamic>{'email': _email, 'key': _apiKey})
-      ..addAll(queryParameters ?? <String, dynamic>{})
-      ..removeWhere((_, v) => v == null);
+  _MixdropRawApi get rawApi => _rawApi;
 
-    final uri = Uri.https(
-      [server, _base].joinDot,
-      '/$unencodedPath',
-      params,
-    );
+  Future<MixdropLocalUpload?> localUpload(File file) async {
+    final str = await _rawApi.localUpload(file);
 
-    final parseDecode = Uri.parse(Uri.decodeFull(uri.toString()));
-
-    final finalUri = isNeedDecode ? parseDecode : uri;
-
-    return finalUri;
+    return str != null ? MixdropLocalUpload.fromJson(str) : null;
   }
 
-  Future<MixdropLocalUpload> localUpload(File file) async {
-    final id = await file.id;
-    final name = file.fileNameAndExt;
-
-    final form = FormData()
-      ..files.add(MapEntry('file', await file.toMultipart))
-      ..fields.addAll([MapEntry('email', _email), MapEntry('key', _apiKey)]);
-
-    final fetch = await _dio.postUri<String>(
-      _apiUri(
-        'api',
-        server: 'ul',
-        isNotNeedCredentials: true,
-      ),
-      data: form,
-      onSendProgress: (current, total) => transferProgress.add(
-        FileTransferProgress(
-          id,
-          type: ServiceType.mixdrop,
-          name: name,
-          current: current,
-          total: total,
-          isUpload: true,
-        ),
-      ),
-    );
-
-    return MixdropLocalUpload.fromJson(fetch.data!);
-  }
-
-  Future<MixdropRemoteUpload> remoteUpload(
+  Future<MixdropRemoteUpload?> remoteUpload(
     String url, {
     String? newName,
     int? folderId,
-  }) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'remoteupload',
-            queryParameters: {
-              'url': Uri.encodeFull(url),
-              'name': newName,
-              'folder': '$folderId'
-            },
-          ),
-        );
+  }) async {
+    final fetch = await _rawApi.remoteUpload(url);
 
-        return MixdropRemoteUpload.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropRemoteUpload.fromJson(fetch) : null;
+  }
 
-  Future<MixdropRemoteUploadStatus> remoteUploadStatus(
+  Future<MixdropRemoteUploadStatus?> remoteUploadStatus(
     int remoteUploadId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'remotestatus',
-            queryParameters: {
-              'id': '$remoteUploadId',
-            },
-          ),
-        );
+  ) async {
+    final fetch = await _rawApi.remoteUploadStatus(remoteUploadId);
 
-        return MixdropRemoteUploadStatus.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropRemoteUploadStatus.fromJson(fetch) : null;
+  }
 
-  Future<MixdropFileInfo> fileInfo(
+  Future<MixdropFileInfo?> fileInfo(
     List<String> fileRefs,
-  ) async =>
-      Isolate.run(() async {
-        final join = fileRefs
-            .map(
-              (value) => fileRefs.indexOf(value) == 0 ? value : 'ref[]=$value',
-            )
-            .join('&');
+  ) async {
+    final fetch = await _rawApi.fileInfo(fileRefs);
 
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'fileinfo2',
-            queryParameters: {'ref[]': join},
-            isNeedDecode: true,
-          ),
-        );
+    return fetch != null ? MixdropFileInfo.fromJson(fetch) : null;
+  }
 
-        return MixdropFileInfo.fromJson(fetch.data!);
-      });
-
-  Future<MixdropFileDuplicate> fileDuplicate(
+  Future<MixdropFileDuplicate?> fileDuplicate(
     String fileRef,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'fileduplicate',
-            queryParameters: {'ref': fileRef},
-          ),
-        );
+  ) async {
+    final fetch = await _rawApi.fileDuplicate(fileRef);
 
-        return MixdropFileDuplicate.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropFileDuplicate.fromJson(fetch) : null;
+  }
 
-  Future<MixdropFileRename> fileRename(
+  Future<MixdropFileRename?> fileRename(
     String fileRef,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'filerename',
-            queryParameters: {'ref': fileRef, 'title': newName},
-          ),
-        );
+  ) async {
+    final fetch = await _rawApi.fileRename(fileRef, newName);
 
-        return MixdropFileRename.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropFileRename.fromJson(fetch) : null;
+  }
 
-  Future<MixdropFileRemoved> fileRemoved([int? page]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'removed',
-            queryParameters: {'page': '$page'},
-          ),
-        );
+  Future<MixdropFileRemoved?> fileRemoved([int? page]) async {
+    final fetch = await _rawApi.fileRemoved(page);
+    return fetch != null ? MixdropFileRemoved.fromJson(fetch) : null;
+  }
 
-        return MixdropFileRemoved.fromJson(fetch.data!);
-      });
-
-  Future<MixdropAddSubtitle> addSubtitle(
+  Future<MixdropAddSubtitle?> addSubtitle(
     String fileRef, {
     required File subtitleFile,
     required SubtitleLanguage language,
@@ -178,58 +73,36 @@ class MixdropApi {
         result: 'Invalid file extension',
       );
     } else {
-      final form = FormData()
-        ..fields.add(MapEntry('lang', '$language'))
-        ..files.add(MapEntry('file', await subtitleFile.toMultipart));
-
-      final fetch = await _dio.postUri<String>(
-        _apiUri('addsubtitle', queryParameters: {'ref': fileRef}),
-        data: form,
+      final str = await _rawApi.addSubtitle(
+        fileRef,
+        subtitleFile: subtitleFile,
+        language: language,
       );
-
-      return MixdropAddSubtitle.fromJson(fetch.data!);
+      return str != null ? MixdropAddSubtitle.fromJson(str) : null;
     }
   }
 
-  Future<MixdropFolderList> folderList([int? folderId, int? page]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'folderlist',
-            queryParameters: {'id': '$folderId', 'page': '$page'},
-          ),
-        );
+  Future<MixdropFolderList?> folderList([int? folderId, int? page]) async {
+    final fetch = await _rawApi.folderList();
 
-        return MixdropFolderList.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropFolderList.fromJson(fetch) : null;
+  }
 
-  Future<MixdropFolderCreate> folderCreate(
+  Future<MixdropFolderCreate?> folderCreate(
     String folderName, [
     int? parentFolderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'foldercreate',
-            queryParameters: {'title': folderName, 'parent': '$parentFolderId'},
-          ),
-        );
+  ]) async {
+    final fetch = await _rawApi.folderCreate(folderName, parentFolderId);
 
-        return MixdropFolderCreate.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropFolderCreate.fromJson(fetch) : null;
+  }
 
-  Future<MixdropFolderRename> folderRename(
+  Future<MixdropFolderRename?> folderRename(
     String newFolderName,
     int folderId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(
-          _apiUri(
-            'folderrename',
-            queryParameters: {'id': '$folderId', 'title': newFolderName},
-          ),
-        );
+  ) async {
+    final fetch = await _rawApi.folderRename(newFolderName, folderId);
 
-        return MixdropFolderRename.fromJson(fetch.data!);
-      });
+    return fetch != null ? MixdropFolderRename.fromJson(fetch) : null;
+  }
 }

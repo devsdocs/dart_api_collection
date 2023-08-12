@@ -8,5 +8,5 @@ void main() async {
   final key = Platform.environment['STREAMTAPE_KEY']!;
   final streamtapeClient = StreamtapeApi(user, key);
   final getAccount = await streamtapeClient.accountInfo();
-  print(getAccount.toJson());
+  print(getAccount?.toJson());
 }

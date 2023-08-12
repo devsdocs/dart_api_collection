@@ -7,5 +7,5 @@ void main() async {
   final key = Platform.environment['DOODSTREAM_API_KEY']!;
   final doodstreamClient = DoodstreamApi(key);
   final getAccount = await doodstreamClient.accountInfo();
-  print(getAccount.toJson());
+  print(getAccount?.toJson());
 }
