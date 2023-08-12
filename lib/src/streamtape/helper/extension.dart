@@ -1,15 +1,6 @@
 part of '../../streamtape.dart';
 
-extension StreamtapeApiExt on StreamtapeApi {
-  bool get printLog => _StreamtapeLog.log;
-  set printLog(bool value) => _StreamtapeLog.log = value;
-}
-
-class _StreamtapeLog {
-  static bool get log => _log ?? false;
-  static set log(bool value) => _log = value;
-  static bool? _log;
-}
+extension StreamtapeApiExt on StreamtapeApi {}
 
 extension StreamtapeApiComponentExt on StreamtapeDownloadLink {
   Future<bool> download([String? destinationFolderDir]) async {

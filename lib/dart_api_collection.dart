@@ -1,3 +1,5 @@
+export 'src/common.dart' show ApiConfig;
+
 export 'src/doodstream.dart'
     show DoodstreamApi, DoodstreamApiExt, doodstreamFileTransferProgress;
 

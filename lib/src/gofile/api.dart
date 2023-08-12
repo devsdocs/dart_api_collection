@@ -5,7 +5,7 @@ part of '../gofile.dart';
 ///If you upload a file without specifying any parameters, a guest account and a root folder will be created, and the file will be uploaded to a new folder within the root folder. If you wish to upload multiple files, you must first upload the initial file, then obtain the folderId from the response of the request. You can then upload the remaining files one at a time, specifying the folderId as a parameter.
 class GofileApi {
   GofileApi([this.token]) {
-    if (printLog) {
+    if (ApiConfig.printLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
     }

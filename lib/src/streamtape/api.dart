@@ -2,7 +2,7 @@ part of '../streamtape.dart';
 
 class StreamtapeApi {
   StreamtapeApi(this._user, this._apiKey) {
-    if (printLog) {
+    if (ApiConfig.printLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
     }

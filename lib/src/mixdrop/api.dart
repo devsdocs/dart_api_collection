@@ -2,7 +2,7 @@ part of '../mixdrop.dart';
 
 class MixdropApi {
   MixdropApi(this._email, this._apiKey) {
-    if (printLog) {
+    if (ApiConfig.printLog) {
       _dio.interceptors
           .add(LogInterceptor(requestBody: true, responseBody: true));
     }
