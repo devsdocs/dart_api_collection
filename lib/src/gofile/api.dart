@@ -20,7 +20,7 @@ class GofileApi {
     String unencodedPath, {
     Map<String, dynamic>? queryParameters,
     String server = 'api',
-    bool isNeedTokenInParameters = true,
+    bool isNeedTokenInParameters = false,
   }) =>
       Uri.https(
         [server, _base].joinDot,
@@ -32,7 +32,9 @@ class GofileApi {
 
   ///Retrieving specific account information
   Future<GofileGetAccount> getAccount() async => Isolate.run(() async {
-        final fetch = await _dio.getUri<String>(_apiUri('getAccountDetails'));
+        final fetch = await _dio.getUri<String>(
+          _apiUri('getAccountDetails', isNeedTokenInParameters: true),
+        );
 
         return GofileGetAccount.fromJson(fetch.data!);
       });
@@ -50,7 +52,7 @@ class GofileApi {
   ///```
   Future<GofileUploadServer> _getUploadServer() async {
     final fetchServer = await _dio
-        .getUri<String>(_apiUri('getServer', isNeedTokenInParameters: false));
+        .getUri<String>(_apiUri('getServer', isNeedTokenInParameters: true));
 
     return GofileUploadServer.fromJson(fetchServer.data!);
   }
@@ -99,7 +101,6 @@ class GofileApi {
     final fetch = await _dio.postUri<String>(
       _apiUri(
         'uploadFile',
-        isNeedTokenInParameters: false,
         server: uploadServer,
       ),
       data: data,
@@ -120,7 +121,11 @@ class GofileApi {
   Future<GofileGetContent> getContent(String contentId) async =>
       Isolate.run(() async {
         final fetch = await _dio.getUri<String>(
-          _apiUri('getContent', queryParameters: {'contentId': contentId}),
+          _apiUri(
+            'getContent',
+            queryParameters: {'contentId': contentId},
+            isNeedTokenInParameters: true,
+          ),
         );
 
         return GofileGetContent.fromJson(fetch.data!);
@@ -142,7 +147,7 @@ class GofileApi {
         }.toJsonString;
 
         final fetch = await _dio.putUri<String>(
-          _apiUri('createFolder', isNeedTokenInParameters: false),
+          _apiUri('createFolder'),
           data: data,
           options: Options(
             headers: {
@@ -191,7 +196,7 @@ class GofileApi {
         }.toJsonString;
 
         final fetch = await _dio.putUri<String>(
-          _apiUri('setOption', isNeedTokenInParameters: false),
+          _apiUri('setOption'),
           data: data,
           options: Options(
             headers: {
@@ -221,7 +226,7 @@ class GofileApi {
         }.toJsonString;
 
         final fetch = await _dio.putUri<String>(
-          _apiUri('copyContent', isNeedTokenInParameters: false),
+          _apiUri('copyContent'),
           data: data,
           options: Options(
             headers: {
@@ -247,7 +252,7 @@ class GofileApi {
         }.toJsonString;
 
         final fetch = await _dio.deleteUri<String>(
-          _apiUri('deleteContent', isNeedTokenInParameters: false),
+          _apiUri('deleteContent'),
           data: data,
           options: Options(
             headers: {
