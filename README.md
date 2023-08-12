@@ -65,7 +65,7 @@ import 'package:dart_api_collection/dart_api_collection.dart';
 
 void main() async {
 final file = File('video.mp4');
-final id = file.id; // Extension on dart:io File, exported by this package
+final id = await file.id; // Extension on dart:io File, exported by this package
 
 /// Filter by file ID
 transferProgress.stream.where((event) => event.id == id).listen((e) => print(e));
