@@ -30,6 +30,7 @@ class GofileApi {
           ..removeWhere((_, v) => v == null),
       );
 
+  ///Retrieving specific account information
   Future<GofileGetAccount> getAccount() async => Isolate.run(() async {
         final fetch = await _dio.getUri<String>(_apiUri('getAccountDetails'));
 
@@ -116,17 +117,23 @@ class GofileApi {
     return GofileLocalUpload.fromJson(fetch.data!);
   }
 
-  Future<String> getContent(String contentId) async => Isolate.run(() async {
+  Future<GofileGetContent> getContent(String contentId) async =>
+      Isolate.run(() async {
         final fetch = await _dio.getUri<String>(
           _apiUri('getContent', queryParameters: {'contentId': contentId}),
         );
 
-        return fetch.data!;
+        return GofileGetContent.fromJson(fetch.data!);
       });
 
-  Future<String> createFolder(String folderName, String parentFolderId) async =>
+  Future<GofileCommonResult> createFolder(
+    String folderName,
+    String parentFolderId,
+  ) async =>
       Isolate.run(() async {
-        if (token == null) return '';
+        if (token == null) {
+          return GofileCommonResult(status: 'Token must not be null');
+        }
 
         final data = <String, dynamic>{
           'token': token,
@@ -144,27 +151,32 @@ class GofileApi {
           ),
         );
 
-        return fetch.data!;
+        return GofileCommonResult.fromJson(fetch.data!);
       });
 
-  Future<String> setOption(
+  Future<GofileCommonResult> setOption(
     String contentId,
     _GofileOption gofileOption,
   ) async =>
       Isolate.run(() async {
-        if (token == null) return '';
+        if (token == null) {
+          return GofileCommonResult(status: 'Token must not be null');
+        }
 
-        final bool isFolder =
-            //
-            math.Random().nextBool();
-        // await getContent(contentId); // check if this is a folder
+        final type = (await getContent(contentId)).data?.type;
+
+        if (type == null) {
+          return GofileCommonResult(status: 'Filed to check contentId type');
+        }
+
+        final isFolder = type == 'folder';
 
         if (isFolder && gofileOption is GofileDirectLinkOption) {
-          return 'Content id must be a file';
+          return GofileCommonResult(status: 'Content id must be a file');
         }
 
         if (!isFolder && gofileOption is! GofileDirectLinkOption) {
-          return 'Content id must be a folder';
+          return GofileCommonResult(status: 'Content id must be a folder');
         }
 
         final option = gofileOption.name!;
@@ -188,6 +200,62 @@ class GofileApi {
           ),
         );
 
-        return fetch.data!;
+        return GofileCommonResult.fromJson(fetch.data!);
+      });
+
+  Future<GofileCommonResult> copyContent(
+    List<String> contentsIds,
+    String destinationFolderId,
+  ) async =>
+      Isolate.run(() async {
+        if (token == null) {
+          return GofileCommonResult(status: 'Token must not be null');
+        }
+
+        final joinContentIds = contentsIds.joinComma;
+
+        final data = <String, dynamic>{
+          'token': token,
+          'folderIdDest': destinationFolderId,
+          'contentsId': joinContentIds,
+        }.toJsonString;
+
+        final fetch = await _dio.putUri<String>(
+          _apiUri('copyContent', isNeedTokenInParameters: false),
+          data: data,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ),
+        );
+
+        return GofileCommonResult.fromJson(fetch.data!);
+      });
+
+  Future<GofileCommonResult> deleteContent(List<String> contentsIds) async =>
+      Isolate.run(() async {
+        if (token == null) {
+          return GofileCommonResult(status: 'Token must not be null');
+        }
+
+        final joinContentIds = contentsIds.joinComma;
+
+        final data = <String, dynamic>{
+          'token': token,
+          'contentsId': joinContentIds,
+        }.toJsonString;
+
+        final fetch = await _dio.deleteUri<String>(
+          _apiUri('deleteContent', isNeedTokenInParameters: false),
+          data: data,
+          options: Options(
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          ),
+        );
+
+        return GofileCommonResult.fromJson(fetch.data!);
       });
 }

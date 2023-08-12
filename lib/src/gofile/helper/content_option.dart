@@ -1,10 +1,14 @@
 part of '../../gofile.dart';
 
+///Can be "public", "password", "description", "expire", "tags" or "directLink".
 abstract class _GofileOption {
   String? name;
   String? value;
 }
 
+///The value of the option to be defined.
+///
+///For "public", can be "true" or "false". The contentId must be a folder.
 class GofilePublicOption extends _GofileOption {
   GofilePublicOption({required this.setting});
 
@@ -17,6 +21,9 @@ class GofilePublicOption extends _GofileOption {
   String get value => setting.toString();
 }
 
+///The value of the option to be defined.
+///
+///For "password", must be the password. The contentId must be a folder.
 class GofilePasswordOption extends _GofileOption {
   GofilePasswordOption({required this.password});
 
@@ -29,6 +36,9 @@ class GofilePasswordOption extends _GofileOption {
   String get value => password;
 }
 
+///The value of the option to be defined.
+///
+///For "description", must be the description. The contentId must be a folder.
 class GofileDescriptionOption extends _GofileOption {
   GofileDescriptionOption({required this.description});
 
@@ -41,6 +51,9 @@ class GofileDescriptionOption extends _GofileOption {
   String get value => description;
 }
 
+///The value of the option to be defined.
+///
+///For "expire", must be the expiration date in the form of unix timestamp. The contentId must be a folder.
 class GofileExpireOption extends _GofileOption {
   GofileExpireOption({required this.dateTime});
 
@@ -53,6 +66,9 @@ class GofileExpireOption extends _GofileOption {
   String get value => (dateTime.millisecondsSinceEpoch ~/ 1000).toString();
 }
 
+///The value of the option to be defined.
+///
+///For "tags", must be a comma seperated list of tags. The contentId must be a folder.
 class GofileTagsOption extends _GofileOption {
   GofileTagsOption({required this.tags});
 
@@ -65,6 +81,9 @@ class GofileTagsOption extends _GofileOption {
   String get value => tags.joinComma;
 }
 
+///The value of the option to be defined.
+///
+///For "directLink", can be "true" or "false". The contentId must be a file.
 class GofileDirectLinkOption extends _GofileOption {
   GofileDirectLinkOption({required this.enable});
 
