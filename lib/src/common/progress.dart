@@ -46,4 +46,5 @@ enum ServiceType {
   gofile,
   mixdrop,
   streamtape,
+  streamwish,
 }

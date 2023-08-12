@@ -11,7 +11,7 @@ class _StreamtapeRawApi {
   final String _apiKey;
   final String _base = 'api.streamtape.com';
 
-  final _client = Http<String>();
+  final _client = RawHttp();
 
   Uri _apiUri(
     String unencodedPath, {
@@ -107,7 +107,6 @@ class _StreamtapeRawApi {
       url,
       files: files,
       camelCaseContentDisposition: true,
-      // options: Options(headers: {'Content-Length': form.length}),
       fileTransferProgress: FileTransferProgress(
         id,
         type: ServiceType.streamtape,

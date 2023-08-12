@@ -1,64 +1,72 @@
 part of '../common.dart';
 
-class Http<T> {
+class RawHttp {
   final _dio = Dio();
 
   Interceptors get interceptors => _dio.interceptors;
 
-  Future<T?> deleteUri(
+  Future<String?> deleteUri(
     Uri uri, {
     required String data,
     Options? options,
   }) async =>
       delete('$uri', data: data, options: options);
 
-  Future<T?> delete(
+  Future<String?> delete(
     String path, {
     required String data,
     Options? options,
   }) async {
-    T? data;
+    String? data;
     try {
       return data =
-          (await _dio.delete<T>(path, data: data, options: options)).data;
+          (await _dio.delete<String>(path, data: data, options: options)).data;
     } on DioException catch (e) {
-      return data = '$e' as T;
+      return data = '$e';
     } catch (_) {
       return data;
     }
   }
 
-  Future<T?> getUri(Uri uri) async => get('$uri');
+  Future<String?> getUri(Uri uri) async => get('$uri');
 
-  Future<T?> get(String path) async {
-    T? data;
+  Future<String?> get(String path) async {
+    String? data;
 
     try {
-      return data = (await _dio.get<T>(path)).data;
+      return data = (await _dio.get<String>(path)).data;
     } on DioException catch (e) {
-      return data = '$e' as T;
+      return data = '$e';
     } catch (_) {
       return data;
     }
   }
 
-  Future<T?> putUri(Uri uri, {required String data, Options? options}) async =>
+  Future<String?> putUri(
+    Uri uri, {
+    required String data,
+    Options? options,
+  }) async =>
       put('$uri', data: data, options: options);
 
-  Future<T?> put(String path, {required String data, Options? options}) async {
-    T? data;
+  Future<String?> put(
+    String path, {
+    required String data,
+    Options? options,
+  }) async {
+    String? data;
 
     try {
       return data =
-          (await _dio.put<T>(path, data: data, options: options)).data;
+          (await _dio.put<String>(path, data: data, options: options)).data;
     } on DioException catch (e) {
-      return data = '$e' as T;
+      return data = '$e';
     } catch (_) {
       return data;
     }
   }
 
-  Future<T?> postUri(
+  Future<String?> postUri(
     Uri uri, {
     List<MapEntry<String, String>>? fields,
     List<MapEntry<String, MultipartFile>>? files,
@@ -75,7 +83,7 @@ class Http<T> {
         camelCaseContentDisposition: camelCaseContentDisposition,
       );
 
-  Future<T?> post(
+  Future<String?> post(
     String path, {
     List<MapEntry<String, String>>? fields,
     List<MapEntry<String, MultipartFile>>? files,
@@ -88,10 +96,10 @@ class Http<T> {
           ..fields.addAll(fields ?? [])
           ..files.addAll(files ?? []);
 
-    T? data;
+    String? data;
 
     try {
-      return data = (await _dio.post<T>(
+      return data = (await _dio.post<String>(
         path,
         data: formData,
         options: options,
@@ -103,7 +111,7 @@ class Http<T> {
       ))
           .data;
     } on DioException catch (e) {
-      return data = '$e' as T;
+      return data = '$e';
     } catch (_) {
       return data;
     }

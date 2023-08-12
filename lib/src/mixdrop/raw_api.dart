@@ -11,7 +11,7 @@ class _MixdropRawApi {
   final String _apiKey;
   final String _base = 'mixdrop.co';
 
-  final _client = Http<String>();
+  final _client = RawHttp();
 
   Uri _apiUri(
     String unencodedPath, {

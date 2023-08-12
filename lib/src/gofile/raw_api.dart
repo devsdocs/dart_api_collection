@@ -11,7 +11,7 @@ class _GofileRawApi {
   final String? token;
   final String _base = 'gofile.io';
 
-  final _client = Http<String>();
+  final _client = RawHttp();
 
   Uri _apiUri(
     String unencodedPath, {
