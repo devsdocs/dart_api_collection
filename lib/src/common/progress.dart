@@ -12,6 +12,8 @@ class FileTransferProgress {
     this.total,
     this.isUpload,
   });
+
+  /// File ID in encoded [sha256]
   final String? id;
   final ServiceType? type;
   final String? name;

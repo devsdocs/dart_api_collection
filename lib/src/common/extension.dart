@@ -1,6 +1,7 @@
 part of '../common.dart';
 
 extension FileExt on File {
+  /// Get unique file ID using [sha256]
   Future<String> get id async => '${sha256.convert(await readAsBytes())}';
 }
 
