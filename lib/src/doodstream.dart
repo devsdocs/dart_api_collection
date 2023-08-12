@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 
 part 'doodstream/api.dart';
 
-part 'doodstream/helper/progress.dart';
 part 'doodstream/helper/extension.dart';
 
 part 'doodstream/model/doodstream_account_info.dart';

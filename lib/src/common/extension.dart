@@ -2,7 +2,9 @@ part of '../common.dart';
 
 extension FileExt on File {
   Future<String> get id async => '${sha256.convert(await readAsBytes())}';
+}
 
+extension PrivateFileExt on File {
   String get fileNameAndExt => uri.fileNameAndExt;
   String get fileName => uri.fileName;
   String get fileExt => uri.fileExt;
@@ -48,6 +50,7 @@ extension StringExt on String {
   Uri? get toUriNull => Uri.tryParse(this);
   int get toInt => int.parse(this);
   List<String> get splitDot => split('.');
+  dynamic get toJsonObject => json.decode(this);
 }
 
 extension UriExt on Uri {

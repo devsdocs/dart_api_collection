@@ -1,17 +1,19 @@
-part of '../../gofile.dart';
+part of '../common.dart';
 
-StreamController<_GofileFileTransferProgress> gofileFileTransferProgress =
-    StreamController<_GofileFileTransferProgress>.broadcast();
+StreamController<FileTransferProgress> fileTransferProgress =
+    StreamController<FileTransferProgress>.broadcast();
 
-class _GofileFileTransferProgress {
-  _GofileFileTransferProgress(
+class FileTransferProgress {
+  FileTransferProgress(
     this.id, {
     required this.name,
+    required this.type,
     required this.current,
     required this.total,
     required this.isUpload,
   });
   final String id;
+  final ServiceType type;
   final String name;
   final int current;
   final int total;
@@ -20,4 +22,11 @@ class _GofileFileTransferProgress {
   @override
   String toString() =>
       '${isUpload ? 'Uploading' : 'Downloading'} $name => ${current.readableByte}/${total.readableByte}';
+}
+
+enum ServiceType {
+  doodstream,
+  gofile,
+  mixdrop,
+  streamtape,
 }

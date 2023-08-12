@@ -57,7 +57,7 @@ class DoodstreamApi {
     );
 
     // ignore: avoid_dynamic_calls
-    final uploadServer = jsonDecode(getUploadLink.data!)['result'] as String;
+    final uploadServer = getUploadLink.data!.toJsonObject['result'] as String;
 
     final formData = FormData.fromMap({
       'api_key': _apiKey,
@@ -67,9 +67,10 @@ class DoodstreamApi {
     final upload = await _dio.post<String>(
       '$uploadServer?$_apiKey',
       data: formData,
-      onSendProgress: (current, total) => doodstreamFileTransferProgress.add(
-        _DoodstreamFileTransferProgress(
+      onSendProgress: (current, total) => fileTransferProgress.add(
+        FileTransferProgress(
           id,
+          type: ServiceType.doodstream,
           name: name,
           current: current,
           total: total,

@@ -10,7 +10,6 @@ part 'gofile/api.dart';
 
 part 'gofile/helper/extension.dart';
 part 'gofile/helper/content_option.dart';
-part 'gofile/helper/progress.dart';
 
 part 'gofile/model/gofile_common_result.dart';
 part 'gofile/model/gofile_get_account.dart';

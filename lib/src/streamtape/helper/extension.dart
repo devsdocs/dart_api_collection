@@ -17,10 +17,10 @@ extension StreamtapeApiComponentExt on StreamtapeDownloadLink {
         .downloadUri(
           uri,
           saveDestinaton,
-          onReceiveProgress: (current, total) =>
-              streamtapeFileTransferProgress.add(
-            _StreamTapeFileTransferProgress(
+          onReceiveProgress: (current, total) => fileTransferProgress.add(
+            FileTransferProgress(
               '$uri',
+              type: ServiceType.streamtape,
               name: fileNameAndExt,
               current: current,
               total: total,
