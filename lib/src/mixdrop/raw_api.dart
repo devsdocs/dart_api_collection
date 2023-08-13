@@ -160,7 +160,7 @@ class _MixdropRawApi {
   Future<String?> addSubtitle(
     String fileRef, {
     required File subtitleFile,
-    required SubtitleLanguage language,
+    required MixdropSubtitleLanguage language,
   }) async {
     final id = await subtitleFile.id;
     final fields = [MapEntry('lang', '$language')];

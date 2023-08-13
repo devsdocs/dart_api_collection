@@ -2,7 +2,7 @@
 
 part of '../../mixdrop.dart';
 
-enum SubtitleLanguage {
+enum MixdropSubtitleLanguage {
   AR('ar'),
   BG('bg'),
   BS('bs'),
@@ -30,7 +30,7 @@ enum SubtitleLanguage {
   TR('tr'),
   UD('ud');
 
-  const SubtitleLanguage(this._value);
+  const MixdropSubtitleLanguage(this._value);
 
   final String _value;
 

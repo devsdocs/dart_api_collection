@@ -13,9 +13,10 @@ export 'src/gofile.dart'
         GofilePublicOption,
         GofileTagsOption;
 
-export 'src/mixdrop.dart' show MixdropApi, MixdropApiExt, SubtitleLanguage;
+export 'src/mixdrop.dart'
+    show MixdropApi, MixdropApiExt, MixdropSubtitleLanguage;
 
 export 'src/streamtape.dart'
     show StreamtapeApi, StreamtapeApiComponentExt, StreamtapeApiExt;
 
-export 'src/streamwish.dart';
+export 'src/streamwish.dart' show StreamwishApi, StreamwishQuality;

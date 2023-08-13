@@ -164,18 +164,176 @@ class _StreamwishRawApi {
     int? pageNumber,
     DateTime? time,
   }) async {
-    final formatTime =
-        time != null ? Jiffy.parseFromDateTime(time).toYYYYMMDDHMS : null;
-
     final fetch = await _client.getUri(
-      _apiUri('file/edit', {
+      _apiUri('file/list', {
         'fld_id': folderId,
         'title': title,
-        'created': formatTime,
+        'created': time?.toJiffy.toYYYYMMDDHMS,
         'public': isPublic.toStringFlagOrNull,
         'adult': isAdult.toStringFlagOrNull,
         'per_page': resultPerPage,
         'page': pageNumber,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileDirectLink(
+    String fileCode, {
+    StreamwishQuality? quality,
+    bool? hls,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/direct_link', {
+        'file_code': fileCode,
+        'q': quality?.value,
+        'hls': hls.toStringFlagOrNull,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileClone(
+    String fileCode, {
+    String? newFileTitle,
+    int? destinationFolderId,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/clone', {
+        'file_code': fileCode,
+        'file_title': newFileTitle,
+        'fld_id': destinationFolderId,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileDelete(
+    String fileCode,
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/delete', {
+        'file_code': fileCode,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileDeletedList({
+    int? deletedInLastNumberOfHours,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/deleted', {
+        'last': deletedInLastNumberOfHours,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileDmcaList({
+    int? reportedInLastNumberOfHours,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/dmca', {
+        'last': reportedInLastNumberOfHours,
+      }),
+    );
+
+    return fetch;
+  }
+
+  /// Filter by [fileCode] if provided
+  Future<String?> fileEncodings(
+    String fileCode,
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/encodings', {
+        'file_code': fileCode,
+      }),
+    );
+    return fetch;
+  }
+
+  Future<String?> fileRemoteUploadStatus({
+    String? fileCode,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/url_uploads', {
+        'file_code': fileCode,
+      }),
+    );
+    return fetch;
+  }
+
+  Future<String?> fileRemoteUploadAction({
+    bool? restartErrors,
+    bool? deleteErrors,
+    bool? deleteAll,
+    String? toBeDeletedRemoteUploadFileCode,
+  }) async {
+    final restartError = restartErrors.toStringFlag;
+    final clearErrors = deleteErrors.toStringFlag;
+    final clearAll = deleteAll.toStringFlag;
+
+    final fetch = await _client.getUri(
+      _apiUri('urlupload/actions', {
+        'restart_errors': restartError,
+        'clear_errors': clearErrors,
+        'clear_all': clearAll,
+        'delete_code': toBeDeletedRemoteUploadFileCode,
+      }),
+    );
+    return fetch;
+  }
+
+  Future<String?> folderList({
+    int? folderId,
+    int? showNuberOfFiles,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('folder/list', {
+        'fld_id': folderId,
+        'files': showNuberOfFiles,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> folderCreate(
+    String folderName, {
+    int? parentFolderId,
+    String? folderDescription,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('folder/create', {
+        'name': folderName,
+        'parent_id': parentFolderId,
+        'descr': folderDescription,
+      }),
+    );
+
+    return fetch;
+  }
+
+  ///Update folder details, skipped fields won't be updated
+  Future<String?> folderEdit(
+    int folderId, {
+    int? parentFolderId,
+    String? folderName,
+    String? folderDescription,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('folder/edit', {
+        'fld_id': folderId,
+        'parent_id': parentFolderId,
+        'name': folderName,
+        'descr': folderDescription,
       }),
     );
 

@@ -65,7 +65,7 @@ class MixdropApi {
   Future<MixdropAddSubtitle?> addSubtitle(
     String fileRef, {
     required File subtitleFile,
-    required SubtitleLanguage language,
+    required MixdropSubtitleLanguage language,
   }) async {
     if (subtitleFile.fileExt != 'srt' && subtitleFile.fileExt != 'vtt') {
       return MixdropAddSubtitle(
