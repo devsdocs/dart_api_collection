@@ -281,7 +281,7 @@ class _StreamwishRawApi {
     final clearAll = deleteAll.toStringFlag;
 
     final fetch = await _client.getUri(
-      _apiUri('urlupload/actions', {
+      _apiUri('file/url_actions', {
         'restart_errors': restartError,
         'clear_errors': clearErrors,
         'clear_all': clearAll,
