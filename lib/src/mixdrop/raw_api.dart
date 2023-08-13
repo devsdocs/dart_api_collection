@@ -46,7 +46,7 @@ class _MixdropRawApi {
     final files = [MapEntry('file', await file.toMultipart)];
     final fields = [MapEntry('email', _email), MapEntry('key', _apiKey)];
 
-    final fetch = await _client.postUri(
+    return _client.postUri(
       _apiUri(
         'api',
         server: 'ul',
@@ -61,43 +61,35 @@ class _MixdropRawApi {
         isUpload: true,
       ),
     );
-
-    return fetch;
   }
 
   Future<String?> remoteUpload(
     String url, {
     String? newName,
     int? folderId,
-  }) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'remoteupload',
-        queryParameters: {
-          'url': Uri.encodeFull(url),
-          'name': newName,
-          'folder': '$folderId'
-        },
-      ),
-    );
-
-    return fetch;
-  }
+  }) async =>
+      _client.getUri(
+        _apiUri(
+          'remoteupload',
+          queryParameters: {
+            'url': Uri.encodeFull(url),
+            'name': newName,
+            'folder': '$folderId'
+          },
+        ),
+      );
 
   Future<String?> remoteUploadStatus(
     int remoteUploadId,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'remotestatus',
-        queryParameters: {
-          'id': '$remoteUploadId',
-        },
-      ),
-    );
-
-    return fetch;
-  }
+  ) async =>
+      _client.getUri(
+        _apiUri(
+          'remotestatus',
+          queryParameters: {
+            'id': '$remoteUploadId',
+          },
+        ),
+      );
 
   Future<String?> fileInfo(
     List<String> fileRefs,
@@ -108,54 +100,42 @@ class _MixdropRawApi {
         )
         .join('&');
 
-    final fetch = await _client.getUri(
+    return _client.getUri(
       _apiUri(
         'fileinfo2',
         queryParameters: {'ref[]': join},
         isNeedDecode: true,
       ),
     );
-
-    return fetch;
   }
 
   Future<String?> fileDuplicate(
     String fileRef,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'fileduplicate',
-        queryParameters: {'ref': fileRef},
-      ),
-    );
-
-    return fetch;
-  }
+  ) async =>
+      _client.getUri(
+        _apiUri(
+          'fileduplicate',
+          queryParameters: {'ref': fileRef},
+        ),
+      );
 
   Future<String?> fileRename(
     String fileRef,
     String newName,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'filerename',
-        queryParameters: {'ref': fileRef, 'title': newName},
-      ),
-    );
+  ) async =>
+      _client.getUri(
+        _apiUri(
+          'filerename',
+          queryParameters: {'ref': fileRef, 'title': newName},
+        ),
+      );
 
-    return fetch;
-  }
-
-  Future<String?> fileRemoved([int? page]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'removed',
-        queryParameters: {'page': '$page'},
-      ),
-    );
-
-    return fetch;
-  }
+  Future<String?> fileRemoved([int? page]) async => _client.getUri(
+        _apiUri(
+          'removed',
+          queryParameters: {'page': '$page'},
+        ),
+      );
 
   Future<String?> addSubtitle(
     String fileRef, {
@@ -166,7 +146,7 @@ class _MixdropRawApi {
     final fields = [MapEntry('lang', '$language')];
     final files = [MapEntry('file', await subtitleFile.toMultipart)];
 
-    final fetch = await _client.postUri(
+    return _client.postUri(
       _apiUri('addsubtitle', queryParameters: {'ref': fileRef}),
       fields: fields,
       files: files,
@@ -177,46 +157,35 @@ class _MixdropRawApi {
         isUpload: true,
       ),
     );
-
-    return fetch;
   }
 
-  Future<String?> folderList([int? folderId, int? page]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'folderlist',
-        queryParameters: {'id': '$folderId', 'page': '$page'},
-      ),
-    );
-
-    return fetch;
-  }
+  Future<String?> folderList([int? folderId, int? page]) async =>
+      _client.getUri(
+        _apiUri(
+          'folderlist',
+          queryParameters: {'id': '$folderId', 'page': '$page'},
+        ),
+      );
 
   Future<String?> folderCreate(
     String folderName, [
     int? parentFolderId,
-  ]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'foldercreate',
-        queryParameters: {'title': folderName, 'parent': '$parentFolderId'},
-      ),
-    );
-
-    return fetch;
-  }
+  ]) async =>
+      _client.getUri(
+        _apiUri(
+          'foldercreate',
+          queryParameters: {'title': folderName, 'parent': '$parentFolderId'},
+        ),
+      );
 
   Future<String?> folderRename(
     String newFolderName,
     int folderId,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'folderrename',
-        queryParameters: {'id': '$folderId', 'title': newFolderName},
-      ),
-    );
-
-    return fetch;
-  }
+  ) async =>
+      _client.getUri(
+        _apiUri(
+          'folderrename',
+          queryParameters: {'id': '$folderId', 'title': newFolderName},
+        ),
+      );
 }

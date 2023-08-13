@@ -11,8 +11,6 @@ extension PrivateFileExt on File {
   String get fileExt => uri.fileExt;
 
   Future<MultipartFile> get toMultipart async => MultipartFile.fromFile(path);
-  Future<MultipartFile> get toMultipartWithName async =>
-      MultipartFile.fromFile(path, filename: fileNameAndExt);
 }
 
 extension DirectoryExt on Directory {
