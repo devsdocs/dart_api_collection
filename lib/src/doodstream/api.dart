@@ -31,7 +31,14 @@ class DoodstreamApi {
   }
 
   Future<DoodstreamLocalUpload?> localUpload(File file) async {
-    final str = await _rawApi.localUpload(file);
+    final getUploadLink = await _rawApi.getUploadServer();
+
+    if (getUploadLink == null) return null;
+
+    // ignore: avoid_dynamic_calls
+    final uploadServer = getUploadLink.toJsonObject['result'] as String;
+
+    final str = await _rawApi.localUpload(file, uploadServer);
     return str != null ? DoodstreamLocalUpload.fromJson(str) : null;
   }
 

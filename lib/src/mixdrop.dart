@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:isolate';
 
 import 'package:dart_api_collection/src/common.dart';
 import 'package:dio/dio.dart';
@@ -9,7 +8,7 @@ import 'package:dio/dio.dart';
 part 'mixdrop/api.dart';
 part 'mixdrop/raw_api.dart';
 
-part 'mixdrop/helper/subtitle_language.dart';
+part 'mixdrop/helper/mixdrop_subtitle_language.dart';
 part 'mixdrop/helper/extension.dart';
 
 part 'mixdrop/model/mixdrop_add_subtitle.dart';

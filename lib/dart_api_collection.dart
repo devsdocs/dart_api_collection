@@ -1,11 +1,10 @@
 export 'src/common.dart' show ApiConfig, FileExt, ServiceType, transferProgress;
 
-export 'src/doodstream.dart' show DoodstreamApi, DoodstreamApiExt;
+export 'src/doodstream.dart' show DoodstreamApi;
 
 export 'src/gofile.dart'
     show
         GofileApi,
-        GofileApiExt,
         GofileDescriptionOption,
         GofileDirectLinkOption,
         GofileExpireOption,
@@ -13,9 +12,8 @@ export 'src/gofile.dart'
         GofilePublicOption,
         GofileTagsOption;
 
-export 'src/mixdrop.dart' show MixdropApi, MixdropApiExt, SubtitleLanguage;
+export 'src/mixdrop.dart' show MixdropApi, MixdropSubtitleLanguage;
 
-export 'src/streamtape.dart'
-    show StreamtapeApi, StreamtapeApiComponentExt, StreamtapeApiExt;
+export 'src/streamtape.dart' show StreamtapeApi, StreamtapeApiComponentExt;
 
-export 'src/streamwish.dart';
+export 'src/streamwish.dart' show StreamwishApi, StreamwishQuality;

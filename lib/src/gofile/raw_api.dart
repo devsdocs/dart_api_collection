@@ -27,13 +27,13 @@ class _GofileRawApi {
           ..removeWhere((_, v) => v == null),
       );
 
-  Future<String?> accountInfo() async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri('getAccountDetails', isNeedTokenInParameters: true),
-        );
+  Future<String?> accountInfo() async {
+    final fetch = await _client.getUri(
+      _apiUri('getAccountDetails', isNeedTokenInParameters: true),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> getUploadServer() async {
     final fetch = await _client
@@ -74,116 +74,112 @@ class _GofileRawApi {
     return fetch;
   }
 
-  Future<String?> getContent(String contentId) async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'getContent',
-            queryParameters: {'contentId': contentId},
-            isNeedTokenInParameters: true,
-          ),
-        );
+  Future<String?> getContent(String contentId) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'getContent',
+        queryParameters: {'contentId': contentId},
+        isNeedTokenInParameters: true,
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> createFolder(
     String folderName,
     String parentFolderId,
-  ) async =>
-      Isolate.run(() async {
-        final data = <String, dynamic>{
-          'token': token,
-          'folderName': folderName,
-          'parentFolderId': parentFolderId,
-        }.toJsonString;
+  ) async {
+    final data = <String, dynamic>{
+      'token': token,
+      'folderName': folderName,
+      'parentFolderId': parentFolderId,
+    }.toJsonString;
 
-        final fetch = await _client.putUri(
-          _apiUri('createFolder'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+    final fetch = await _client.putUri(
+      _apiUri('createFolder'),
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> setOption(
     String contentId,
     _GofileOption gofileOption,
-  ) async =>
-      Isolate.run(() async {
-        final option = gofileOption.name!;
+  ) async {
+    final option = gofileOption.name!;
 
-        final value = gofileOption.value!;
+    final value = gofileOption.value!;
 
-        final data = <String, dynamic>{
-          'token': token,
-          'contentId': contentId,
-          'option': option,
-          'value': value,
-        }.toJsonString;
+    final data = <String, dynamic>{
+      'token': token,
+      'contentId': contentId,
+      'option': option,
+      'value': value,
+    }.toJsonString;
 
-        final fetch = await _client.putUri(
-          _apiUri('setOption'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+    final fetch = await _client.putUri(
+      _apiUri('setOption'),
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> copyContent(
     List<String> contentsIds,
     String destinationFolderId,
-  ) async =>
-      Isolate.run(() async {
-        final joinContentIds = contentsIds.joinComma;
+  ) async {
+    final joinContentIds = contentsIds.joinComma;
 
-        final data = <String, dynamic>{
-          'token': token,
-          'folderIdDest': destinationFolderId,
-          'contentsId': joinContentIds,
-        }.toJsonString;
+    final data = <String, dynamic>{
+      'token': token,
+      'folderIdDest': destinationFolderId,
+      'contentsId': joinContentIds,
+    }.toJsonString;
 
-        final fetch = await _client.putUri(
-          _apiUri('copyContent'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+    final fetch = await _client.putUri(
+      _apiUri('copyContent'),
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
-  Future<String?> deleteContent(List<String> contentsIds) async =>
-      Isolate.run(() async {
-        final joinContentIds = contentsIds.joinComma;
+  Future<String?> deleteContent(List<String> contentsIds) async {
+    final joinContentIds = contentsIds.joinComma;
 
-        final data = <String, dynamic>{
-          'token': token,
-          'contentsId': joinContentIds,
-        }.toJsonString;
+    final data = <String, dynamic>{
+      'token': token,
+      'contentsId': joinContentIds,
+    }.toJsonString;
 
-        final fetch = await _client.deleteUri(
-          _apiUri('deleteContent'),
-          data: data,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          ),
-        );
+    final fetch = await _client.deleteUri(
+      _apiUri('deleteContent'),
+      data: data,
+      options: Options(
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 }

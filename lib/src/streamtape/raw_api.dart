@@ -26,12 +26,12 @@ class _StreamtapeRawApi {
     return Uri.https(_base, '/$unencodedPath', params);
   }
 
-  Future<String?> accountInfo() async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri('account/info'),
-        );
-        return fetch;
-      });
+  Future<String?> accountInfo() async {
+    final fetch = await _client.getUri(
+      _apiUri('account/info'),
+    );
+    return fetch;
+  }
 
   Future<String?> getDownloadTicket(String fileId) async {
     final ticketParams = {'file': fileId};
@@ -67,17 +67,16 @@ class _StreamtapeRawApi {
     });
   }
 
-  Future<String?> getFileInfo(List<String> iDs) async => Isolate.run(() async {
-        final params = {'file': iDs.length == 1 ? iDs.single : iDs.join(',')};
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/info',
-            queryParameters: params,
-          ),
-        );
+  Future<String?> getFileInfo(List<String> iDs) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/info',
+        queryParameters: {'file': iDs.joinComma},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> getUploadLink([String? folderId]) async {
     final fetch = await _client.getUri(
@@ -122,186 +121,178 @@ class _StreamtapeRawApi {
     String url, {
     String? folderId,
     String? customName,
-  }) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'remotedl/add',
-            queryParameters: {
-              'url': url,
-              'folder': folderId,
-              'name': customName,
-            },
-          ),
-        );
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'remotedl/add',
+        queryParameters: {
+          'url': url,
+          'folder': folderId,
+          'name': customName,
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
 //! If remoteUploadId is null, remove all current remote upload task
   Future<String?> remoteUploadRemove([
     String? id,
-  ]) async =>
-      Isolate.run(() async {
-        final params = {'id': id ?? '"all"'};
-        final fetch = await _client.getUri(
-          _apiUri(
-            'remotedl/remove',
-            queryParameters: params,
-          ),
-        );
+  ]) async {
+    final params = {'id': id ?? '"all"'};
+    final fetch = await _client.getUri(
+      _apiUri(
+        'remotedl/remove',
+        queryParameters: params,
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
 //! If remoteUploadId is null or non exist, returning all remote upload status
   Future<String?> remoteUploadCheck([
     String? remoteUploadId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'remotedl/status',
-            queryParameters: {
-              'id': remoteUploadId,
-            },
-          ),
-        );
+  ]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'remotedl/status',
+        queryParameters: {
+          'id': remoteUploadId,
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> fileAndFolderList([
     String? folderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/listfolder',
-            queryParameters: {
-              'folder': folderId,
-            },
-          ),
-        );
+  ]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/listfolder',
+        queryParameters: {
+          'folder': folderId,
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> folderCreate(
     String name, [
     String? parentFoolderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'folder/createfolder',
-            queryParameters: {
-              'name': name,
-              'pid': parentFoolderId,
-            },
-          ),
-        );
+  ]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'folder/createfolder',
+        queryParameters: {
+          'name': name,
+          'pid': parentFoolderId,
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   //TODO: rename folder not working somehow
   Future<String?> renameFolder(
     String folderId,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/renamefolder',
-            queryParameters: {'folder': folderId, 'name': newName},
-          ),
-        );
-        return fetch;
-      });
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/renamefolder',
+        queryParameters: {'folder': folderId, 'name': newName},
+      ),
+    );
+    return fetch;
+  }
 
   //TODO: delete folder not working somehow
-  Future<String?> deleteFolder(String folderId) async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/deletefolder',
-            queryParameters: {'folder': folderId},
-          ),
-        );
-        return fetch;
-      });
+  Future<String?> deleteFolder(String folderId) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/deletefolder',
+        queryParameters: {'folder': folderId},
+      ),
+    );
+    return fetch;
+  }
 
-  Future<String?> fileThumbnail(String fileId) async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/getsplash',
-            queryParameters: {'file': fileId},
-          ),
-        );
+  Future<String?> fileThumbnail(String fileId) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/getsplash',
+        queryParameters: {'file': fileId},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> fileRename(
     String fileId,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/rename',
-            queryParameters: {
-              'file': fileId,
-              'name': newName,
-            },
-          ),
-        );
-        return fetch;
-      });
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/rename',
+        queryParameters: {
+          'file': fileId,
+          'name': newName,
+        },
+      ),
+    );
+    return fetch;
+  }
 
   Future<String?> fileMove(
     String fileId,
     String destinationFolderId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/move',
-            queryParameters: {'file': fileId, 'folder': destinationFolderId},
-          ),
-        );
-        return fetch;
-      });
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/move',
+        queryParameters: {'file': fileId, 'folder': destinationFolderId},
+      ),
+    );
+    return fetch;
+  }
 
-  Future<String?> fileDelete(String fileId) async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/delete',
-            queryParameters: {'file': fileId},
-          ),
-        );
-        return fetch;
-      });
+  Future<String?> fileDelete(String fileId) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/delete',
+        queryParameters: {'file': fileId},
+      ),
+    );
+    return fetch;
+  }
 
-  Future<String?> convertRunning() async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/runningconverts',
-            queryParameters: {},
-          ),
-        );
+  Future<String?> convertRunning() async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/runningconverts',
+        queryParameters: {},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
-  Future<String?> convertFailed() async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'file/failedconverts',
-            queryParameters: {},
-          ),
-        );
+  Future<String?> convertFailed() async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'file/failedconverts',
+        queryParameters: {},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 }
