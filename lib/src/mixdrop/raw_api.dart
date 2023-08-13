@@ -69,98 +69,93 @@ class _MixdropRawApi {
     String url, {
     String? newName,
     int? folderId,
-  }) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'remoteupload',
-            queryParameters: {
-              'url': Uri.encodeFull(url),
-              'name': newName,
-              'folder': '$folderId'
-            },
-          ),
-        );
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'remoteupload',
+        queryParameters: {
+          'url': Uri.encodeFull(url),
+          'name': newName,
+          'folder': '$folderId'
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> remoteUploadStatus(
     int remoteUploadId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'remotestatus',
-            queryParameters: {
-              'id': '$remoteUploadId',
-            },
-          ),
-        );
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'remotestatus',
+        queryParameters: {
+          'id': '$remoteUploadId',
+        },
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> fileInfo(
     List<String> fileRefs,
-  ) async =>
-      Isolate.run(() async {
-        final join = fileRefs
-            .map(
-              (value) => fileRefs.indexOf(value) == 0 ? value : 'ref[]=$value',
-            )
-            .join('&');
+  ) async {
+    final join = fileRefs
+        .map(
+          (value) => fileRefs.indexOf(value) == 0 ? value : 'ref[]=$value',
+        )
+        .join('&');
 
-        final fetch = await _client.getUri(
-          _apiUri(
-            'fileinfo2',
-            queryParameters: {'ref[]': join},
-            isNeedDecode: true,
-          ),
-        );
+    final fetch = await _client.getUri(
+      _apiUri(
+        'fileinfo2',
+        queryParameters: {'ref[]': join},
+        isNeedDecode: true,
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> fileDuplicate(
     String fileRef,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'fileduplicate',
-            queryParameters: {'ref': fileRef},
-          ),
-        );
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'fileduplicate',
+        queryParameters: {'ref': fileRef},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> fileRename(
     String fileRef,
     String newName,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'filerename',
-            queryParameters: {'ref': fileRef, 'title': newName},
-          ),
-        );
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'filerename',
+        queryParameters: {'ref': fileRef, 'title': newName},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
-  Future<String?> fileRemoved([int? page]) async => Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'removed',
-            queryParameters: {'page': '$page'},
-          ),
-        );
+  Future<String?> fileRemoved([int? page]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'removed',
+        queryParameters: {'page': '$page'},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> addSubtitle(
     String fileRef, {
@@ -186,45 +181,42 @@ class _MixdropRawApi {
     return fetch;
   }
 
-  Future<String?> folderList([int? folderId, int? page]) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'folderlist',
-            queryParameters: {'id': '$folderId', 'page': '$page'},
-          ),
-        );
+  Future<String?> folderList([int? folderId, int? page]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'folderlist',
+        queryParameters: {'id': '$folderId', 'page': '$page'},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> folderCreate(
     String folderName, [
     int? parentFolderId,
-  ]) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'foldercreate',
-            queryParameters: {'title': folderName, 'parent': '$parentFolderId'},
-          ),
-        );
+  ]) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'foldercreate',
+        queryParameters: {'title': folderName, 'parent': '$parentFolderId'},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 
   Future<String?> folderRename(
     String newFolderName,
     int folderId,
-  ) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri(
-            'folderrename',
-            queryParameters: {'id': '$folderId', 'title': newFolderName},
-          ),
-        );
+  ) async {
+    final fetch = await _client.getUri(
+      _apiUri(
+        'folderrename',
+        queryParameters: {'id': '$folderId', 'title': newFolderName},
+      ),
+    );
 
-        return fetch;
-      });
+    return fetch;
+  }
 }

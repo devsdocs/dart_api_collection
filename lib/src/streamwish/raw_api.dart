@@ -21,32 +21,39 @@ class _StreamwishRawApi {
           ..removeWhere((_, v) => v == null),
       );
 
-  Future<String?> accountInfo() async => Isolate.run(() async {
-        final fetch = await _client.getUri(_apiUri('account/info'));
+  Future<String?> accountInfo() async {
+    final fetch = await _client.getUri(_apiUri('account/info'));
 
-        return fetch;
-      });
+    return fetch;
+  }
 
+  ///[lastXDaysReport] show stats for last X days (default: 7)
   Future<String?> accountReports({
     int? lastXDaysReport,
-  }) async =>
-      Isolate.run(() async {
-        final fetch = await _client.getUri(
-          _apiUri('account/stats', {
-            'last': lastXDaysReport,
-          }),
-        );
-        return fetch;
-      });
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('account/stats', {
+        'last': lastXDaysReport,
+      }),
+    );
+    return fetch;
+  }
 
   Future<String?> getUploadServer() async {
     final fetch = await _client.getUri(_apiUri('upload/server'));
     return fetch;
   }
 
-  /// Max 500 KB for [fileThumbnail]
+  /// [file] Video files
+  ///
+  /// [fileTitle] Titile of video
+  ///
+  /// [fileDescription] Description of video
+  ///
+  /// Max 500 KB for [fileThumbnail], custom video snapshot
   Future<String?> localUpload(
     File file, {
+    required String uploadServer,
     String? fileTitle,
     String? fileDescription,
     File? fileThumbnail,
@@ -58,12 +65,6 @@ class _StreamwishRawApi {
   }) async {
     final id = await file.id;
     final name = file.fileNameAndExt;
-    final getUploadLink = await Isolate.run(() => getUploadServer());
-
-    if (getUploadLink == null) return null;
-
-    // ignore: avoid_dynamic_calls
-    final uploadServer = getUploadLink.toJsonObject['result'] as String;
 
     final files = [
       MapEntry('file', await file.toMultipart),
@@ -77,8 +78,8 @@ class _StreamwishRawApi {
       if (folderId != null) MapEntry('fld_id', folderId.toString()),
       if (categoryId != null) MapEntry('cat_id', categoryId.toString()),
       if (tags != null) MapEntry('tags', tags.joinComma),
-      if (isPublic != null) MapEntry('file_public', isPublic ? '1' : '0'),
-      if (isAdult != null) MapEntry('file_adult', isAdult ? '1' : '0'),
+      if (isPublic != null) MapEntry('file_public', isPublic.toStringFlag),
+      if (isAdult != null) MapEntry('file_adult', isAdult.toStringFlag),
     ];
 
     final upload = await _client.post(
@@ -94,5 +95,90 @@ class _StreamwishRawApi {
     );
 
     return upload;
+  }
+
+  Future<String?> remoteUpload(
+    Uri uri, {
+    int? folderId,
+    int? categoryId,
+    bool? isPublic,
+    bool? isAdult,
+    List<String>? tags,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('upload/url', {
+        'url': '$uri',
+        'fld_id': folderId,
+        'cat_id': categoryId,
+        'file_public': isPublic.toStringFlagOrNull,
+        'file_adult': isAdult.toStringFlagOrNull,
+        'tags': tags?.joinComma,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileInfo(List<String> filesCode) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/info', {
+        'file_code': filesCode.joinComma,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileEdit(
+    List<String> filesCode, {
+    String? fileTitle,
+    String? fileDescription,
+    int? categoryId,
+    int? folderId,
+    bool? isPublic,
+    bool? isAdult,
+    List<String>? tags,
+  }) async {
+    final fetch = await _client.getUri(
+      _apiUri('file/edit', {
+        'file_code': filesCode.joinComma,
+        'file_title': fileTitle,
+        'file_descr': fileDescription,
+        'cat_id': categoryId,
+        'file_fld_id': folderId,
+        'file_public': isPublic.toStringFlagOrNull,
+        'file_adult': isAdult.toStringFlagOrNull,
+        'tags': tags?.joinComma,
+      }),
+    );
+
+    return fetch;
+  }
+
+  Future<String?> fileList({
+    int? folderId,
+    String? title,
+    bool? isPublic,
+    bool? isAdult,
+    int? resultPerPage,
+    int? pageNumber,
+    DateTime? time,
+  }) async {
+    final formatTime =
+        time != null ? Jiffy.parseFromDateTime(time).toYYYYMMDDHMS : null;
+
+    final fetch = await _client.getUri(
+      _apiUri('file/edit', {
+        'fld_id': folderId,
+        'title': title,
+        'created': formatTime,
+        'public': isPublic.toStringFlagOrNull,
+        'adult': isAdult.toStringFlagOrNull,
+        'per_page': resultPerPage,
+        'page': pageNumber,
+      }),
+    );
+
+    return fetch;
   }
 }

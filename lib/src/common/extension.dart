@@ -35,7 +35,7 @@ extension IntExt on int {
     return '${size.toStringAsFixed(2)} ${units[unitIndex]}';
   }
 
-  Jiffy get toJiffy => Jiffy.parseFromMillisecondsSinceEpoch(this);
+  // Jiffy get toJiffy => Jiffy.parseFromMillisecondsSinceEpoch(this);
 }
 
 extension ListOfStringExt on List<String> {
@@ -54,15 +54,24 @@ extension StringExt on String {
   int get toInt => int.parse(this);
   List<String> get splitDot => split('.');
   dynamic get toJsonObject => json.decode(this);
+  bool get containsDot => contains('.');
 }
 
 extension UriExt on Uri {
   String get fileNameAndExt => pathSegments.last;
-  String get fileName => fileNameAndExt.splitDot.first;
-  String get fileExt => fileNameAndExt.splitDot.last;
+  String get fileName => fileNameAndExt.containsDot
+      ? fileNameAndExt.splitDot.first
+      : fileNameAndExt;
+  String get fileExt => fileNameAndExt.containsDot
+      ? fileNameAndExt.splitDot.last
+      : fileNameAndExt;
 }
 
 extension MapExt on Map<String, dynamic> {
+  String get toJsonString => json.encode(this);
+}
+
+extension ListOfMapOfStringDynamicExt on List<Map<String, dynamic>> {
   String get toJsonString => json.encode(this);
 }
 
@@ -80,8 +89,19 @@ extension JiffyExt on Jiffy {
       .toList()
       .reversed
       .join('-');
+
+  /// example 2021-07-21 05:07:10
+  String get toYYYYMMDDHMS => '$toYYYYMMDD $Hms';
 }
 
 extension DateTimeExt on DateTime {
   Jiffy get toJiffy => Jiffy.parseFromDateTime(this);
+}
+
+extension BoolExt on bool? {
+  /// either  '1' or '0'
+  String get toStringFlag => this! ? '1' : '0';
+
+  /// either null or '1' or '0'
+  String? get toStringFlagOrNull => this != null ? toStringFlag : null;
 }

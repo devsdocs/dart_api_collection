@@ -56,8 +56,7 @@ class GofileApi {
       );
     }
 
-    final uploadServer =
-        (await Isolate.run(() async => _getUploadServer()))?.data?.server;
+    final uploadServer = (await _getUploadServer())?.data?.server;
 
     if (uploadServer == null) {
       return GofileLocalUpload(status: 'Error retrieving upload server');
