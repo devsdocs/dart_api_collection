@@ -64,7 +64,9 @@ import 'dart:io';
 import 'package:dart_api_collection/dart_api_collection.dart';
 
 void main() async {
-ApiConfig.printLog = true; // Add log for easy debuging
+ApiConfig.logConfig
+  ..enableLog = true
+  ..showResponseHeader = false; // Add log for easy debuging
 final file = File('video.mp4');
 final id = await file.id; // Extension on dart:io File, exported by this package
 
@@ -81,11 +83,13 @@ print(result?.toJson());
 
 ```dart
 void main()async{
-  ApiConfig.printLog = true;
-  final key = Platform.environment['DOODSTREAM_API_KEY']!;
-  final doodstreamClient = DoodstreamApi(key);
-  final getAccount = await doodstreamClient.rawApi.accountInfo(); // Using rawApi directive
-  print(getAccount); // Print a JSON string
+ApiConfig.logConfig
+  ..enableLog = true
+  ..showResponseHeader = false;
+final key = Platform.environment['DOODSTREAM_API_KEY']!;
+final doodstreamClient = DoodstreamApi(key);
+final getAccount = await doodstreamClient.rawApi.accountInfo(); // Using rawApi directive
+print(getAccount); // Print a JSON string
 }
 ```
 
