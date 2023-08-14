@@ -2,9 +2,18 @@ part of '../mixdrop.dart';
 
 class _MixdropRawApi {
   _MixdropRawApi(this._email, this._apiKey) {
-    if (ApiConfig.printLog) {
-      _client.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
+    final logConfig = ApiConfig.logConfig;
+    if (logConfig.enableLog) {
+      _client.interceptors.add(
+        LogInterceptor(
+          requestBody: logConfig.showRequestBody,
+          responseBody: logConfig.showResponseBody,
+          error: logConfig.showError,
+          request: logConfig.showRequest,
+          requestHeader: logConfig.showRequestHeader,
+          responseHeader: logConfig.showResponseHeader,
+        ),
+      );
     }
   }
   final String _email;

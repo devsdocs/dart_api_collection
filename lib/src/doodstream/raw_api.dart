@@ -2,9 +2,18 @@ part of '../doodstream.dart';
 
 class _DoodstreamRawApi {
   _DoodstreamRawApi(this._apiKey) {
-    if (ApiConfig.printLog) {
-      _client.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
+    final logConfig = ApiConfig.logConfig;
+    if (logConfig.enableLog) {
+      _client.interceptors.add(
+        LogInterceptor(
+          requestBody: logConfig.showRequestBody,
+          responseBody: logConfig.showResponseBody,
+          error: logConfig.showError,
+          request: logConfig.showRequest,
+          requestHeader: logConfig.showRequestHeader,
+          responseHeader: logConfig.showResponseHeader,
+        ),
+      );
     }
   }
 

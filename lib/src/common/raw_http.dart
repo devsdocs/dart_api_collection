@@ -1,7 +1,15 @@
 part of '../common.dart';
 
 class RawHttp {
-  final _dio = Dio();
+  factory RawHttp() {
+    _instance ??= RawHttp._internal();
+    return _instance!;
+  }
+
+  RawHttp._internal();
+  final Dio _dio = Dio();
+
+  static RawHttp? _instance;
 
   Interceptors get interceptors => _dio.interceptors;
 
@@ -105,7 +113,7 @@ class RawHttp {
         options: options,
         onSendProgress: fileTransferProgress != null
             ? (current, total) => transferProgress.add(
-                  fileTransferProgress.copyWith(current: current, total: total),
+                  fileTransferProgress.copyWith(current:  current, total: total),
                 )
             : null,
       ))

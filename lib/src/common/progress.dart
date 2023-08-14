@@ -6,14 +6,12 @@ StreamController<FileTransferProgress> transferProgress =
 class FileTransferProgress {
   FileTransferProgress(
     this.id, {
-    this.name,
     this.type,
+    this.name,
     this.current,
     this.total,
     this.isUpload,
   });
-
-  /// File ID in encoded [sha256]
   final String? id;
   final ServiceType? type;
   final String? name;
@@ -31,8 +29,8 @@ class FileTransferProgress {
   }) =>
       FileTransferProgress(
         id ?? this.id,
-        name: name ?? this.name,
         type: type ?? this.type,
+        name: name ?? this.name,
         current: current ?? this.current,
         total: total ?? this.total,
         isUpload: isUpload ?? this.isUpload,
