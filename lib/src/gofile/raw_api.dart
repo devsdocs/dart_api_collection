@@ -2,9 +2,18 @@ part of '../gofile.dart';
 
 class _GofileRawApi {
   _GofileRawApi([this.token]) {
-    if (ApiConfig.printLog) {
-      _client.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
+    final logConfig = ApiConfig.logConfig;
+    if (logConfig.enableLog) {
+      _client.interceptors.add(
+        LogInterceptor(
+          requestBody: logConfig.showRequestBody,
+          responseBody: logConfig.showResponseBody,
+          error: logConfig.showError,
+          request: logConfig.showRequest,
+          requestHeader: logConfig.showRequestHeader,
+          responseHeader: logConfig.showResponseHeader,
+        ),
+      );
     }
   }
 
@@ -27,21 +36,34 @@ class _GofileRawApi {
           ..removeWhere((_, v) => v == null),
       );
 
-  Future<String?> accountInfo() async {
-    final fetch = await _client.getUri(
-      _apiUri('getAccountDetails', isNeedTokenInParameters: true),
-    );
+  /// Retrieving specific account information
+  ///
+  /// [token] must be provided
+  Future<String?> accountInfo() => _client.getUri(
+        _apiUri('getAccountDetails', isNeedTokenInParameters: true),
+      );
 
-    return fetch;
-  }
+  ///Returns the best server available to receive files for [uploadFile]
+  Future<String?> getUploadServer() =>
+      _client.getUri(_apiUri('getServer', isNeedTokenInParameters: true));
 
-  Future<String?> getUploadServer() async {
-    final fetch = await _client
-        .getUri(_apiUri('getServer', isNeedTokenInParameters: true));
-
-    return fetch;
-  }
-
+  ///Upload one [file] on a specific server from [getUploadServer] result
+  ///
+  ///If you specify a [folderId], the [file] will be added to this folder.
+  ///
+  ///Must contain one [file].
+  ///
+  ///If you want to upload multiple files, call [uploadFile] again and specify the [folderId] of the `first` [file] uploaded.
+  ///
+  ///If [token] valid, the [file] will be added to this account.
+  ///
+  ///If [token] undefined, a guest account will be created to receive the file.
+  ///
+  ///If [folderId] valid, the file will be added to this folder.
+  ///
+  /// If [folderId] undefined, a new folder will be created to receive the file.
+  ///
+  ///When using the [folderId], you must pass the account [token].
   Future<String?> uploadFile(
     File file,
     String uploadServer, [
@@ -56,7 +78,7 @@ class _GofileRawApi {
       if (token != null && folderId != null) MapEntry('folderId', folderId),
     ];
 
-    final fetch = await _client.postUri(
+    return _client.postUri(
       _apiUri(
         'uploadFile',
         server: uploadServer,
@@ -70,22 +92,26 @@ class _GofileRawApi {
         isUpload: true,
       ),
     );
-
-    return fetch;
   }
 
-  Future<String?> getContent(String contentId) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'getContent',
-        queryParameters: {'contentId': contentId},
-        isNeedTokenInParameters: true,
-      ),
-    );
+  ///Get a specific content details
+  ///
+  /// [contentId] of file/folder
+  ///
+  /// [token] must be provided
+  Future<String?> getContent(String contentId) => _client.getUri(
+        _apiUri(
+          'getContent',
+          queryParameters: {'contentId': contentId},
+          isNeedTokenInParameters: true,
+        ),
+      );
 
-    return fetch;
-  }
-
+  ///Create a new folder
+  ///
+  ///[parentFolderId] is The parent folder ID.
+  ///
+  /// [token] must be provided
   Future<String?> createFolder(
     String folderName,
     String parentFolderId,
@@ -96,7 +122,7 @@ class _GofileRawApi {
       'parentFolderId': parentFolderId,
     }.toJsonString;
 
-    final fetch = await _client.putUri(
+    return _client.putUri(
       _apiUri('createFolder'),
       data: data,
       options: Options(
@@ -105,10 +131,25 @@ class _GofileRawApi {
         },
       ),
     );
-
-    return fetch;
   }
 
+  /// [token] must be provided
+  ///
+  /// [contentId] is file/folder id
+  ///
+  /// [gofileOption] can be:
+  ///
+  /// "public" [GofilePublicOption] : can be "true" or "false". The [contentId] must be a folder.,
+  ///
+  /// "password" [GofilePasswordOption] : must be the password. The [contentId] must be a folder.,
+  ///
+  /// "description" [GofileDescriptionOption] : must be the description. The [contentId] must be a folder.,
+  ///
+  /// "expire" [GofileExpireOption] : must be the expiration date. The [contentId] must be a folder.,
+  ///
+  /// "tags" [GofileTagsOption] : must be a list of tags. The contentId must be a folder.,
+  ///
+  /// "directLink" [GofileDirectLinkOption] : can be "true" or "false". The contentId must be a file.
   Future<String?> setOption(
     String contentId,
     _GofileOption gofileOption,
@@ -124,7 +165,7 @@ class _GofileRawApi {
       'value': value,
     }.toJsonString;
 
-    final fetch = await _client.putUri(
+    return _client.putUri(
       _apiUri('setOption'),
       data: data,
       options: Options(
@@ -133,10 +174,13 @@ class _GofileRawApi {
         },
       ),
     );
-
-    return fetch;
   }
 
+  /// [contentsIds] is list of `contentId` to copy (files or folders)
+  ///
+  /// [destinationFolderId] is the destination folder
+  ///
+  /// [token] must be provided
   Future<String?> copyContent(
     List<String> contentsIds,
     String destinationFolderId,
@@ -149,7 +193,7 @@ class _GofileRawApi {
       'contentsId': joinContentIds,
     }.toJsonString;
 
-    final fetch = await _client.putUri(
+    return _client.putUri(
       _apiUri('copyContent'),
       data: data,
       options: Options(
@@ -158,10 +202,13 @@ class _GofileRawApi {
         },
       ),
     );
-
-    return fetch;
   }
 
+  ///Delete one or multiple files/folders
+  ///
+  /// [contentsIds] is list of `contentId` to delete (files or folders)
+  ///
+  /// [token] must be provided
   Future<String?> deleteContent(List<String> contentsIds) async {
     final joinContentIds = contentsIds.joinComma;
 
@@ -170,7 +217,7 @@ class _GofileRawApi {
       'contentsId': joinContentIds,
     }.toJsonString;
 
-    final fetch = await _client.deleteUri(
+    return _client.deleteUri(
       _apiUri('deleteContent'),
       data: data,
       options: Options(
@@ -179,7 +226,5 @@ class _GofileRawApi {
         },
       ),
     );
-
-    return fetch;
   }
 }

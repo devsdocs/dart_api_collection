@@ -2,9 +2,18 @@ part of '../streamtape.dart';
 
 class _StreamtapeRawApi {
   _StreamtapeRawApi(this._user, this._apiKey) {
-    if (ApiConfig.printLog) {
-      _client.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
+    final logConfig = ApiConfig.logConfig;
+    if (logConfig.enableLog) {
+      _client.interceptors.add(
+        LogInterceptor(
+          requestBody: logConfig.showRequestBody,
+          responseBody: logConfig.showResponseBody,
+          error: logConfig.showError,
+          request: logConfig.showRequest,
+          requestHeader: logConfig.showRequestHeader,
+          responseHeader: logConfig.showResponseHeader,
+        ),
+      );
     }
   }
   final String _user;
@@ -26,25 +35,23 @@ class _StreamtapeRawApi {
     return Uri.https(_base, '/$unencodedPath', params);
   }
 
-  Future<String?> accountInfo() async {
-    final fetch = await _client.getUri(
-      _apiUri('account/info'),
-    );
-    return fetch;
-  }
+  ///Everything account related (total used storage, reward, ...)
+  Future<String?> accountInfo() => _client.getUri(
+        _apiUri('account/info'),
+      );
 
+  ///Preparing a Download for [getDownloadLink]
   Future<String?> getDownloadTicket(String fileId) async {
     final ticketParams = {'file': fileId};
-    final fetchTicket = await _client.getUri(
+    return _client.getUri(
       _apiUri(
         'file/dlticket',
         queryParameters: ticketParams,
       ),
     );
-
-    return fetchTicket;
   }
 
+  ///Get a download link by using [getDownloadTicket] result
   Future<String?> getDownloadLink(
     String fileId,
     StreamtapeDownloadTicketResult ticketInfo,
@@ -55,54 +62,42 @@ class _StreamtapeRawApi {
 //! return null in result in file not found
     return Future.delayed(Duration(seconds: waitTime! + 1), () async {
       final params = {'file': fileId, 'ticket': ticket};
-      final getDlLink = await _client.getUri(
+      return _client.getUri(
         _apiUri(
           'file/dl',
           isNeedCredentials: false,
           queryParameters: params,
         ),
       );
-
-      return getDlLink;
     });
   }
 
-  Future<String?> getFileInfo(List<String> iDs) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/info',
-        queryParameters: {'file': iDs.joinComma},
-      ),
-    );
+  ///Check the status of a file, e.g. if the file exists
+  Future<String?> getFileInfo(List<String> iDs) => _client.getUri(
+        _apiUri(
+          'file/info',
+          queryParameters: {'file': iDs.joinComma},
+        ),
+      );
 
-    return fetch;
-  }
+  ///Get an Upload URL for [localUpload]
+  Future<String?> getUploadLink([String? folderId]) => _client.getUri(
+        _apiUri(
+          'file/ul',
+          queryParameters: {'folder': folderId},
+        ),
+      );
 
-  Future<String?> getUploadLink([String? folderId]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/ul',
-        queryParameters: {'folder': folderId},
-      ),
-    );
-
-    return fetch;
-  }
-
+  ///Upload local [file] using [url] from [getUploadLink]
   Future<String?> localUpload(
     File file, {
     required Uri url,
   }) async {
     final id = await file.id;
 
-    final files = [
-      MapEntry(
-        'file',
-        await file.toMultipartWithName,
-      )
-    ];
+    final files = [MapEntry('file', await file.toMultipart)];
 
-    final upload = await _client.postUri(
+    return _client.postUri(
       url,
       files: files,
       camelCaseContentDisposition: true,
@@ -113,186 +108,157 @@ class _StreamtapeRawApi {
         isUpload: true,
       ),
     );
-
-    return upload;
   }
 
+  ///Remote Uploading a file
   Future<String?> remoteUploadAdd(
     String url, {
     String? folderId,
     String? customName,
-  }) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'remotedl/add',
-        queryParameters: {
-          'url': url,
-          'folder': folderId,
-          'name': customName,
-        },
-      ),
-    );
+  }) =>
+      _client.getUri(
+        _apiUri(
+          'remotedl/add',
+          queryParameters: {
+            'url': url,
+            'folder': folderId,
+            'name': customName,
+          },
+        ),
+      );
 
-    return fetch;
-  }
-
-//! If remoteUploadId is null, remove all current remote upload task
+  ///Removing/Cancelling a remote upload
+  ///
+  /// If [remoteUploadId] is not provided, it will remove all current remote upload task
   Future<String?> remoteUploadRemove([
-    String? id,
+    String? remoteUploadId,
   ]) async {
-    final params = {'id': id ?? '"all"'};
-    final fetch = await _client.getUri(
+    final params = {'id': remoteUploadId ?? '"all"'};
+    return _client.getUri(
       _apiUri(
         'remotedl/remove',
         queryParameters: params,
       ),
     );
-
-    return fetch;
   }
 
-//! If remoteUploadId is null or non exist, returning all remote upload status
+  ///Check Status of Remote Upload
+  ///
+  /// If [remoteUploadId] is not provided, will returning all remote upload status
   Future<String?> remoteUploadCheck([
     String? remoteUploadId,
-  ]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'remotedl/status',
-        queryParameters: {
-          'id': remoteUploadId,
-        },
-      ),
-    );
+  ]) =>
+      _client.getUri(
+        _apiUri(
+          'remotedl/status',
+          queryParameters: {
+            'id': remoteUploadId,
+          },
+        ),
+      );
 
-    return fetch;
-  }
-
+  ///Shows the content of your folders
   Future<String?> fileAndFolderList([
     String? folderId,
-  ]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/listfolder',
-        queryParameters: {
-          'folder': folderId,
-        },
-      ),
-    );
+  ]) =>
+      _client.getUri(
+        _apiUri(
+          'file/listfolder',
+          queryParameters: {
+            'folder': folderId,
+          },
+        ),
+      );
 
-    return fetch;
-  }
-
+  ///Creates a new Folder
   Future<String?> folderCreate(
     String name, [
     String? parentFoolderId,
-  ]) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'folder/createfolder',
-        queryParameters: {
-          'name': name,
-          'pid': parentFoolderId,
-        },
-      ),
-    );
+  ]) =>
+      _client.getUri(
+        _apiUri(
+          'folder/createfolder',
+          queryParameters: {
+            'name': name,
+            'pid': parentFoolderId,
+          },
+        ),
+      );
 
-    return fetch;
-  }
-
-  //TODO: rename folder not working somehow
+  ///TODO: rename folder not working somehow
+  ///
+  ///Renames a Folder
   Future<String?> renameFolder(
     String folderId,
     String newName,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/renamefolder',
-        queryParameters: {'folder': folderId, 'name': newName},
-      ),
-    );
-    return fetch;
-  }
+  ) =>
+      _client.getUri(
+        _apiUri(
+          'file/renamefolder',
+          queryParameters: {'folder': folderId, 'name': newName},
+        ),
+      );
 
-  //TODO: delete folder not working somehow
-  Future<String?> deleteFolder(String folderId) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/deletefolder',
-        queryParameters: {'folder': folderId},
-      ),
-    );
-    return fetch;
-  }
+  ///TODO: delete folder not working somehow
+  ///
+  ///Deletes a Folder with all subfolders and all files in it. Be careful!
+  Future<String?> deleteFolder(String folderId) => _client.getUri(
+        _apiUri(
+          'file/deletefolder',
+          queryParameters: {'folder': folderId},
+        ),
+      );
 
-  Future<String?> fileThumbnail(String fileId) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/getsplash',
-        queryParameters: {'file': fileId},
-      ),
-    );
+  ///Shows the video Thumbnail
+  Future<String?> fileThumbnail(String fileId) => _client.getUri(
+        _apiUri(
+          'file/getsplash',
+          queryParameters: {'file': fileId},
+        ),
+      );
 
-    return fetch;
-  }
-
+  ///Renames a File
   Future<String?> fileRename(
     String fileId,
     String newName,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/rename',
-        queryParameters: {
-          'file': fileId,
-          'name': newName,
-        },
-      ),
-    );
-    return fetch;
-  }
+  ) =>
+      _client.getUri(
+        _apiUri(
+          'file/rename',
+          queryParameters: {
+            'file': fileId,
+            'name': newName,
+          },
+        ),
+      );
 
+  ///Moves a File into a different folder
   Future<String?> fileMove(
     String fileId,
     String destinationFolderId,
-  ) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/move',
-        queryParameters: {'file': fileId, 'folder': destinationFolderId},
-      ),
-    );
-    return fetch;
-  }
+  ) =>
+      _client.getUri(
+        _apiUri(
+          'file/move',
+          queryParameters: {'file': fileId, 'folder': destinationFolderId},
+        ),
+      );
 
-  Future<String?> fileDelete(String fileId) async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/delete',
-        queryParameters: {'file': fileId},
-      ),
-    );
-    return fetch;
-  }
+  ///Removes a file
+  Future<String?> fileDelete(String fileId) => _client.getUri(
+        _apiUri(
+          'file/delete',
+          queryParameters: {'file': fileId},
+        ),
+      );
 
-  Future<String?> convertRunning() async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/runningconverts',
-        queryParameters: {},
-      ),
-    );
+  ///It lists all running converts with their progress
+  Future<String?> convertRunning() => _client.getUri(
+        _apiUri('file/runningconverts'),
+      );
 
-    return fetch;
-  }
-
-  Future<String?> convertFailed() async {
-    final fetch = await _client.getUri(
-      _apiUri(
-        'file/failedconverts',
-        queryParameters: {},
-      ),
-    );
-
-    return fetch;
-  }
+  ///It lists all converts which failed.
+  Future<String?> convertFailed() => _client.getUri(
+        _apiUri('file/failedconverts'),
+      );
 }

@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:dart_api_collection/dart_api_collection.dart';
 
 void main() async {
-  ApiConfig.printLog = true;
+  ApiConfig.logConfig
+    ..enableLog = true
+    ..showResponseHeader = false;
   final user = Platform.environment['STREAMTAPE_USER']!;
   final key = Platform.environment['STREAMTAPE_KEY']!;
   final streamtapeClient = StreamtapeApi(user, key);

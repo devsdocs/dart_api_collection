@@ -77,6 +77,18 @@ print(result?.toJson());
 }
 ```
 
+### Get raw JSON String as result instead of prebuild model
+
+```dart
+void main()async{
+  ApiConfig.printLog = true;
+  final key = Platform.environment['DOODSTREAM_API_KEY']!;
+  final doodstreamClient = DoodstreamApi(key);
+  final getAccount = await doodstreamClient.rawApi.accountInfo(); // Using rawApi directive
+  print(getAccount); // Print a JSON string
+}
+```
+
 ### - TODO List:
 
 - [x] [Doodstream](https://doodstream.com)

@@ -11,8 +11,6 @@ extension PrivateFileExt on File {
   String get fileExt => uri.fileExt;
 
   Future<MultipartFile> get toMultipart async => MultipartFile.fromFile(path);
-  Future<MultipartFile> get toMultipartWithName async =>
-      MultipartFile.fromFile(path, filename: fileNameAndExt);
 }
 
 extension DirectoryExt on Directory {
@@ -55,6 +53,8 @@ extension StringExt on String {
   List<String> get splitDot => split('.');
   dynamic get toJsonObject => json.decode(this);
   bool get containsDot => contains('.');
+  String get capitalizeWord =>
+      this[0].toUpperCase() + substring(1).toLowerCase();
 }
 
 extension UriExt on Uri {
@@ -104,4 +104,6 @@ extension BoolExt on bool? {
 
   /// either null or '1' or '0'
   String? get toStringFlagOrNull => this != null ? toStringFlag : null;
+
+  String get capitalize => '$this'.capitalizeWord;
 }

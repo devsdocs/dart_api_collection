@@ -1,9 +1,56 @@
 part of '../common.dart';
 
 class ApiConfig {
-  static bool get printLog => _printLog ??= false;
+  static _LogConfig get logConfig => _logConfig ??= _LogConfig();
 
-  static set printLog(bool value) => _printLog = value;
+  static set logConfig(_LogConfig value) => _logConfig = value;
 
-  static bool? _printLog;
+  static _LogConfig? _logConfig;
+}
+
+class _LogConfig {
+  factory _LogConfig({
+    bool enableLog = false,
+    bool request = true,
+    bool requestHeader = true,
+    bool requestBody = true,
+    bool responseHeader = true,
+    bool responseBody = true,
+    bool error = true,
+  }) {
+    _instance ??= _LogConfig._internal(
+      enableLog: enableLog,
+      showRequest: request,
+      showRequestHeader: requestHeader,
+      showRequestBody: requestBody,
+      showResponseHeader: responseHeader,
+      showResponseBody: responseBody,
+      showError: error,
+    );
+    return _instance!;
+  }
+
+  _LogConfig._internal({
+    required this.enableLog,
+    required this.showRequest,
+    required this.showRequestHeader,
+    required this.showRequestBody,
+    required this.showResponseHeader,
+    required this.showResponseBody,
+    required this.showError,
+  });
+
+  bool enableLog;
+  bool showRequest;
+  bool showRequestHeader;
+  bool showRequestBody;
+  bool showResponseHeader;
+  bool showResponseBody;
+  bool showError;
+
+  static _LogConfig? _instance;
+
+  @override
+  String toString() =>
+      'Log Enabled: ${enableLog.capitalize}\nShow Request: ${showRequest.capitalize}\nShow Request Header: ${showRequestHeader.capitalize}\nShow Request Body: ${showRequestBody.capitalize}\nShow Response Header: ${showResponseHeader.capitalize}\nShow Response Body: ${showResponseBody.capitalize}\nShow Error: ${showError.capitalize}';
 }

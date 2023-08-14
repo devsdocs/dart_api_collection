@@ -2,9 +2,18 @@ part of '../streamwish.dart';
 
 class _StreamwishRawApi {
   _StreamwishRawApi(this._apiKey) {
-    if (ApiConfig.printLog) {
-      _client.interceptors
-          .add(LogInterceptor(requestBody: true, responseBody: true));
+    final logConfig = ApiConfig.logConfig;
+    if (logConfig.enableLog) {
+      _client.interceptors.add(
+        LogInterceptor(
+          requestBody: logConfig.showRequestBody,
+          responseBody: logConfig.showResponseBody,
+          error: logConfig.showError,
+          request: logConfig.showRequest,
+          requestHeader: logConfig.showRequestHeader,
+          responseHeader: logConfig.showResponseHeader,
+        ),
+      );
     }
   }
 
@@ -281,7 +290,7 @@ class _StreamwishRawApi {
     final clearAll = deleteAll.toStringFlag;
 
     final fetch = await _client.getUri(
-      _apiUri('urlupload/actions', {
+      _apiUri('file/url_actions', {
         'restart_errors': restartError,
         'clear_errors': clearErrors,
         'clear_all': clearAll,
