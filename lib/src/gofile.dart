@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dart_api_collection/src/common.dart';
+import 'package:api_collection/src/common.dart';
 import 'package:dio/dio.dart';
 
 part 'gofile/api.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dart_api_collection/src/common.dart';
+import 'package:api_collection/src/common.dart';
 
 part 'mixdrop/api.dart';
 part 'mixdrop/raw_api.dart';

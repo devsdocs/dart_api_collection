@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dart_api_collection/dart_api_collection.dart';
+import 'package:api_collection/api_collection.dart';
 
 void main() async {
   ApiConfig.logConfig
