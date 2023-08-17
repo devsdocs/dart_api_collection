@@ -1,5 +1,5 @@
 name: api_collection
-description: A side project
+description: A side project, collecting and creating API wrapper from online APIs
 version: 1.0.1
 
 environment:
