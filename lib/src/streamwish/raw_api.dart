@@ -2,19 +2,7 @@ part of '../streamwish.dart';
 
 class _StreamwishRawApi {
   _StreamwishRawApi(this._apiKey) {
-    final logConfig = ApiConfig.logConfig;
-    if (logConfig.enableLog) {
-      _client.interceptors.add(
-        LogInterceptor(
-          requestBody: logConfig.showRequestBody,
-          responseBody: logConfig.showResponseBody,
-          error: logConfig.showError,
-          request: logConfig.showRequest,
-          requestHeader: logConfig.showRequestHeader,
-          responseHeader: logConfig.showResponseHeader,
-        ),
-      );
-    }
+    initLog(_client);
   }
 
   final String _apiKey;
@@ -27,7 +15,7 @@ class _StreamwishRawApi {
         '/api/$unencodedPath',
         <String, dynamic>{'key': _apiKey}
           ..addAll(queryParameters ?? {})
-          ..removeWhere((_, v) => v == null),
+          ..removeWhere((_, v) => v == null || v == 'null'),
       );
 
   Future<String?> accountInfo() async {
@@ -42,7 +30,7 @@ class _StreamwishRawApi {
   }) async {
     final fetch = await _client.getUri(
       _apiUri('account/stats', {
-        'last': lastXDaysReport,
+        'last': '$lastXDaysReport',
       }),
     );
     return fetch;
@@ -84,8 +72,8 @@ class _StreamwishRawApi {
       MapEntry('key', _apiKey),
       if (fileTitle != null) MapEntry('file_title', fileTitle),
       if (fileDescription != null) MapEntry('file_descr', fileDescription),
-      if (folderId != null) MapEntry('fld_id', folderId.toString()),
-      if (categoryId != null) MapEntry('cat_id', categoryId.toString()),
+      if (folderId != null) MapEntry('fld_id', '$folderId'),
+      if (categoryId != null) MapEntry('cat_id', '$categoryId'),
       if (tags != null) MapEntry('tags', tags.joinComma),
       if (isPublic != null) MapEntry('file_public', isPublic.toStringFlag),
       if (isAdult != null) MapEntry('file_adult', isAdult.toStringFlag),
@@ -117,8 +105,8 @@ class _StreamwishRawApi {
     final fetch = await _client.getUri(
       _apiUri('upload/url', {
         'url': '$uri',
-        'fld_id': folderId,
-        'cat_id': categoryId,
+        'fld_id': '$folderId',
+        'cat_id': '$categoryId',
         'file_public': isPublic.toStringFlagOrNull,
         'file_adult': isAdult.toStringFlagOrNull,
         'tags': tags?.joinComma,
@@ -153,8 +141,8 @@ class _StreamwishRawApi {
         'file_code': filesCode.joinComma,
         'file_title': fileTitle,
         'file_descr': fileDescription,
-        'cat_id': categoryId,
-        'file_fld_id': folderId,
+        'cat_id': '$categoryId',
+        'file_fld_id': '$folderId',
         'file_public': isPublic.toStringFlagOrNull,
         'file_adult': isAdult.toStringFlagOrNull,
         'tags': tags?.joinComma,
@@ -175,13 +163,13 @@ class _StreamwishRawApi {
   }) async {
     final fetch = await _client.getUri(
       _apiUri('file/list', {
-        'fld_id': folderId,
+        'fld_id': '$folderId',
         'title': title,
         'created': time?.toJiffy.toYYYYMMDDHMS,
         'public': isPublic.toStringFlagOrNull,
         'adult': isAdult.toStringFlagOrNull,
-        'per_page': resultPerPage,
-        'page': pageNumber,
+        'per_page': '$resultPerPage',
+        'page': '$pageNumber',
       }),
     );
 
@@ -213,7 +201,7 @@ class _StreamwishRawApi {
       _apiUri('file/clone', {
         'file_code': fileCode,
         'file_title': newFileTitle,
-        'fld_id': destinationFolderId,
+        'fld_id': '$destinationFolderId',
       }),
     );
 
@@ -237,7 +225,7 @@ class _StreamwishRawApi {
   }) async {
     final fetch = await _client.getUri(
       _apiUri('file/deleted', {
-        'last': deletedInLastNumberOfHours,
+        'last': '$deletedInLastNumberOfHours',
       }),
     );
 
@@ -249,7 +237,7 @@ class _StreamwishRawApi {
   }) async {
     final fetch = await _client.getUri(
       _apiUri('file/dmca', {
-        'last': reportedInLastNumberOfHours,
+        'last': '$reportedInLastNumberOfHours',
       }),
     );
 
@@ -306,8 +294,8 @@ class _StreamwishRawApi {
   }) async {
     final fetch = await _client.getUri(
       _apiUri('folder/list', {
-        'fld_id': folderId,
-        'files': showNuberOfFiles,
+        'fld_id': '$folderId',
+        'files': '$showNuberOfFiles',
       }),
     );
 
@@ -322,7 +310,7 @@ class _StreamwishRawApi {
     final fetch = await _client.getUri(
       _apiUri('folder/create', {
         'name': folderName,
-        'parent_id': parentFolderId,
+        'parent_id': '$parentFolderId',
         'descr': folderDescription,
       }),
     );
@@ -340,7 +328,7 @@ class _StreamwishRawApi {
     final fetch = await _client.getUri(
       _apiUri('folder/edit', {
         'fld_id': folderId,
-        'parent_id': parentFolderId,
+        'parent_id': '$parentFolderId',
         'name': folderName,
         'descr': folderDescription,
       }),

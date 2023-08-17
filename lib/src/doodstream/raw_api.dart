@@ -2,19 +2,7 @@ part of '../doodstream.dart';
 
 class _DoodstreamRawApi {
   _DoodstreamRawApi(this._apiKey) {
-    final logConfig = ApiConfig.logConfig;
-    if (logConfig.enableLog) {
-      _client.interceptors.add(
-        LogInterceptor(
-          requestBody: logConfig.showRequestBody,
-          responseBody: logConfig.showResponseBody,
-          error: logConfig.showError,
-          request: logConfig.showRequest,
-          requestHeader: logConfig.showRequestHeader,
-          responseHeader: logConfig.showResponseHeader,
-        ),
-      );
-    }
+    initLog(_client);
   }
 
   final String _apiKey;
@@ -28,7 +16,7 @@ class _DoodstreamRawApi {
         '/api/$unencodedPath',
         <String, dynamic>{'key': _apiKey}
           ..addAll(queryParameters ?? {})
-          ..removeWhere((_, v) => v == null),
+          ..removeWhere((_, v) => v == null || v == 'null'),
       );
 
   ///Get basic info of your account
@@ -80,12 +68,12 @@ class _DoodstreamRawApi {
   ///Copy / Clone your's or other's file
   Future<String?> clone(
     String fileCode, {
-    String? folderId,
+    int? folderId,
   }) async =>
       _client.getUri(
         _apiUri('file/clone', {
           'file_code': fileCode,
-          'fld_id': folderId,
+          'fld_id': '$folderId',
         }),
       );
 
@@ -93,13 +81,13 @@ class _DoodstreamRawApi {
   Future<String?> remoteUpload(
     String url, {
     String? newTitle,
-    String? folderId,
+    int? folderId,
   }) async =>
       _client.getUri(
         _apiUri('upload/url', {
           'url': url,
           'new_title': newTitle,
-          'fld_id': folderId,
+          'fld_id': '$folderId',
         }),
       );
 
@@ -152,12 +140,12 @@ class _DoodstreamRawApi {
   ///Rename a folder
   Future<String?> renameFolder(
     String newName, {
-    required String folderId,
+    required int folderId,
   }) async =>
       _client.getUri(
         _apiUri('folder/rename', {
           'name': newName,
-          'fld_id': folderId,
+          'fld_id': '$folderId',
         }),
       );
 
@@ -165,13 +153,13 @@ class _DoodstreamRawApi {
   Future<String?> listFiles({
     String? page,
     String? videosPerPage,
-    String? folderId,
+    int? folderId,
   }) async =>
       _client.getUri(
         _apiUri('file/list', {
           'page': page,
           'per_page': videosPerPage,
-          'fld_id': folderId,
+          'fld_id': '$folderId',
         }),
       );
 

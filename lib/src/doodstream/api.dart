@@ -44,7 +44,7 @@ class DoodstreamApi {
 
   Future<DoodstreamCloneFile?> clone(
     String fileCode, {
-    String? folderId,
+    int? folderId,
   }) async {
     final str = await _rawApi.clone(fileCode, folderId: folderId);
     return str != null ? DoodstreamCloneFile.fromJson(str) : null;
@@ -53,7 +53,7 @@ class DoodstreamApi {
   Future<DoodstreamRemoteUpload?> remoteUpload(
     String url, {
     String? newTitle,
-    String? folderId,
+    int? folderId,
   }) async {
     final str =
         await _rawApi.remoteUpload(url, folderId: folderId, newTitle: newTitle);
@@ -104,7 +104,7 @@ class DoodstreamApi {
 
   Future<DoodstreamRenameFolder?> renameFolder(
     String newName, {
-    required String folderId,
+    required int folderId,
   }) async {
     final str = await _rawApi.renameFolder(newName, folderId: folderId);
     return str != null ? DoodstreamRenameFolder.fromJson(str) : null;
@@ -113,7 +113,7 @@ class DoodstreamApi {
   Future<DoodstreamListFile?> listFiles({
     String? page,
     String? videosPerPage,
-    String? folderId,
+    int? folderId,
   }) async {
     final str = await _rawApi.listFiles(
       page: page,

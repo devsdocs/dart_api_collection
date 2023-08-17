@@ -4,7 +4,6 @@ import 'dart:io';
 
 
 import 'package:dart_api_collection/src/common.dart';
-import 'package:dio/dio.dart';
 
 part 'doodstream/api.dart';
 part 'doodstream/raw_api.dart';

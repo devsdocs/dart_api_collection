@@ -1,10 +1,7 @@
 part of '../common.dart';
 
 class RawHttp {
-  factory RawHttp() {
-    _instance ??= RawHttp._internal();
-    return _instance!;
-  }
+  factory RawHttp() => _instance ??= RawHttp._internal();
 
   RawHttp._internal();
   final Dio _dio = Dio();
@@ -12,6 +9,39 @@ class RawHttp {
   static RawHttp? _instance;
 
   Interceptors get interceptors => _dio.interceptors;
+
+  Future<dynamic> downloadUri(
+    Uri uri,
+    String saveDestinaton, {
+    required FileTransferProgress fileTransferProgress,
+  }) =>
+      download(
+        '$uri',
+        saveDestinaton,
+        fileTransferProgress: fileTransferProgress,
+      );
+
+  Future<dynamic> download(
+    String path,
+    String saveDestinaton, {
+    required FileTransferProgress fileTransferProgress,
+  }) async {
+    dynamic data;
+
+    try {
+      return data = (await _dio.download(
+        path,
+        saveDestinaton,
+        onReceiveProgress: (current, total) => transferProgress
+            .add(fileTransferProgress.copyWith(current: current, total: total)),
+      ))
+          .data;
+    } on DioException catch (e) {
+      return data = e;
+    } catch (_) {
+      return data;
+    }
+  }
 
   Future<String?> deleteUri(
     Uri uri, {
@@ -113,7 +143,7 @@ class RawHttp {
         options: options,
         onSendProgress: fileTransferProgress != null
             ? (current, total) => transferProgress.add(
-                  fileTransferProgress.copyWith(current:  current, total: total),
+                  fileTransferProgress.copyWith(current: current, total: total),
                 )
             : null,
       ))

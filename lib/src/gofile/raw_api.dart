@@ -2,19 +2,7 @@ part of '../gofile.dart';
 
 class _GofileRawApi {
   _GofileRawApi([this.token]) {
-    final logConfig = ApiConfig.logConfig;
-    if (logConfig.enableLog) {
-      _client.interceptors.add(
-        LogInterceptor(
-          requestBody: logConfig.showRequestBody,
-          responseBody: logConfig.showResponseBody,
-          error: logConfig.showError,
-          request: logConfig.showRequest,
-          requestHeader: logConfig.showRequestHeader,
-          responseHeader: logConfig.showResponseHeader,
-        ),
-      );
-    }
+    initLog(_client);
   }
 
   final String? token;
@@ -33,7 +21,7 @@ class _GofileRawApi {
         '/$unencodedPath',
         (isNeedTokenInParameters ? <String, dynamic>{'token': token} : {})
           ..addAll(queryParameters ?? {})
-          ..removeWhere((_, v) => v == null),
+          ..removeWhere((_, v) => v == null || v == 'null'),
       );
 
   /// Retrieving specific account information

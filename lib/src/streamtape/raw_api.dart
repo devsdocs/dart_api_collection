@@ -2,19 +2,7 @@ part of '../streamtape.dart';
 
 class _StreamtapeRawApi {
   _StreamtapeRawApi(this._user, this._apiKey) {
-    final logConfig = ApiConfig.logConfig;
-    if (logConfig.enableLog) {
-      _client.interceptors.add(
-        LogInterceptor(
-          requestBody: logConfig.showRequestBody,
-          responseBody: logConfig.showResponseBody,
-          error: logConfig.showError,
-          request: logConfig.showRequest,
-          requestHeader: logConfig.showRequestHeader,
-          responseHeader: logConfig.showResponseHeader,
-        ),
-      );
-    }
+    initLog(_client);
   }
   final String _user;
   final String _apiKey;
@@ -31,7 +19,7 @@ class _StreamtapeRawApi {
         ? <String, dynamic>{'login': _user, 'key': _apiKey}
         : <String, dynamic>{})
       ..addAll(queryParameters ?? <String, dynamic>{})
-      ..removeWhere((_, v) => v == null);
+      ..removeWhere((_, v) => v == null || v == 'null');
     return Uri.https(_base, '/$unencodedPath', params);
   }
 

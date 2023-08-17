@@ -2,19 +2,7 @@ part of '../mixdrop.dart';
 
 class _MixdropRawApi {
   _MixdropRawApi(this._email, this._apiKey) {
-    final logConfig = ApiConfig.logConfig;
-    if (logConfig.enableLog) {
-      _client.interceptors.add(
-        LogInterceptor(
-          requestBody: logConfig.showRequestBody,
-          responseBody: logConfig.showResponseBody,
-          error: logConfig.showError,
-          request: logConfig.showRequest,
-          requestHeader: logConfig.showRequestHeader,
-          responseHeader: logConfig.showResponseHeader,
-        ),
-      );
-    }
+    initLog(_client);
   }
   final String _email;
   final String _apiKey;
@@ -33,7 +21,7 @@ class _MixdropRawApi {
         ? <String, dynamic>{}
         : <String, dynamic>{'email': _email, 'key': _apiKey})
       ..addAll(queryParameters ?? <String, dynamic>{})
-      ..removeWhere((_, v) => v == null);
+      ..removeWhere((_, v) => v == null || v == 'null');
 
     final uri = Uri.https(
       [server, _base].joinDot,
