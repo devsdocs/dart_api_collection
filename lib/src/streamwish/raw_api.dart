@@ -85,7 +85,7 @@ class _StreamwishRawApi {
       files: files,
       fileTransferProgress: FileTransferProgress(
         id,
-        type: ServiceType.doodstream,
+        type: ServiceType.streamwish,
         name: name,
         isUpload: true,
       ),
