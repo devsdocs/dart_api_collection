@@ -42,13 +42,11 @@ class _StreamtapeRawApi {
   ///Get a download link by using [getDownloadTicket] result
   Future<String?> getDownloadLink(
     String fileId,
-    StreamtapeDownloadTicketResult ticketInfo,
+    String ticket,
+    int waitTime,
   ) async {
-    final ticket = ticketInfo.ticket!;
-    final waitTime = ticketInfo.waitTime;
-
 //! return null in result in file not found
-    return Future.delayed(Duration(seconds: waitTime! + 1), () async {
+    return Future.delayed(Duration(seconds: waitTime + 1), () async {
       final params = {'file': fileId, 'ticket': ticket};
       return _client.getUri(
         _apiUri(
@@ -79,14 +77,14 @@ class _StreamtapeRawApi {
   ///Upload local [file] using [url] from [getUploadLink]
   Future<String?> localUpload(
     File file, {
-    required Uri url,
+    required String url,
   }) async {
     final id = await file.id;
 
     final files = [MapEntry('file', await file.toMultipart)];
 
     return _client.postUri(
-      url,
+      url.toUri,
       files: files,
       camelCaseContentDisposition: true,
       fileTransferProgress: FileTransferProgress(

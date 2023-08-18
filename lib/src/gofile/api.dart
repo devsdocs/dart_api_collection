@@ -19,17 +19,15 @@ class GofileApi {
     return str != null ? GofileUploadServer.fromJson(str) : null;
   }
 
-  Future<GofileLocalUpload?> uploadFile(File file, [String? folderId]) async {
+  Future<GofileLocalUpload?> uploadFile(
+    File file,
+    String uploadServer, [
+    String? folderId,
+  ]) async {
     if (_token == null && folderId != null) {
       return GofileLocalUpload(
         status: 'Token must not be null when passing folderId',
       );
-    }
-
-    final uploadServer = (await getUploadServer())?.data?.server;
-
-    if (uploadServer == null) {
-      return GofileLocalUpload(status: 'Error retrieving upload server');
     }
 
     final str = await _rawApi.uploadFile(file, uploadServer, folderId);

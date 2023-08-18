@@ -21,14 +21,12 @@ class StreamtapeApi {
         : null;
   }
 
-  Future<StreamtapeDownloadLink?> getDownloadLink(String fileId) async {
-    final ticketInfo = await getDownloadTicket(fileId);
-
-    if (ticketInfo == null) return null;
-
-    if (ticketInfo.result == null) return null;
-
-    final getDlLink = await _rawApi.getDownloadLink(fileId, ticketInfo.result!);
+  Future<StreamtapeDownloadLink?> getDownloadLink(
+    String fileId,
+    String ticket,
+    int waitTime,
+  ) async {
+    final getDlLink = await _rawApi.getDownloadLink(fileId, ticket, waitTime);
     return getDlLink != null
         ? StreamtapeDownloadLink.fromJson(getDlLink)
         : null;
@@ -40,24 +38,16 @@ class StreamtapeApi {
     return fetch != null ? StreamtapeFileInfo.fromJson(fetch) : null;
   }
 
-  Future<StreamtapeUploadLink?> getUploadLink(String? folderId) async {
+  Future<StreamtapeUploadLink?> getUploadLink([String? folderId]) async {
     final fetch = await _rawApi.getUploadLink(folderId);
     return fetch != null ? StreamtapeUploadLink.fromJson(fetch) : null;
   }
 
   Future<StreamtapeUploadResult?> localUpload(
-    File file, {
-    String? folderId,
-  }) async {
-    final uploadLink = await getUploadLink(folderId);
-
-    if (uploadLink == null) return null;
-    if (uploadLink.result == null) return null;
-
-    final url = uploadLink.result!.url!.toUri;
-
+    File file,
+    String url,
+  ) async {
     final upload = await _rawApi.localUpload(file, url: url);
-
     return upload != null ? StreamtapeUploadResult.fromJson(upload) : null;
   }
 

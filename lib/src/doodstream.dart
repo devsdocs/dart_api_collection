@@ -28,3 +28,4 @@ part 'doodstream/model/doodstream_remote_upload_list.dart';
 part 'doodstream/model/doodstream_remote_upload_action.dart';
 part 'doodstream/model/doodstream_remote_upload_status.dart';
 part 'doodstream/model/doodstream_remote_upload.dart';
+part 'doodstream/model/doodstream_upload_server.dart';

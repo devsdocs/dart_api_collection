@@ -7,11 +7,13 @@ class DoodstreamApi {
 
   _DoodstreamRawApi get rawApi => _rawApi;
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.accounInfo}
   Future<DoodstreamAccountInfo?> accountInfo() async {
     final str = await _rawApi.accountInfo();
     return str != null ? DoodstreamAccountInfo.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.accountReports}
   Future<DoodstreamAccountReport?> accountReports({
     int? lastXDaysReport,
     DateTime? fromDate,
@@ -25,23 +27,28 @@ class DoodstreamApi {
     return str != null ? DoodstreamAccountReport.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.dmcaList}
   Future<DoodstreamDmcaList?> dmcaList() async {
     final str = await _rawApi.dmcaList();
     return str != null ? DoodstreamDmcaList.fromJson(str) : null;
   }
 
-  Future<DoodstreamLocalUpload?> localUpload(File file) async {
-    final getUploadLink = await _rawApi.getUploadServer();
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.getUploadServer}
+  Future<DoodstreamUploadServer?> getUploadServer() async {
+    final str = await _rawApi.getUploadServer();
+    return str != null ? DoodstreamUploadServer.fromJson(str) : null;
+  }
 
-    if (getUploadLink == null) return null;
-
-    // ignore: avoid_dynamic_calls
-    final uploadServer = getUploadLink.toJsonObject['result'] as String;
-
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.localUpload}
+  Future<DoodstreamLocalUpload?> localUpload(
+    File file,
+    String uploadServer,
+  ) async {
     final str = await _rawApi.localUpload(file, uploadServer);
     return str != null ? DoodstreamLocalUpload.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.clone}
   Future<DoodstreamCloneFile?> clone(
     String fileCode, {
     int? folderId,
@@ -50,6 +57,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamCloneFile.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.remoteUpload}
   Future<DoodstreamRemoteUpload?> remoteUpload(
     String url, {
     String? newTitle,
@@ -60,11 +68,13 @@ class DoodstreamApi {
     return str != null ? DoodstreamRemoteUpload.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.remoteUploadList}
   Future<DoodstreamRemoteUploadList?> remoteUploadList() async {
     final str = await _rawApi.remoteUploadList();
     return str != null ? DoodstreamRemoteUploadList.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.remoteUploadStatus}
   Future<DoodstreamRemoteUploadStatus?> remoteUploadStatus(
     String fileCode,
   ) async {
@@ -74,11 +84,13 @@ class DoodstreamApi {
     return str != null ? DoodstreamRemoteUploadStatus.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.remoteUploadSlot}
   Future<DoodstreamRemoteUploadSlot?> remoteUploadSlot() async {
     final str = await _rawApi.remoteUploadSlot();
     return str != null ? DoodstreamRemoteUploadSlot.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.remoteUploadAction}
   Future<DoodstreamRemoteUploadAction?> remoteUploadAction({
     required bool isRestartErrors,
     required bool isClearErrors,
@@ -94,6 +106,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamRemoteUploadAction.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.createFolder}
   Future<DoodstreamCreateFolder?> createFolder(
     String folderName, {
     String? parentId,
@@ -102,6 +115,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamCreateFolder.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.renameFolder}
   Future<DoodstreamRenameFolder?> renameFolder(
     String newName, {
     required int folderId,
@@ -110,6 +124,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamRenameFolder.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.listFiles}
   Future<DoodstreamListFile?> listFiles({
     String? page,
     String? videosPerPage,
@@ -123,6 +138,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamListFile.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.fileStatus}
   Future<DoodstreamFileStatus?> fileStatus(
     String fileCode,
   ) async {
@@ -130,6 +146,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamFileStatus.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.fileInfo}
   Future<DoodstreamFileInfo?> fileInfo(
     String fileCode,
   ) async {
@@ -137,6 +154,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamFileInfo.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.fileImage}
   Future<DoodstreamFileImage?> fileImage(
     String fileCode,
   ) async {
@@ -144,6 +162,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamFileImage.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.fileRename}
   Future<DoodstreamFileRename?> fileRename(
     String newName, {
     required String fileCode,
@@ -152,6 +171,7 @@ class DoodstreamApi {
     return str != null ? DoodstreamFileRename.fromJson(str) : null;
   }
 
+  ///{@macro devsdocs.api_collection.doodstream.rawApi.fileSearch}
   Future<DoodstreamFileSearch?> fileSearch(String query) async {
     final str = await _rawApi.fileSearch(query);
     return str != null ? DoodstreamFileSearch.fromJson(str) : null;

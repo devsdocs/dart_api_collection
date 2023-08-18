@@ -4,7 +4,7 @@ class RawHttp {
   factory RawHttp() => _instance ??= RawHttp._internal();
 
   RawHttp._internal();
-  final Dio _dio = Dio();
+  final _dio = Dio();
 
   static RawHttp? _instance;
 

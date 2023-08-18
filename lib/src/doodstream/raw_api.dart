@@ -19,11 +19,15 @@ class _DoodstreamRawApi {
           ..removeWhere((_, v) => v == null || v == 'null'),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.accountInfo}
   ///Get basic info of your account
+  /// {@endtemplate}
   Future<String?> accountInfo() async =>
       _client.getUri(_apiUri('account/info'));
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.accountReports}
   ///Get reports of your account (default last 7 days)
+  /// {@endtemplate}
   Future<String?> accountReports({
     int? lastXDaysReport,
     DateTime? fromDate,
@@ -37,14 +41,20 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.dmcaList}
   ///Get DMCA reported files list (500 results per page)
+  /// {@endtemplate}
   Future<String?> dmcaList() async => _client.getUri(_apiUri('dmca/list'));
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.getUploadServer}
   ///Get upload server for [localUpload]
+  /// {@endtemplate}
   Future<String?> getUploadServer() async =>
       _client.getUri(_apiUri('upload/server'));
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.localUpload}
   ///Upload local files using API with [getUploadServer] result
+  /// {@endtemplate}
   Future<String?> localUpload(File file, String uploadServer) async {
     final id = await file.id;
     final name = file.fileNameAndExt;
@@ -65,7 +75,9 @@ class _DoodstreamRawApi {
     );
   }
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.clone}
   ///Copy / Clone your's or other's file
+  /// {@endtemplate}
   Future<String?> clone(
     String fileCode, {
     int? folderId,
@@ -77,7 +89,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUpload}
   ///Upload files using direct links
+  /// {@endtemplate}
   Future<String?> remoteUpload(
     String url, {
     String? newTitle,
@@ -91,11 +105,15 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadList}
   ///Remote Upload List & Status
+  /// {@endtemplate}
   Future<String?> remoteUploadList() async =>
       _client.getUri(_apiUri('urlupload/list'));
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadStatus}
   ///Remote Upload Status
+  /// {@endtemplate}
   Future<String?> remoteUploadStatus(
     String fileCode,
   ) async =>
@@ -105,11 +123,15 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadSlot}
   ///Get total & used remote upload slots
+  /// {@endtemplate}
   Future<String?> remoteUploadSlot() async =>
       _client.getUri(_apiUri('urlupload/slots'));
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadAction}
   ///Perform various actions on remote upload
+  /// {@endtemplate}
   Future<String?> remoteUploadAction({
     required bool isRestartErrors,
     bool? isClearErrors,
@@ -125,7 +147,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.createFolder}
   ///Create a folder
+  /// {@endtemplate}
   Future<String?> createFolder(
     String folderName, {
     String? parentId,
@@ -137,7 +161,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.renameFolder}
   ///Rename a folder
+  /// {@endtemplate}
   Future<String?> renameFolder(
     String newName, {
     required int folderId,
@@ -149,7 +175,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.listFiles}
   ///List all files
+  /// {@endtemplate}
   Future<String?> listFiles({
     String? page,
     String? videosPerPage,
@@ -163,7 +191,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileStatus}
   ///Check status of your file
+  /// {@endtemplate}
   Future<String?> fileStatus(
     String fileCode,
   ) async =>
@@ -173,7 +203,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileInfo}
   ///Get file info
+  /// {@endtemplate}
   Future<String?> fileInfo(
     String fileCode,
   ) async =>
@@ -183,7 +215,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileImage}
   ///Get file splash, single or thumbnail image
+  /// {@endtemplate}
   Future<String?> fileImage(
     String fileCode,
   ) async =>
@@ -193,7 +227,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileRename}
   ///Rename your file
+  /// {@endtemplate}
   Future<String?> fileRename(
     String newName, {
     required String fileCode,
@@ -205,7 +241,9 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileSearch}
   ///Search your files
+  /// {@endtemplate}
   Future<String?> fileSearch(String query) async => _client.getUri(
         _apiUri('search/videos', {
           'search_term': query,
