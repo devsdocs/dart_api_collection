@@ -1,6 +1,6 @@
 name: api_collection
 description: A side project, collecting and creating API wrapper from online APIs
-version: 1.0.1
+version: 1.0.2
 repository: https://github.com/devsdocs/dart-videostreaming-api-collection
 
 environment:

@@ -70,20 +70,22 @@ class StreamwishFileDirectLinkResult {
         playerImg: json['player_img'],
         versions: json['versions'] == null
             ? []
-            : List<Version>.from(
-                json['versions']!.map((x) => Version.fromMap(x)),
+            : List<StreamwishFileDirectLinkResultVersion>.from(
+                json['versions']!.map(
+                  (x) => StreamwishFileDirectLinkResultVersion.fromMap(x),
+                ),
               ),
       );
   final int? fileLength;
   final String? fileName;
   final String? playerImg;
-  final List<Version>? versions;
+  final List<StreamwishFileDirectLinkResultVersion>? versions;
 
   StreamwishFileDirectLinkResult copyWith({
     int? fileLength,
     String? fileName,
     String? playerImg,
-    List<Version>? versions,
+    List<StreamwishFileDirectLinkResultVersion>? versions,
   }) =>
       StreamwishFileDirectLinkResult(
         fileLength: fileLength ?? this.fileLength,
@@ -104,16 +106,20 @@ class StreamwishFileDirectLinkResult {
       };
 }
 
-class Version {
-  Version({
+class StreamwishFileDirectLinkResultVersion {
+  StreamwishFileDirectLinkResultVersion({
     this.name,
     this.size,
     this.url,
   });
 
-  factory Version.fromJson(String str) => Version.fromMap(json.decode(str));
+  factory StreamwishFileDirectLinkResultVersion.fromJson(String str) =>
+      StreamwishFileDirectLinkResultVersion.fromMap(json.decode(str));
 
-  factory Version.fromMap(Map<String, dynamic> json) => Version(
+  factory StreamwishFileDirectLinkResultVersion.fromMap(
+    Map<String, dynamic> json,
+  ) =>
+      StreamwishFileDirectLinkResultVersion(
         name: json['name'],
         size: json['size'],
         url: json['url'],
@@ -122,12 +128,12 @@ class Version {
   final int? size;
   final String? url;
 
-  Version copyWith({
+  StreamwishFileDirectLinkResultVersion copyWith({
     String? name,
     int? size,
     String? url,
   }) =>
-      Version(
+      StreamwishFileDirectLinkResultVersion(
         name: name ?? this.name,
         size: size ?? this.size,
         url: url ?? this.url,
