@@ -8,8 +8,14 @@ class MixdropApi {
 
   _MixdropRawApi get rawApi => _rawApi;
 
-  Future<MixdropLocalUpload?> localUpload(File file) async {
-    final str = await _rawApi.localUpload(file);
+  Future<MixdropLocalUpload?> localUpload(
+    File file, {
+    int? folderId,
+  }) async {
+    final str = await _rawApi.localUpload(
+      file,
+      folderId: folderId,
+    );
 
     return str != null ? MixdropLocalUpload.fromJson(str) : null;
   }

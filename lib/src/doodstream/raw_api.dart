@@ -175,6 +175,20 @@ class _DoodstreamRawApi {
         }),
       );
 
+  /// {@template devsdocs.api_collection.doodstream.rawApi.listFolder}
+  ///List a folder and it's sub-folders
+  /// {@endtemplate}
+  Future<String?> listFolder(
+    int folderId, {
+    bool? isOnlyFolders,
+  }) async =>
+      _client.getUri(
+        _apiUri('folder/rename', {
+          'only_folders': isOnlyFolders.toStringFlagOrNull,
+          'fld_id': '$folderId',
+        }),
+      );
+
   /// {@template devsdocs.api_collection.doodstream.rawApi.listFiles}
   ///List all files
   /// {@endtemplate}
@@ -237,6 +251,20 @@ class _DoodstreamRawApi {
       _client.getUri(
         _apiUri('file/rename', {
           'title': newName,
+          'file_code': fileCode,
+        }),
+      );
+
+  /// {@template devsdocs.api_collection.doodstream.rawApi.fileMove}
+  ///Move your file
+  /// {@endtemplate}
+  Future<String?> fileMove(
+    int folderId, {
+    required String fileCode,
+  }) async =>
+      _client.getUri(
+        _apiUri('file/rename', {
+          'fld_id': '$folderId',
           'file_code': fileCode,
         }),
       );

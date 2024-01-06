@@ -13,7 +13,9 @@ class GofileLocalUpload {
 
   factory GofileLocalUpload.fromMap(Map<String, dynamic> json) =>
       GofileLocalUpload(
-        data: json['data'] == null ? null : GofileLocalUploadData.fromMap(json['data']),
+        data: json['data'] == null
+            ? null
+            : GofileLocalUploadData.fromMap(json['data']),
         status: json['status'],
       );
   final GofileLocalUploadData? data;
@@ -47,9 +49,11 @@ class GofileLocalUploadData {
     this.parentFolder,
   });
 
-  factory GofileLocalUploadData.fromJson(String str) => GofileLocalUploadData.fromMap(json.decode(str));
+  factory GofileLocalUploadData.fromJson(String str) =>
+      GofileLocalUploadData.fromMap(json.decode(str));
 
-  factory GofileLocalUploadData.fromMap(Map<String, dynamic> json) => GofileLocalUploadData(
+  factory GofileLocalUploadData.fromMap(Map<String, dynamic> json) =>
+      GofileLocalUploadData(
         code: json['code'],
         downloadPage: json['downloadPage'],
         fileId: json['fileId'],

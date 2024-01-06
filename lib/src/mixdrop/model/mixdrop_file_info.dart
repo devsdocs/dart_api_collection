@@ -13,8 +13,10 @@ class MixdropFileInfo {
 
   factory MixdropFileInfo.fromMap(Map<String, dynamic> json) => MixdropFileInfo(
         result: Map.from(json['result']!).map(
-          (k, v) =>
-              MapEntry<String, MixdropFileInfoResult>(k, MixdropFileInfoResult.fromMap(v)),
+          (k, v) => MapEntry<String, MixdropFileInfoResult>(
+            k,
+            MixdropFileInfoResult.fromMap(v),
+          ),
         ),
         success: json['success'],
       );
@@ -59,7 +61,8 @@ class MixdropFileInfoResult {
   factory MixdropFileInfoResult.fromJson(String str) =>
       MixdropFileInfoResult.fromMap(json.decode(str));
 
-  factory MixdropFileInfoResult.fromMap(Map<String, dynamic> json) => MixdropFileInfoResult(
+  factory MixdropFileInfoResult.fromMap(Map<String, dynamic> json) =>
+      MixdropFileInfoResult(
         added: json['added'],
         deleted: json['deleted'],
         duration: json['duration'],

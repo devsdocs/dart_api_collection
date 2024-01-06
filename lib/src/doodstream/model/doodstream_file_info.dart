@@ -63,7 +63,8 @@ class DoodstreamFileInfoResult {
   factory DoodstreamFileInfoResult.fromJson(String str) =>
       DoodstreamFileInfoResult.fromMap(json.decode(str));
 
-  factory DoodstreamFileInfoResult.fromMap(Map<String, dynamic> json) => DoodstreamFileInfoResult(
+  factory DoodstreamFileInfoResult.fromMap(Map<String, dynamic> json) =>
+      DoodstreamFileInfoResult(
         canplay: json['canplay'],
         filecode: json['filecode'],
         lastView: json['last_view'],

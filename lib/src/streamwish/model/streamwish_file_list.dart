@@ -123,7 +123,8 @@ class StreamwishFileListResultFileElement {
       StreamwishFileListResultFileElement.fromMap(json.decode(str));
 
   factory StreamwishFileListResultFileElement.fromMap(
-          Map<String, dynamic> json,) =>
+    Map<String, dynamic> json,
+  ) =>
       StreamwishFileListResultFileElement(
         canplay: json['canplay'],
         fileCode: json['file_code'],

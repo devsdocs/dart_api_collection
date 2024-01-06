@@ -166,7 +166,7 @@ enum Convert { CONVERTED, NO_NEED, PENDING }
 final convertValues = EnumValues({
   'converted': Convert.CONVERTED,
   'no-need': Convert.NO_NEED,
-  'pending': Convert.PENDING
+  'pending': Convert.PENDING,
 });
 
 class FolderElement {

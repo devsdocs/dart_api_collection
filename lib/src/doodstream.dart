@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:api_collection/src/common.dart';
 
 part 'doodstream/api.dart';

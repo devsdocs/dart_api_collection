@@ -19,7 +19,8 @@ class DoodstreamLocalUpload {
         result: json['result'] == null
             ? []
             : List<DoodstreamLocalUploadResult>.from(
-                json['result']!.map((x) => DoodstreamLocalUploadResult.fromMap(x)),
+                json['result']!
+                    .map((x) => DoodstreamLocalUploadResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null

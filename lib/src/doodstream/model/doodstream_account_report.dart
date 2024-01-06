@@ -19,7 +19,8 @@ class DoodstreamAccountReport {
         result: json['result'] == null
             ? []
             : List<DoodstreamAccountReportResult>.from(
-                json['result']!.map((x) => DoodstreamAccountReportResult.fromMap(x)),
+                json['result']!
+                    .map((x) => DoodstreamAccountReportResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null

@@ -65,7 +65,7 @@ class DoodstreamAccountInfoResult {
   final String? email;
   final DateTime? premimExpire;
   final String? storageLeft;
-  final int? storageUsed;
+  final String? storageUsed;
 
   String toJson() => json.encode(toMap());
 

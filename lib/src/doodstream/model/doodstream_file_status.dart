@@ -19,7 +19,8 @@ class DoodstreamFileStatus {
         result: json['result'] == null
             ? []
             : List<DoodstreamFileStatusResult>.from(
-                json['result']!.map((x) => DoodstreamFileStatusResult.fromMap(x)),
+                json['result']!
+                    .map((x) => DoodstreamFileStatusResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -41,7 +42,6 @@ class DoodstreamFileStatus {
         'server_time': serverTime?.toIso8601String(),
         'status': status,
       };
-
 }
 
 class DoodstreamFileStatusResult {

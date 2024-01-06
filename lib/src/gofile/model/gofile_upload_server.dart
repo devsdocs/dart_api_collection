@@ -13,7 +13,9 @@ class GofileUploadServer {
 
   factory GofileUploadServer.fromMap(Map<String, dynamic> json) =>
       GofileUploadServer(
-        data: json['data'] == null ? null : GofileUploadServerData.fromMap(json['data']),
+        data: json['data'] == null
+            ? null
+            : GofileUploadServerData.fromMap(json['data']),
         status: json['status'],
       );
   final GofileUploadServerData? data;
@@ -41,9 +43,11 @@ class GofileUploadServerData {
     this.server,
   });
 
-  factory GofileUploadServerData.fromJson(String str) => GofileUploadServerData.fromMap(json.decode(str));
+  factory GofileUploadServerData.fromJson(String str) =>
+      GofileUploadServerData.fromMap(json.decode(str));
 
-  factory GofileUploadServerData.fromMap(Map<String, dynamic> json) => GofileUploadServerData(
+  factory GofileUploadServerData.fromMap(Map<String, dynamic> json) =>
+      GofileUploadServerData(
         server: json['server'],
       );
   final String? server;

@@ -19,7 +19,8 @@ class DoodstreamFileSearch {
         result: json['result'] == null
             ? []
             : List<DoodstreamFileSearchResult>.from(
-                json['result']!.map((x) => DoodstreamFileSearchResult.fromMap(x)),
+                json['result']!
+                    .map((x) => DoodstreamFileSearchResult.fromMap(x)),
               ),
         serverTime: json['server_time'] == null
             ? null

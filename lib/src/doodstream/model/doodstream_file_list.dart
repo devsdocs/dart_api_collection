@@ -50,7 +50,8 @@ class DoodstreamListFileResult {
   factory DoodstreamListFileResult.fromJson(String str) =>
       DoodstreamListFileResult.fromMap(json.decode(str));
 
-  factory DoodstreamListFileResult.fromMap(Map<String, dynamic> json) => DoodstreamListFileResult(
+  factory DoodstreamListFileResult.fromMap(Map<String, dynamic> json) =>
+      DoodstreamListFileResult(
         files: json['files'] == null
             ? []
             : List<DoodstreamListFileElement>.from(
@@ -94,7 +95,8 @@ class DoodstreamListFileElement {
   factory DoodstreamListFileElement.fromJson(String str) =>
       DoodstreamListFileElement.fromMap(json.decode(str));
 
-  factory DoodstreamListFileElement.fromMap(Map<String, dynamic> json) => DoodstreamListFileElement(
+  factory DoodstreamListFileElement.fromMap(Map<String, dynamic> json) =>
+      DoodstreamListFileElement(
         canplay: json['canplay'],
         downloadUrl: json['download_url'],
         fileCode: json['file_code'],

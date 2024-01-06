@@ -16,8 +16,9 @@ class DoodstreamCloneFile {
   factory DoodstreamCloneFile.fromMap(Map<String, dynamic> json) =>
       DoodstreamCloneFile(
         msg: json['msg'],
-        result:
-            json['result'] == null ? null : DoodstreamCloneFileResult.fromMap(json['result']),
+        result: json['result'] == null
+            ? null
+            : DoodstreamCloneFileResult.fromMap(json['result']),
         serverTime: json['server_time'] == null
             ? null
             : DateTime.parse(json['server_time']),
@@ -36,7 +37,6 @@ class DoodstreamCloneFile {
         'server_time': serverTime?.toIso8601String(),
         'status': status,
       };
-
 }
 
 class DoodstreamCloneFileResult {
@@ -51,7 +51,8 @@ class DoodstreamCloneFileResult {
   factory DoodstreamCloneFileResult.fromJson(String str) =>
       DoodstreamCloneFileResult.fromMap(json.decode(str));
 
-  factory DoodstreamCloneFileResult.fromMap(Map<String, dynamic> json) => DoodstreamCloneFileResult(
+  factory DoodstreamCloneFileResult.fromMap(Map<String, dynamic> json) =>
+      DoodstreamCloneFileResult(
         downloadUrl: json['download_url'],
         embedUrl: json['embed_url'],
         filecode: json['filecode'],

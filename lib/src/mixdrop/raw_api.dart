@@ -6,7 +6,7 @@ class _MixdropRawApi {
   }
   final String _email;
   final String _apiKey;
-  final String _base = 'mixdrop.co';
+  final String _base = 'mixdrop.ag';
 
   final _client = RawHttp();
 
@@ -36,12 +36,19 @@ class _MixdropRawApi {
     return finalUri;
   }
 
-  Future<String?> localUpload(File file) async {
+  Future<String?> localUpload(
+    File file, {
+    int? folderId,
+  }) async {
     final id = await file.id;
     final name = file.fileNameAndExt;
 
     final files = [MapEntry('file', await file.toMultipart)];
-    final fields = [MapEntry('email', _email), MapEntry('key', _apiKey)];
+    final fields = [
+      MapEntry('email', _email),
+      MapEntry('key', _apiKey),
+      if (folderId != null) MapEntry('folder', '$folderId'),
+    ];
 
     return _client.postUri(
       _apiUri(
@@ -71,7 +78,7 @@ class _MixdropRawApi {
           queryParameters: {
             'url': Uri.encodeFull(url),
             'name': newName,
-            'folder': '$folderId'
+            'folder': '$folderId',
           },
         ),
       );

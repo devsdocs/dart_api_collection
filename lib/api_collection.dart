@@ -18,4 +18,5 @@ export 'src/mixdrop.dart' show MixdropApi, MixdropSubtitleLanguage;
 export 'src/streamtape.dart'
     show StreamtapeApi, StreamtapeApiComponentExt, StreamtapeApiExt;
 
-export 'src/streamwish.dart' show StreamwishApi, StreamwishApiExt, StreamwishQuality;
+export 'src/streamwish.dart'
+    show StreamwishApi, StreamwishApiExt, StreamwishQuality;

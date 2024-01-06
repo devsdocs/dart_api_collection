@@ -129,7 +129,7 @@ class FileElement {
   final bool? isvideo;
   final String? size;
   final String? status;
-  final bool? subtitle;
+  final dynamic subtitle;
   final String? thumb;
   final String? title;
   final String? url;
@@ -143,7 +143,7 @@ class FileElement {
     bool? isvideo,
     String? size,
     String? status,
-    bool? subtitle,
+    dynamic subtitle,
     String? thumb,
     String? title,
     String? url,
@@ -174,7 +174,11 @@ class FileElement {
         'isvideo': isvideo,
         'size': size,
         'status': status,
-        'subtitle': subtitle,
+        'subtitle': subtitle is bool
+            ? subtitle
+            : subtitle is List<dynamic>
+                ? List<dynamic>.from(subtitle.map((x) => x))
+                : subtitle,
         'thumb': thumb,
         'title': title,
         'url': url,
