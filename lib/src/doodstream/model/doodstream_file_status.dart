@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamFileStatus {
-  DoodstreamFileStatus({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamFileStatus({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamFileStatus.fromJson(String str) =>
       DoodstreamFileStatus.fromMap(json.decode(str));
@@ -19,8 +14,9 @@ class DoodstreamFileStatus {
         result: json['result'] == null
             ? []
             : List<DoodstreamFileStatusResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamFileStatusResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamFileStatusResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,20 +31,17 @@ class DoodstreamFileStatus {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamFileStatusResult {
-  DoodstreamFileStatusResult({
-    this.filecode,
-    this.status,
-  });
+  DoodstreamFileStatusResult({this.filecode, this.status});
 
   factory DoodstreamFileStatusResult.fromJson(String str) =>
       DoodstreamFileStatusResult.fromMap(json.decode(str));
@@ -63,10 +56,7 @@ class DoodstreamFileStatusResult {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-        'status': status,
-      };
+  Map<String, dynamic> toMap() => {'filecode': filecode, 'status': status};
 
   String toReadableFormat({int? index}) {
     final num = index == null ? '' : '$index. ';

@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeFileRename {
-  StreamtapeFileRename({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeFileRename({this.msg, this.result, this.status});
 
   factory StreamtapeFileRename.fromJson(String str) =>
       StreamtapeFileRename.fromMap(json.decode(str));
@@ -22,11 +18,7 @@ class StreamtapeFileRename {
   final bool? result;
   final int? status;
 
-  StreamtapeFileRename copyWith({
-    String? msg,
-    bool? result,
-    int? status,
-  }) =>
+  StreamtapeFileRename copyWith({String? msg, bool? result, int? status}) =>
       StreamtapeFileRename(
         msg: msg ?? this.msg,
         result: result ?? this.result,
@@ -36,8 +28,8 @@ class StreamtapeFileRename {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'status': status,
+  };
 }

@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeFolderCreate {
-  StreamtapeFolderCreate({
-    this.status,
-    this.msg,
-    this.result,
-  });
+  StreamtapeFolderCreate({this.status, this.msg, this.result});
 
   factory StreamtapeFolderCreate.fromJson(String str) =>
       StreamtapeFolderCreate.fromMap(json.decode(str));
@@ -28,46 +24,35 @@ class StreamtapeFolderCreate {
     int? status,
     String? msg,
     StreamtapeFolderCreateResult? result,
-  }) =>
-      StreamtapeFolderCreate(
-        status: status ?? this.status,
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-      );
+  }) => StreamtapeFolderCreate(
+    status: status ?? this.status,
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'status': status,
-        'msg': msg,
-        'result': result?.toMap(),
-      };
+    'status': status,
+    'msg': msg,
+    'result': result?.toMap(),
+  };
 }
 
 class StreamtapeFolderCreateResult {
-  StreamtapeFolderCreateResult({
-    this.folderid,
-  });
+  StreamtapeFolderCreateResult({this.folderid});
 
   factory StreamtapeFolderCreateResult.fromJson(String str) =>
       StreamtapeFolderCreateResult.fromMap(json.decode(str));
 
   factory StreamtapeFolderCreateResult.fromMap(Map<String, dynamic> json) =>
-      StreamtapeFolderCreateResult(
-        folderid: json['folderid'],
-      );
+      StreamtapeFolderCreateResult(folderid: json['folderid']);
   final String? folderid;
 
-  StreamtapeFolderCreateResult copyWith({
-    String? folderid,
-  }) =>
-      StreamtapeFolderCreateResult(
-        folderid: folderid ?? this.folderid,
-      );
+  StreamtapeFolderCreateResult copyWith({String? folderid}) =>
+      StreamtapeFolderCreateResult(folderid: folderid ?? this.folderid);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'folderid': folderid,
-      };
+  Map<String, dynamic> toMap() => {'folderid': folderid};
 }

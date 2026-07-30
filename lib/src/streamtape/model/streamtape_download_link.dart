@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeDownloadLink {
-  StreamtapeDownloadLink({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeDownloadLink({this.msg, this.result, this.status});
 
   factory StreamtapeDownloadLink.fromJson(String str) =>
       StreamtapeDownloadLink.fromMap(json.decode(str));
@@ -28,28 +24,23 @@ class StreamtapeDownloadLink {
     String? msg,
     StreamtapeDownloadLinkResult? result,
     int? status,
-  }) =>
-      StreamtapeDownloadLink(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeDownloadLink(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'status': status,
+  };
 }
 
 class StreamtapeDownloadLinkResult {
-  StreamtapeDownloadLinkResult({
-    this.name,
-    this.size,
-    this.url,
-  });
+  StreamtapeDownloadLinkResult({this.name, this.size, this.url});
 
   factory StreamtapeDownloadLinkResult.fromJson(String str) =>
       StreamtapeDownloadLinkResult.fromMap(json.decode(str));
@@ -68,18 +59,13 @@ class StreamtapeDownloadLinkResult {
     String? name,
     int? size,
     String? url,
-  }) =>
-      StreamtapeDownloadLinkResult(
-        name: name ?? this.name,
-        size: size ?? this.size,
-        url: url ?? this.url,
-      );
+  }) => StreamtapeDownloadLinkResult(
+    name: name ?? this.name,
+    size: size ?? this.size,
+    url: url ?? this.url,
+  );
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'size': size,
-        'url': url,
-      };
+  Map<String, dynamic> toMap() => {'name': name, 'size': size, 'url': url};
 }

@@ -3,11 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamRemoteUploadAction {
-  DoodstreamRemoteUploadAction({
-    this.msg,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamRemoteUploadAction({this.msg, this.serverTime, this.status});
 
   factory DoodstreamRemoteUploadAction.fromJson(String str) =>
       DoodstreamRemoteUploadAction.fromMap(json.decode(str));
@@ -27,8 +23,8 @@ class DoodstreamRemoteUploadAction {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

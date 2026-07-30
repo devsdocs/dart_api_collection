@@ -3,10 +3,7 @@
 part of '../../gofile.dart';
 
 class GofileLocalUpload {
-  GofileLocalUpload({
-    this.data,
-    this.status,
-  });
+  GofileLocalUpload({this.data, this.status});
 
   factory GofileLocalUpload.fromJson(String str) =>
       GofileLocalUpload.fromMap(json.decode(str));
@@ -21,21 +18,12 @@ class GofileLocalUpload {
   final GofileLocalUploadData? data;
   final String? status;
 
-  GofileLocalUpload copyWith({
-    GofileLocalUploadData? data,
-    String? status,
-  }) =>
-      GofileLocalUpload(
-        data: data ?? this.data,
-        status: status ?? this.status,
-      );
+  GofileLocalUpload copyWith({GofileLocalUploadData? data, String? status}) =>
+      GofileLocalUpload(data: data ?? this.data, status: status ?? this.status);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'data': data?.toMap(),
-        'status': status,
-      };
+  Map<String, dynamic> toMap() => {'data': data?.toMap(), 'status': status};
 }
 
 class GofileLocalUploadData {
@@ -78,26 +66,25 @@ class GofileLocalUploadData {
     String? guestToken,
     String? md5,
     String? parentFolder,
-  }) =>
-      GofileLocalUploadData(
-        code: code ?? this.code,
-        downloadPage: downloadPage ?? this.downloadPage,
-        fileId: fileId ?? this.fileId,
-        fileName: fileName ?? this.fileName,
-        guestToken: guestToken ?? this.guestToken,
-        md5: md5 ?? this.md5,
-        parentFolder: parentFolder ?? this.parentFolder,
-      );
+  }) => GofileLocalUploadData(
+    code: code ?? this.code,
+    downloadPage: downloadPage ?? this.downloadPage,
+    fileId: fileId ?? this.fileId,
+    fileName: fileName ?? this.fileName,
+    guestToken: guestToken ?? this.guestToken,
+    md5: md5 ?? this.md5,
+    parentFolder: parentFolder ?? this.parentFolder,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'code': code,
-        'downloadPage': downloadPage,
-        'fileId': fileId,
-        'fileName': fileName,
-        'guestToken': guestToken,
-        'md5': md5,
-        'parentFolder': parentFolder,
-      };
+    'code': code,
+    'downloadPage': downloadPage,
+    'fileId': fileId,
+    'fileName': fileName,
+    'guestToken': guestToken,
+    'md5': md5,
+    'parentFolder': parentFolder,
+  };
 }

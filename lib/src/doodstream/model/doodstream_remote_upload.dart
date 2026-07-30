@@ -41,33 +41,27 @@ class DoodstreamRemoteUpload {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'new_title': newTitle,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-        'total_slots': totalSlots,
-        'used_slots': usedSlots,
-      };
+    'msg': msg,
+    'new_title': newTitle,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+    'total_slots': totalSlots,
+    'used_slots': usedSlots,
+  };
 }
 
 class DoodstreamRemoteUploadResult {
-  DoodstreamRemoteUploadResult({
-    this.filecode,
-  });
+  DoodstreamRemoteUploadResult({this.filecode});
 
   factory DoodstreamRemoteUploadResult.fromJson(String str) =>
       DoodstreamRemoteUploadResult.fromMap(json.decode(str));
 
   factory DoodstreamRemoteUploadResult.fromMap(Map<String, dynamic> json) =>
-      DoodstreamRemoteUploadResult(
-        filecode: json['filecode'],
-      );
+      DoodstreamRemoteUploadResult(filecode: json['filecode']);
   final String? filecode;
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-      };
+  Map<String, dynamic> toMap() => {'filecode': filecode};
 }

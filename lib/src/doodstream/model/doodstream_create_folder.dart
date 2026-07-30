@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamCreateFolder {
-  DoodstreamCreateFolder({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamCreateFolder({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamCreateFolder.fromJson(String str) =>
       DoodstreamCreateFolder.fromMap(json.decode(str));
@@ -32,30 +27,24 @@ class DoodstreamCreateFolder {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamCreateFolderResult {
-  DoodstreamCreateFolderResult({
-    this.fldId,
-  });
+  DoodstreamCreateFolderResult({this.fldId});
 
   factory DoodstreamCreateFolderResult.fromJson(String str) =>
       DoodstreamCreateFolderResult.fromMap(json.decode(str));
 
   factory DoodstreamCreateFolderResult.fromMap(Map<String, dynamic> json) =>
-      DoodstreamCreateFolderResult(
-        fldId: json['fld_id'],
-      );
+      DoodstreamCreateFolderResult(fldId: json['fld_id']);
   final String? fldId;
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'fld_id': fldId,
-      };
+  Map<String, dynamic> toMap() => {'fld_id': fldId};
 }

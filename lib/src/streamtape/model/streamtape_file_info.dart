@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeFileInfo {
-  StreamtapeFileInfo({
-    this.status,
-    this.msg,
-    this.result,
-  });
+  StreamtapeFileInfo({this.status, this.msg, this.result});
 
   factory StreamtapeFileInfo.fromJson(String str) =>
       StreamtapeFileInfo.fromMap(json.decode(str));
@@ -31,21 +27,21 @@ class StreamtapeFileInfo {
     int? status,
     String? msg,
     Map<String, StreamtapeFileInfoResult>? result,
-  }) =>
-      StreamtapeFileInfo(
-        status: status ?? this.status,
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-      );
+  }) => StreamtapeFileInfo(
+    status: status ?? this.status,
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'status': status,
-        'msg': msg,
-        'result': Map.from(result!)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toMap())),
-      };
+    'status': status,
+    'msg': msg,
+    'result': Map.from(
+      result!,
+    ).map((k, v) => MapEntry<String, dynamic>(k, v.toMap())),
+  };
 }
 
 class StreamtapeFileInfoResult {
@@ -90,26 +86,25 @@ class StreamtapeFileInfoResult {
     bool? converted,
     String? thumb,
     String? type,
-  }) =>
-      StreamtapeFileInfoResult(
-        id: id ?? this.id,
-        status: status ?? this.status,
-        name: name ?? this.name,
-        size: size ?? this.size,
-        converted: converted ?? this.converted,
-        thumb: thumb ?? this.thumb,
-        type: type ?? this.type,
-      );
+  }) => StreamtapeFileInfoResult(
+    id: id ?? this.id,
+    status: status ?? this.status,
+    name: name ?? this.name,
+    size: size ?? this.size,
+    converted: converted ?? this.converted,
+    thumb: thumb ?? this.thumb,
+    type: type ?? this.type,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'id': id,
-        'status': status,
-        'name': name,
-        'size': size,
-        'converted': converted,
-        'thumb': thumb,
-        'type': type,
-      };
+    'id': id,
+    'status': status,
+    'name': name,
+    'size': size,
+    'converted': converted,
+    'thumb': thumb,
+    'type': type,
+  };
 }

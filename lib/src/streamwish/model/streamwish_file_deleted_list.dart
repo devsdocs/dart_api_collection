@@ -19,8 +19,9 @@ class StreamwishFileDeletedList {
         result: json['result'] == null
             ? []
             : List<StreamwishFileDeletedListResult>.from(
-                json['result']!
-                    .map((x) => StreamwishFileDeletedListResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => StreamwishFileDeletedListResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -37,24 +38,23 @@ class StreamwishFileDeletedList {
     List<StreamwishFileDeletedListResult>? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileDeletedList(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileDeletedList(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFileDeletedListResult {
@@ -71,8 +71,9 @@ class StreamwishFileDeletedListResult {
 
   factory StreamwishFileDeletedListResult.fromMap(Map<String, dynamic> json) =>
       StreamwishFileDeletedListResult(
-        deleted:
-            json['deleted'] == null ? null : DateTime.parse(json['deleted']),
+        deleted: json['deleted'] == null
+            ? null
+            : DateTime.parse(json['deleted']),
         deletedAgoSec: json['deleted_ago_sec'],
         deletedBy: json['deleted_by'],
         fileCode: json['file_code'],
@@ -90,22 +91,21 @@ class StreamwishFileDeletedListResult {
     String? deletedBy,
     String? fileCode,
     String? title,
-  }) =>
-      StreamwishFileDeletedListResult(
-        deleted: deleted ?? this.deleted,
-        deletedAgoSec: deletedAgoSec ?? this.deletedAgoSec,
-        deletedBy: deletedBy ?? this.deletedBy,
-        fileCode: fileCode ?? this.fileCode,
-        title: title ?? this.title,
-      );
+  }) => StreamwishFileDeletedListResult(
+    deleted: deleted ?? this.deleted,
+    deletedAgoSec: deletedAgoSec ?? this.deletedAgoSec,
+    deletedBy: deletedBy ?? this.deletedBy,
+    fileCode: fileCode ?? this.fileCode,
+    title: title ?? this.title,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'deleted': deleted?.toIso8601String(),
-        'deleted_ago_sec': deletedAgoSec,
-        'deleted_by': deletedBy,
-        'file_code': fileCode,
-        'title': title,
-      };
+    'deleted': deleted?.toIso8601String(),
+    'deleted_ago_sec': deletedAgoSec,
+    'deleted_by': deletedBy,
+    'file_code': fileCode,
+    'title': title,
+  };
 }

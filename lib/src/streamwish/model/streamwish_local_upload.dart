@@ -3,11 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishLocalUpload {
-  StreamwishLocalUpload({
-    this.files,
-    this.msg,
-    this.status,
-  });
+  StreamwishLocalUpload({this.files, this.msg, this.status});
 
   factory StreamwishLocalUpload.fromJson(String str) =>
       StreamwishLocalUpload.fromMap(json.decode(str));
@@ -17,8 +13,9 @@ class StreamwishLocalUpload {
         files: json['files'] == null
             ? []
             : List<StreamwishLocalUploadFileElement>.from(
-                json['files']!
-                    .map((x) => StreamwishLocalUploadFileElement.fromMap(x)),
+                json['files']!.map(
+                  (x) => StreamwishLocalUploadFileElement.fromMap(x),
+                ),
               ),
         msg: json['msg'],
         status: json['status'],
@@ -31,30 +28,25 @@ class StreamwishLocalUpload {
     List<StreamwishLocalUploadFileElement>? files,
     String? msg,
     int? status,
-  }) =>
-      StreamwishLocalUpload(
-        files: files ?? this.files,
-        msg: msg ?? this.msg,
-        status: status ?? this.status,
-      );
+  }) => StreamwishLocalUpload(
+    files: files ?? this.files,
+    msg: msg ?? this.msg,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'files': files == null
-            ? []
-            : List<dynamic>.from(files!.map((x) => x.toMap())),
-        'msg': msg,
-        'status': status,
-      };
+    'files': files == null
+        ? []
+        : List<dynamic>.from(files!.map((x) => x.toMap())),
+    'msg': msg,
+    'status': status,
+  };
 }
 
 class StreamwishLocalUploadFileElement {
-  StreamwishLocalUploadFileElement({
-    this.filecode,
-    this.filename,
-    this.status,
-  });
+  StreamwishLocalUploadFileElement({this.filecode, this.filename, this.status});
 
   factory StreamwishLocalUploadFileElement.fromJson(String str) =>
       StreamwishLocalUploadFileElement.fromMap(json.decode(str));
@@ -73,18 +65,17 @@ class StreamwishLocalUploadFileElement {
     String? filecode,
     String? filename,
     String? status,
-  }) =>
-      StreamwishLocalUploadFileElement(
-        filecode: filecode ?? this.filecode,
-        filename: filename ?? this.filename,
-        status: status ?? this.status,
-      );
+  }) => StreamwishLocalUploadFileElement(
+    filecode: filecode ?? this.filecode,
+    filename: filename ?? this.filename,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-        'filename': filename,
-        'status': status,
-      };
+    'filecode': filecode,
+    'filename': filename,
+    'status': status,
+  };
 }

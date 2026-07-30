@@ -12,9 +12,7 @@ class StreamwishApi {
     return str == null ? null : StreamwishAccountInfo.fromJson(str);
   }
 
-  Future<StreamwishAccountStat?> accountReports({
-    int? lastXDaysReport,
-  }) async {
+  Future<StreamwishAccountStat?> accountReports({int? lastXDaysReport}) async {
     final str = await _rawApi.accountReports(lastXDaysReport: lastXDaysReport);
     return str == null ? null : StreamwishAccountStat.fromJson(str);
   }
@@ -147,9 +145,7 @@ class StreamwishApi {
     return str == null ? null : StreamwishFileClone.fromJson(str);
   }
 
-  Future<StreamwishFileDelete?> fileDelete(
-    String fileCode,
-  ) async {
+  Future<StreamwishFileDelete?> fileDelete(String fileCode) async {
     final str = await _rawApi.fileDelete(fileCode);
     return str == null ? null : StreamwishFileDelete.fromJson(str);
   }
@@ -172,9 +168,7 @@ class StreamwishApi {
     return str == null ? null : StreamwishFileDmca.fromJson(str);
   }
 
-  Future<StreamwishFileEncodings?> fileEncodings(
-    String fileCode,
-  ) async {
+  Future<StreamwishFileEncodings?> fileEncodings(String fileCode) async {
     final str = await _rawApi.fileEncodings(fileCode);
     return str == null ? null : StreamwishFileEncodings.fromJson(str);
   }

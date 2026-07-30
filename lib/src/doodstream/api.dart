@@ -49,10 +49,7 @@ class DoodstreamApi {
   }
 
   ///{@macro devsdocs.api_collection.doodstream.rawApi.clone}
-  Future<DoodstreamCloneFile?> clone(
-    String fileCode, {
-    int? folderId,
-  }) async {
+  Future<DoodstreamCloneFile?> clone(String fileCode, {int? folderId}) async {
     final str = await _rawApi.clone(fileCode, folderId: folderId);
     return str != null ? DoodstreamCloneFile.fromJson(str) : null;
   }
@@ -63,8 +60,11 @@ class DoodstreamApi {
     String? newTitle,
     int? folderId,
   }) async {
-    final str =
-        await _rawApi.remoteUpload(url, folderId: folderId, newTitle: newTitle);
+    final str = await _rawApi.remoteUpload(
+      url,
+      folderId: folderId,
+      newTitle: newTitle,
+    );
     return str != null ? DoodstreamRemoteUpload.fromJson(str) : null;
   }
 
@@ -78,9 +78,7 @@ class DoodstreamApi {
   Future<DoodstreamRemoteUploadStatus?> remoteUploadStatus(
     String fileCode,
   ) async {
-    final str = await _rawApi.remoteUploadStatus(
-      fileCode,
-    );
+    final str = await _rawApi.remoteUploadStatus(fileCode);
     return str != null ? DoodstreamRemoteUploadStatus.fromJson(str) : null;
   }
 
@@ -139,25 +137,19 @@ class DoodstreamApi {
   }
 
   ///{@macro devsdocs.api_collection.doodstream.rawApi.fileStatus}
-  Future<DoodstreamFileStatus?> fileStatus(
-    String fileCode,
-  ) async {
+  Future<DoodstreamFileStatus?> fileStatus(String fileCode) async {
     final str = await _rawApi.fileStatus(fileCode);
     return str != null ? DoodstreamFileStatus.fromJson(str) : null;
   }
 
   ///{@macro devsdocs.api_collection.doodstream.rawApi.fileInfo}
-  Future<DoodstreamFileInfo?> fileInfo(
-    String fileCode,
-  ) async {
+  Future<DoodstreamFileInfo?> fileInfo(String fileCode) async {
     final str = await _rawApi.fileInfo(fileCode);
     return str != null ? DoodstreamFileInfo.fromJson(str) : null;
   }
 
   ///{@macro devsdocs.api_collection.doodstream.rawApi.fileImage}
-  Future<DoodstreamFileImage?> fileImage(
-    String fileCode,
-  ) async {
+  Future<DoodstreamFileImage?> fileImage(String fileCode) async {
     final str = await _rawApi.fileImage(fileCode);
     return str != null ? DoodstreamFileImage.fromJson(str) : null;
   }

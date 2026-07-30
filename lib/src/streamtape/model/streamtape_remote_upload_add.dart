@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeRemoteUploadAdd {
-  StreamtapeRemoteUploadAdd({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeRemoteUploadAdd({this.msg, this.result, this.status});
 
   factory StreamtapeRemoteUploadAdd.fromJson(String str) =>
       StreamtapeRemoteUploadAdd.fromMap(json.decode(str));
@@ -28,27 +24,23 @@ class StreamtapeRemoteUploadAdd {
     String? msg,
     StreamtapeRemoteUploadAddResult? result,
     int? status,
-  }) =>
-      StreamtapeRemoteUploadAdd(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeRemoteUploadAdd(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'status': status,
+  };
 }
 
 class StreamtapeRemoteUploadAddResult {
-  StreamtapeRemoteUploadAddResult({
-    this.folderid,
-    this.id,
-  });
+  StreamtapeRemoteUploadAddResult({this.folderid, this.id});
 
   factory StreamtapeRemoteUploadAddResult.fromJson(String str) =>
       StreamtapeRemoteUploadAddResult.fromMap(json.decode(str));
@@ -61,10 +53,7 @@ class StreamtapeRemoteUploadAddResult {
   final String? folderid;
   final String? id;
 
-  StreamtapeRemoteUploadAddResult copyWith({
-    String? folderid,
-    String? id,
-  }) =>
+  StreamtapeRemoteUploadAddResult copyWith({String? folderid, String? id}) =>
       StreamtapeRemoteUploadAddResult(
         folderid: folderid ?? this.folderid,
         id: id ?? this.id,
@@ -72,8 +61,5 @@ class StreamtapeRemoteUploadAddResult {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'folderid': folderid,
-        'id': id,
-      };
+  Map<String, dynamic> toMap() => {'folderid': folderid, 'id': id};
 }

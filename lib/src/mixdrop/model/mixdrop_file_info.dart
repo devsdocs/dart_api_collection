@@ -3,42 +3,39 @@
 part of '../../mixdrop.dart';
 
 class MixdropFileInfo {
-  MixdropFileInfo({
-    this.result,
-    this.success,
-  });
+  MixdropFileInfo({this.result, this.success});
 
   factory MixdropFileInfo.fromJson(String str) =>
       MixdropFileInfo.fromMap(json.decode(str));
 
   factory MixdropFileInfo.fromMap(Map<String, dynamic> json) => MixdropFileInfo(
-        result: Map.from(json['result']!).map(
-          (k, v) => MapEntry<String, MixdropFileInfoResult>(
-            k,
-            MixdropFileInfoResult.fromMap(v),
-          ),
-        ),
-        success: json['success'],
-      );
+    result: Map.from(json['result']!).map(
+      (k, v) => MapEntry<String, MixdropFileInfoResult>(
+        k,
+        MixdropFileInfoResult.fromMap(v),
+      ),
+    ),
+    success: json['success'],
+  );
   final Map<String, MixdropFileInfoResult>? result;
   final bool? success;
 
   MixdropFileInfo copyWith({
     Map<String, MixdropFileInfoResult>? result,
     bool? success,
-  }) =>
-      MixdropFileInfo(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropFileInfo(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': Map.from(result!)
-            .map((k, v) => MapEntry<String, dynamic>(k, v.toMap())),
-        'success': success,
-      };
+    'result': Map.from(
+      result!,
+    ).map((k, v) => MapEntry<String, dynamic>(k, v.toMap())),
+    'success': success,
+  };
 }
 
 class MixdropFileInfoResult {
@@ -105,38 +102,37 @@ class MixdropFileInfoResult {
     String? title,
     String? url,
     bool? yourfile,
-  }) =>
-      MixdropFileInfoResult(
-        added: added ?? this.added,
-        deleted: deleted ?? this.deleted,
-        duration: duration ?? this.duration,
-        fileref: fileref ?? this.fileref,
-        isaudio: isaudio ?? this.isaudio,
-        isvideo: isvideo ?? this.isvideo,
-        size: size ?? this.size,
-        status: status ?? this.status,
-        subtitle: subtitle ?? this.subtitle,
-        thumb: thumb ?? this.thumb,
-        title: title ?? this.title,
-        url: url ?? this.url,
-        yourfile: yourfile ?? this.yourfile,
-      );
+  }) => MixdropFileInfoResult(
+    added: added ?? this.added,
+    deleted: deleted ?? this.deleted,
+    duration: duration ?? this.duration,
+    fileref: fileref ?? this.fileref,
+    isaudio: isaudio ?? this.isaudio,
+    isvideo: isvideo ?? this.isvideo,
+    size: size ?? this.size,
+    status: status ?? this.status,
+    subtitle: subtitle ?? this.subtitle,
+    thumb: thumb ?? this.thumb,
+    title: title ?? this.title,
+    url: url ?? this.url,
+    yourfile: yourfile ?? this.yourfile,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'added': added,
-        'deleted': deleted,
-        'duration': duration,
-        'fileref': fileref,
-        'isaudio': isaudio,
-        'isvideo': isvideo,
-        'size': size,
-        'status': status,
-        'subtitle': subtitle,
-        'thumb': thumb,
-        'title': title,
-        'url': url,
-        'yourfile': yourfile,
-      };
+    'added': added,
+    'deleted': deleted,
+    'duration': duration,
+    'fileref': fileref,
+    'isaudio': isaudio,
+    'isvideo': isvideo,
+    'size': size,
+    'status': status,
+    'subtitle': subtitle,
+    'thumb': thumb,
+    'title': title,
+    'url': url,
+    'yourfile': yourfile,
+  };
 }

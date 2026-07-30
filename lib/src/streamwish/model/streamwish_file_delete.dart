@@ -3,11 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishFileDelete {
-  StreamwishFileDelete({
-    this.msg,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishFileDelete({this.msg, this.serverTime, this.status});
 
   factory StreamwishFileDelete.fromJson(String str) =>
       StreamwishFileDelete.fromMap(json.decode(str));
@@ -28,18 +24,17 @@ class StreamwishFileDelete {
     String? msg,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileDelete(
-        msg: msg ?? this.msg,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileDelete(
+    msg: msg ?? this.msg,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

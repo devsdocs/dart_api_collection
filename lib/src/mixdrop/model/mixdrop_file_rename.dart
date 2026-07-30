@@ -3,10 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropFileRename {
-  MixdropFileRename({
-    this.result,
-    this.success,
-  });
+  MixdropFileRename({this.result, this.success});
 
   factory MixdropFileRename.fromJson(String str) =>
       MixdropFileRename.fromMap(json.decode(str));
@@ -24,50 +21,34 @@ class MixdropFileRename {
   MixdropFileRename copyWith({
     MixdropFileRenameResult? result,
     bool? success,
-  }) =>
-      MixdropFileRename(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropFileRename(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropFileRenameResult {
-  MixdropFileRenameResult({
-    this.msg,
-    this.title,
-  });
+  MixdropFileRenameResult({this.msg, this.title});
 
   factory MixdropFileRenameResult.fromJson(String str) =>
       MixdropFileRenameResult.fromMap(json.decode(str));
 
   factory MixdropFileRenameResult.fromMap(Map<String, dynamic> json) =>
-      MixdropFileRenameResult(
-        msg: json['msg'],
-        title: json['title'],
-      );
+      MixdropFileRenameResult(msg: json['msg'], title: json['title']);
   final String? msg;
   final String? title;
 
-  MixdropFileRenameResult copyWith({
-    String? msg,
-    String? title,
-  }) =>
-      MixdropFileRenameResult(
-        msg: msg ?? this.msg,
-        title: title ?? this.title,
-      );
+  MixdropFileRenameResult copyWith({String? msg, String? title}) =>
+      MixdropFileRenameResult(msg: msg ?? this.msg, title: title ?? this.title);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'title': title,
-      };
+  Map<String, dynamic> toMap() => {'msg': msg, 'title': title};
 }

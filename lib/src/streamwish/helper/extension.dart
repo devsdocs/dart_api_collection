@@ -39,10 +39,7 @@ extension StreamwishApiComponentExt on StreamwishFileDirectLink {
     final destFolder = destinationFolderDir == null
         ? Directory.current
         : await Directory(destinationFolderDir).check;
-    final files = result!.versions!
-      ..sort(
-        (a, b) => b.size!.compareTo(a.size!),
-      );
+    final files = result!.versions!..sort((a, b) => b.size!.compareTo(a.size!));
     final selected = files.first.url!.toUri;
     final fileNameAndExt = result!.fileName!.endsWith('.mp4')
         ? result!.fileName!
@@ -60,6 +57,6 @@ extension StreamwishApiComponentExt on StreamwishFileDirectLink {
             isUpload: false,
           ),
         )
-        .then((_) async => File(saveDestinaton).exists());
+        .then((_) async => await File(saveDestinaton).exists());
   }
 }

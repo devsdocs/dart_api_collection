@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeCommonResult {
-  StreamtapeCommonResult({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeCommonResult({this.msg, this.result, this.status});
 
   factory StreamtapeCommonResult.fromJson(String str) =>
       StreamtapeCommonResult.fromMap(json.decode(str));
@@ -22,11 +18,7 @@ class StreamtapeCommonResult {
   final bool? result;
   final int? status;
 
-  StreamtapeCommonResult copyWith({
-    String? msg,
-    bool? result,
-    int? status,
-  }) =>
+  StreamtapeCommonResult copyWith({String? msg, bool? result, int? status}) =>
       StreamtapeCommonResult(
         msg: msg ?? this.msg,
         result: result ?? this.result,
@@ -36,8 +28,8 @@ class StreamtapeCommonResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'status': status,
+  };
 }

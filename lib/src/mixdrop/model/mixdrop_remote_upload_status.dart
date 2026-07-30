@@ -3,10 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropRemoteUploadStatus {
-  MixdropRemoteUploadStatus({
-    this.result,
-    this.success,
-  });
+  MixdropRemoteUploadStatus({this.result, this.success});
 
   factory MixdropRemoteUploadStatus.fromJson(String str) =>
       MixdropRemoteUploadStatus.fromMap(json.decode(str));
@@ -24,18 +21,17 @@ class MixdropRemoteUploadStatus {
   MixdropRemoteUploadStatus copyWith({
     MixdropRemoteStatusResult? result,
     bool? success,
-  }) =>
-      MixdropRemoteUploadStatus(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropRemoteUploadStatus(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropRemoteStatusResult {
@@ -86,30 +82,29 @@ class MixdropRemoteStatusResult {
     String? progress,
     String? status,
     String? url,
-  }) =>
-      MixdropRemoteStatusResult(
-        added: added ?? this.added,
-        completed: completed ?? this.completed,
-        error: error ?? this.error,
-        fileref: fileref ?? this.fileref,
-        fileurl: fileurl ?? this.fileurl,
-        name: name ?? this.name,
-        progress: progress ?? this.progress,
-        status: status ?? this.status,
-        url: url ?? this.url,
-      );
+  }) => MixdropRemoteStatusResult(
+    added: added ?? this.added,
+    completed: completed ?? this.completed,
+    error: error ?? this.error,
+    fileref: fileref ?? this.fileref,
+    fileurl: fileurl ?? this.fileurl,
+    name: name ?? this.name,
+    progress: progress ?? this.progress,
+    status: status ?? this.status,
+    url: url ?? this.url,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'added': added,
-        'completed': completed,
-        'error': error,
-        'fileref': fileref,
-        'fileurl': fileurl,
-        'name': name,
-        'progress': progress,
-        'status': status,
-        'url': url,
-      };
+    'added': added,
+    'completed': completed,
+    'error': error,
+    'fileref': fileref,
+    'fileurl': fileurl,
+    'name': name,
+    'progress': progress,
+    'status': status,
+    'url': url,
+  };
 }

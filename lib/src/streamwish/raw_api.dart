@@ -25,13 +25,9 @@ class _StreamwishRawApi {
   }
 
   ///[lastXDaysReport] show stats for last X days (default: 7)
-  Future<String?> accountReports({
-    int? lastXDaysReport,
-  }) async {
+  Future<String?> accountReports({int? lastXDaysReport}) async {
     final fetch = await _client.getUri(
-      _apiUri('account/stats', {
-        'last': '$lastXDaysReport',
-      }),
+      _apiUri('account/stats', {'last': '$lastXDaysReport'}),
     );
     return fetch;
   }
@@ -118,9 +114,7 @@ class _StreamwishRawApi {
 
   Future<String?> fileInfo(List<String> filesCode) async {
     final fetch = await _client.getUri(
-      _apiUri('file/info', {
-        'file_code': filesCode.joinComma,
-      }),
+      _apiUri('file/info', {'file_code': filesCode.joinComma}),
     );
 
     return fetch;
@@ -208,61 +202,41 @@ class _StreamwishRawApi {
     return fetch;
   }
 
-  Future<String?> fileDelete(
-    String fileCode,
-  ) async {
+  Future<String?> fileDelete(String fileCode) async {
     final fetch = await _client.getUri(
-      _apiUri('file/delete', {
-        'file_code': fileCode,
-      }),
+      _apiUri('file/delete', {'file_code': fileCode}),
     );
 
     return fetch;
   }
 
-  Future<String?> fileDeletedList({
-    int? deletedInLastNumberOfHours,
-  }) async {
+  Future<String?> fileDeletedList({int? deletedInLastNumberOfHours}) async {
     final fetch = await _client.getUri(
-      _apiUri('file/deleted', {
-        'last': '$deletedInLastNumberOfHours',
-      }),
+      _apiUri('file/deleted', {'last': '$deletedInLastNumberOfHours'}),
     );
 
     return fetch;
   }
 
-  Future<String?> fileDmcaList({
-    int? reportedInLastNumberOfHours,
-  }) async {
+  Future<String?> fileDmcaList({int? reportedInLastNumberOfHours}) async {
     final fetch = await _client.getUri(
-      _apiUri('file/dmca', {
-        'last': '$reportedInLastNumberOfHours',
-      }),
+      _apiUri('file/dmca', {'last': '$reportedInLastNumberOfHours'}),
     );
 
     return fetch;
   }
 
   /// Filter by [fileCode] if provided
-  Future<String?> fileEncodings(
-    String fileCode,
-  ) async {
+  Future<String?> fileEncodings(String fileCode) async {
     final fetch = await _client.getUri(
-      _apiUri('file/encodings', {
-        'file_code': fileCode,
-      }),
+      _apiUri('file/encodings', {'file_code': fileCode}),
     );
     return fetch;
   }
 
-  Future<String?> fileRemoteUploadStatus({
-    String? fileCode,
-  }) async {
+  Future<String?> fileRemoteUploadStatus({String? fileCode}) async {
     final fetch = await _client.getUri(
-      _apiUri('file/url_uploads', {
-        'file_code': fileCode,
-      }),
+      _apiUri('file/url_uploads', {'file_code': fileCode}),
     );
     return fetch;
   }
@@ -288,10 +262,7 @@ class _StreamwishRawApi {
     return fetch;
   }
 
-  Future<String?> folderList({
-    int? folderId,
-    int? showNuberOfFiles,
-  }) async {
+  Future<String?> folderList({int? folderId, int? showNuberOfFiles}) async {
     final fetch = await _client.getUri(
       _apiUri('folder/list', {
         'fld_id': '$folderId',

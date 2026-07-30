@@ -15,21 +15,20 @@ class _GofileRawApi {
     Map<String, dynamic>? queryParameters,
     String server = 'api',
     bool isNeedTokenInParameters = false,
-  }) =>
-      Uri.https(
-        [server, _base].joinDot,
-        '/$unencodedPath',
-        (isNeedTokenInParameters ? <String, dynamic>{'token': token} : {})
-          ..addAll(queryParameters ?? {})
-          ..removeWhere((_, v) => v == null || v == 'null'),
-      );
+  }) => Uri.https(
+    [server, _base].joinDot,
+    '/$unencodedPath',
+    (isNeedTokenInParameters ? <String, dynamic>{'token': token} : {})
+      ..addAll(queryParameters ?? {})
+      ..removeWhere((_, v) => v == null || v == 'null'),
+  );
 
   /// Retrieving specific account information
   ///
   /// [token] must be provided
   Future<String?> accountInfo() => _client.getUri(
-        _apiUri('getAccountDetails', isNeedTokenInParameters: true),
-      );
+    _apiUri('getAccountDetails', isNeedTokenInParameters: true),
+  );
 
   ///Returns the best server available to receive files for [uploadFile]
   Future<String?> getUploadServer() =>
@@ -67,10 +66,7 @@ class _GofileRawApi {
     ];
 
     return _client.postUri(
-      _apiUri(
-        'uploadFile',
-        server: uploadServer,
-      ),
+      _apiUri('uploadFile', server: uploadServer),
       fields: fields,
       files: files,
       fileTransferProgress: FileTransferProgress(
@@ -88,36 +84,29 @@ class _GofileRawApi {
   ///
   /// [token] must be provided
   Future<String?> getContent(String contentId) => _client.getUri(
-        _apiUri(
-          'getContent',
-          queryParameters: {'contentId': contentId},
-          isNeedTokenInParameters: true,
-        ),
-      );
+    _apiUri(
+      'getContent',
+      queryParameters: {'contentId': contentId},
+      isNeedTokenInParameters: true,
+    ),
+  );
 
   ///Create a new folder
   ///
   ///[parentFolderId] is The parent folder ID.
   ///
   /// [token] must be provided
-  Future<String?> createFolder(
-    String folderName,
-    String parentFolderId,
-  ) async {
+  Future<String?> createFolder(String folderName, String parentFolderId) async {
     final data = <String, dynamic>{
       'token': token,
       'folderName': folderName,
       'parentFolderId': parentFolderId,
     }.toJsonString;
 
-    return _client.putUri(
+    return await _client.putUri(
       _apiUri('createFolder'),
       data: data,
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ),
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
   }
 
@@ -153,14 +142,10 @@ class _GofileRawApi {
       'value': value,
     }.toJsonString;
 
-    return _client.putUri(
+    return await _client.putUri(
       _apiUri('setOption'),
       data: data,
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ),
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
   }
 
@@ -181,14 +166,10 @@ class _GofileRawApi {
       'contentsId': joinContentIds,
     }.toJsonString;
 
-    return _client.putUri(
+    return await _client.putUri(
       _apiUri('copyContent'),
       data: data,
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ),
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
   }
 
@@ -205,14 +186,10 @@ class _GofileRawApi {
       'contentsId': joinContentIds,
     }.toJsonString;
 
-    return _client.deleteUri(
+    return await _client.deleteUri(
       _apiUri('deleteContent'),
       data: data,
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ),
+      options: Options(headers: {'Content-Type': 'application/json'}),
     );
   }
 }

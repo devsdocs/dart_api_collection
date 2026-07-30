@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishAccountStat {
-  StreamwishAccountStat({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishAccountStat({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishAccountStat.fromJson(String str) =>
       StreamwishAccountStat.fromMap(json.decode(str));
@@ -19,8 +14,9 @@ class StreamwishAccountStat {
         result: json['result'] == null
             ? []
             : List<StreamwishAccountStatResult>.from(
-                json['result']!
-                    .map((x) => StreamwishAccountStatResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => StreamwishAccountStatResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -37,24 +33,23 @@ class StreamwishAccountStat {
     List<StreamwishAccountStatResult>? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishAccountStat(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishAccountStat(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishAccountStatResult {
@@ -117,37 +112,36 @@ class StreamwishAccountStatResult {
     String? views,
     String? viewsAdb,
     String? viewsPrem,
-  }) =>
-      StreamwishAccountStatResult(
-        day: day ?? this.day,
-        downloads: downloads ?? this.downloads,
-        profitRefs: profitRefs ?? this.profitRefs,
-        profitSales: profitSales ?? this.profitSales,
-        profitSite: profitSite ?? this.profitSite,
-        profitTotal: profitTotal ?? this.profitTotal,
-        profitViews: profitViews ?? this.profitViews,
-        refs: refs ?? this.refs,
-        sales: sales ?? this.sales,
-        views: views ?? this.views,
-        viewsAdb: viewsAdb ?? this.viewsAdb,
-        viewsPrem: viewsPrem ?? this.viewsPrem,
-      );
+  }) => StreamwishAccountStatResult(
+    day: day ?? this.day,
+    downloads: downloads ?? this.downloads,
+    profitRefs: profitRefs ?? this.profitRefs,
+    profitSales: profitSales ?? this.profitSales,
+    profitSite: profitSite ?? this.profitSite,
+    profitTotal: profitTotal ?? this.profitTotal,
+    profitViews: profitViews ?? this.profitViews,
+    refs: refs ?? this.refs,
+    sales: sales ?? this.sales,
+    views: views ?? this.views,
+    viewsAdb: viewsAdb ?? this.viewsAdb,
+    viewsPrem: viewsPrem ?? this.viewsPrem,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'day':
-            "${day!.year.toString().padLeft(4, '0')}-${day!.month.toString().padLeft(2, '0')}-${day!.day.toString().padLeft(2, '0')}",
-        'downloads': downloads,
-        'profit_refs': profitRefs,
-        'profit_sales': profitSales,
-        'profit_site': profitSite,
-        'profit_total': profitTotal,
-        'profit_views': profitViews,
-        'refs': refs,
-        'sales': sales,
-        'views': views,
-        'views_adb': viewsAdb,
-        'views_prem': viewsPrem,
-      };
+    'day':
+        "${day!.year.toString().padLeft(4, '0')}-${day!.month.toString().padLeft(2, '0')}-${day!.day.toString().padLeft(2, '0')}",
+    'downloads': downloads,
+    'profit_refs': profitRefs,
+    'profit_sales': profitSales,
+    'profit_site': profitSite,
+    'profit_total': profitTotal,
+    'profit_views': profitViews,
+    'refs': refs,
+    'sales': sales,
+    'views': views,
+    'views_adb': viewsAdb,
+    'views_prem': viewsPrem,
+  };
 }

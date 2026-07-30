@@ -33,10 +33,10 @@ class DoodstreamRemoteUploadSlot {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-        'total_slots': totalSlots,
-        'used_slots': usedSlots,
-      };
+    'msg': msg,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+    'total_slots': totalSlots,
+    'used_slots': usedSlots,
+  };
 }

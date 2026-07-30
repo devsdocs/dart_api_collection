@@ -2,3 +2,4 @@
 test/**
 thunder-tests/**
 doc/**
+.env

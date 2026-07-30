@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeDownloadTicket {
-  StreamtapeDownloadTicket({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeDownloadTicket({this.msg, this.result, this.status});
 
   factory StreamtapeDownloadTicket.fromJson(String str) =>
       StreamtapeDownloadTicket.fromMap(json.decode(str));
@@ -28,28 +24,23 @@ class StreamtapeDownloadTicket {
     String? msg,
     StreamtapeDownloadTicketResult? result,
     int? status,
-  }) =>
-      StreamtapeDownloadTicket(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeDownloadTicket(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'status': status,
+  };
 }
 
 class StreamtapeDownloadTicketResult {
-  StreamtapeDownloadTicketResult({
-    this.ticket,
-    this.validUntil,
-    this.waitTime,
-  });
+  StreamtapeDownloadTicketResult({this.ticket, this.validUntil, this.waitTime});
 
   factory StreamtapeDownloadTicketResult.fromJson(String str) =>
       StreamtapeDownloadTicketResult.fromMap(json.decode(str));
@@ -70,18 +61,17 @@ class StreamtapeDownloadTicketResult {
     String? ticket,
     DateTime? validUntil,
     int? waitTime,
-  }) =>
-      StreamtapeDownloadTicketResult(
-        ticket: ticket ?? this.ticket,
-        validUntil: validUntil ?? this.validUntil,
-        waitTime: waitTime ?? this.waitTime,
-      );
+  }) => StreamtapeDownloadTicketResult(
+    ticket: ticket ?? this.ticket,
+    validUntil: validUntil ?? this.validUntil,
+    waitTime: waitTime ?? this.waitTime,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'ticket': ticket,
-        'valid_until': validUntil?.toIso8601String(),
-        'wait_time': waitTime,
-      };
+    'ticket': ticket,
+    'valid_until': validUntil?.toIso8601String(),
+    'wait_time': waitTime,
+  };
 }

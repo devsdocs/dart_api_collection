@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamAccountInfo {
-  DoodstreamAccountInfo({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamAccountInfo({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamAccountInfo.fromJson(String str) =>
       DoodstreamAccountInfo.fromMap(json.decode(str));
@@ -32,11 +27,11 @@ class DoodstreamAccountInfo {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamAccountInfoResult {
@@ -70,10 +65,10 @@ class DoodstreamAccountInfoResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'balance': balance,
-        'email': email,
-        'premim_expire': premimExpire?.toIso8601String(),
-        'storage_left': storageLeft,
-        'storage_used': storageUsed,
-      };
+    'balance': balance,
+    'email': email,
+    'premim_expire': premimExpire?.toIso8601String(),
+    'storage_left': storageLeft,
+    'storage_used': storageUsed,
+  };
 }

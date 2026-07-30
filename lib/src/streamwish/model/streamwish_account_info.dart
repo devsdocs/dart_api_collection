@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishAccountInfo {
-  StreamwishAccountInfo({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishAccountInfo({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishAccountInfo.fromJson(String str) =>
       StreamwishAccountInfo.fromMap(json.decode(str));
@@ -34,22 +29,21 @@ class StreamwishAccountInfo {
     StreamwishAccountInfoResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishAccountInfo(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishAccountInfo(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishAccountInfoResult {
@@ -98,28 +92,27 @@ class StreamwishAccountInfoResult {
     DateTime? premiumExpire,
     String? storageLeft,
     int? storageUsed,
-  }) =>
-      StreamwishAccountInfoResult(
-        balance: balance ?? this.balance,
-        email: email ?? this.email,
-        filesTotal: filesTotal ?? this.filesTotal,
-        login: login ?? this.login,
-        premium: premium ?? this.premium,
-        premiumExpire: premiumExpire ?? this.premiumExpire,
-        storageLeft: storageLeft ?? this.storageLeft,
-        storageUsed: storageUsed ?? this.storageUsed,
-      );
+  }) => StreamwishAccountInfoResult(
+    balance: balance ?? this.balance,
+    email: email ?? this.email,
+    filesTotal: filesTotal ?? this.filesTotal,
+    login: login ?? this.login,
+    premium: premium ?? this.premium,
+    premiumExpire: premiumExpire ?? this.premiumExpire,
+    storageLeft: storageLeft ?? this.storageLeft,
+    storageUsed: storageUsed ?? this.storageUsed,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'balance': balance,
-        'email': email,
-        'files_total': filesTotal,
-        'login': login,
-        'premium': premium,
-        'premium_expire': premiumExpire?.toIso8601String(),
-        'storage_left': storageLeft,
-        'storage_used': storageUsed,
-      };
+    'balance': balance,
+    'email': email,
+    'files_total': filesTotal,
+    'login': login,
+    'premium': premium,
+    'premium_expire': premiumExpire?.toIso8601String(),
+    'storage_left': storageLeft,
+    'storage_used': storageUsed,
+  };
 }

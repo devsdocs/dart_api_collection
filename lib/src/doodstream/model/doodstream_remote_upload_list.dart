@@ -19,8 +19,9 @@ class DoodstreamRemoteUploadList {
         result: json['result'] == null
             ? []
             : List<DoodstreamRemoteUploadListResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamRemoteUploadListResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamRemoteUploadListResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +36,13 @@ class DoodstreamRemoteUploadList {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamRemoteUploadListResult {
@@ -62,8 +63,9 @@ class DoodstreamRemoteUploadListResult {
       DoodstreamRemoteUploadListResult(
         bytesDownloaded: json['bytes_downloaded'],
         bytesTotal: json['bytes_total'],
-        created:
-            json['created'] == null ? null : DateTime.parse(json['created']),
+        created: json['created'] == null
+            ? null
+            : DateTime.parse(json['created']),
         fileCode: json['file_code'],
         folderId: json['folder_id'],
         remoteUrl: json['remote_url'],
@@ -80,12 +82,12 @@ class DoodstreamRemoteUploadListResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'bytes_downloaded': bytesDownloaded,
-        'bytes_total': bytesTotal,
-        'created': created?.toIso8601String(),
-        'file_code': fileCode,
-        'folder_id': folderId,
-        'remote_url': remoteUrl,
-        'status': status,
-      };
+    'bytes_downloaded': bytesDownloaded,
+    'bytes_total': bytesTotal,
+    'created': created?.toIso8601String(),
+    'file_code': fileCode,
+    'folder_id': folderId,
+    'remote_url': remoteUrl,
+    'status': status,
+  };
 }

@@ -3,10 +3,7 @@
 part of '../../gofile.dart';
 
 class GofileCommonResult {
-  GofileCommonResult({
-    this.data,
-    this.status,
-  });
+  GofileCommonResult({this.data, this.status});
 
   factory GofileCommonResult.fromJson(String str) =>
       GofileCommonResult.fromMap(json.decode(str));
@@ -21,10 +18,7 @@ class GofileCommonResult {
   final GofileCommonResultData? data;
   final String? status;
 
-  GofileCommonResult copyWith({
-    GofileCommonResultData? data,
-    String? status,
-  }) =>
+  GofileCommonResult copyWith({GofileCommonResultData? data, String? status}) =>
       GofileCommonResult(
         data: data ?? this.data,
         status: status ?? this.status,
@@ -32,36 +26,23 @@ class GofileCommonResult {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'data': data?.toMap(),
-        'status': status,
-      };
+  Map<String, dynamic> toMap() => {'data': data?.toMap(), 'status': status};
 }
 
 class GofileCommonResultData {
-  GofileCommonResultData({
-    this.placeholder,
-  });
+  GofileCommonResultData({this.placeholder});
 
   factory GofileCommonResultData.fromJson(String str) =>
       GofileCommonResultData.fromMap(json.decode(str));
 
   factory GofileCommonResultData.fromMap(Map<String, dynamic> json) =>
-      GofileCommonResultData(
-        placeholder: json['placeholder'],
-      );
+      GofileCommonResultData(placeholder: json['placeholder']);
   final String? placeholder;
 
-  GofileCommonResultData copyWith({
-    String? placeholder,
-  }) =>
-      GofileCommonResultData(
-        placeholder: placeholder ?? this.placeholder,
-      );
+  GofileCommonResultData copyWith({String? placeholder}) =>
+      GofileCommonResultData(placeholder: placeholder ?? this.placeholder);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'placeholder': placeholder,
-      };
+  Map<String, dynamic> toMap() => {'placeholder': placeholder};
 }

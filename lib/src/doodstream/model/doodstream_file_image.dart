@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamFileImage {
-  DoodstreamFileImage({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamFileImage({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamFileImage.fromJson(String str) =>
       DoodstreamFileImage.fromMap(json.decode(str));
@@ -19,8 +14,9 @@ class DoodstreamFileImage {
         result: json['result'] == null
             ? []
             : List<DoodstreamFileImageResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamFileImageResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamFileImageResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +31,13 @@ class DoodstreamFileImage {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamFileImageResult {
@@ -76,11 +72,11 @@ class DoodstreamFileImageResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-        'single_img': singleImg,
-        'splash_img': splashImg,
-        'status': status,
-        'thumb_img': thumbImg,
-        'title': title,
-      };
+    'filecode': filecode,
+    'single_img': singleImg,
+    'splash_img': splashImg,
+    'status': status,
+    'thumb_img': thumbImg,
+    'title': title,
+  };
 }

@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeAccountInfo {
-  StreamtapeAccountInfo({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeAccountInfo({this.msg, this.result, this.status});
 
   factory StreamtapeAccountInfo.fromJson(String str) =>
       StreamtapeAccountInfo.fromMap(json.decode(str));
@@ -28,28 +24,23 @@ class StreamtapeAccountInfo {
     String? msg,
     StreamtapeAccountInfoResult? result,
     int? status,
-  }) =>
-      StreamtapeAccountInfo(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeAccountInfo(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'status': status,
+  };
 }
 
 class StreamtapeAccountInfoResult {
-  StreamtapeAccountInfoResult({
-    this.apiid,
-    this.email,
-    this.signupAt,
-  });
+  StreamtapeAccountInfoResult({this.apiid, this.email, this.signupAt});
 
   factory StreamtapeAccountInfoResult.fromJson(String str) =>
       StreamtapeAccountInfoResult.fromMap(json.decode(str));
@@ -70,18 +61,17 @@ class StreamtapeAccountInfoResult {
     String? apiid,
     String? email,
     DateTime? signupAt,
-  }) =>
-      StreamtapeAccountInfoResult(
-        apiid: apiid ?? this.apiid,
-        email: email ?? this.email,
-        signupAt: signupAt ?? this.signupAt,
-      );
+  }) => StreamtapeAccountInfoResult(
+    apiid: apiid ?? this.apiid,
+    email: email ?? this.email,
+    signupAt: signupAt ?? this.signupAt,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'apiid': apiid,
-        'email': email,
-        'signup_at': signupAt?.toIso8601String(),
-      };
+    'apiid': apiid,
+    'email': email,
+    'signup_at': signupAt?.toIso8601String(),
+  };
 }

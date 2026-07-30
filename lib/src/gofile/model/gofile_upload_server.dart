@@ -3,10 +3,7 @@
 part of '../../gofile.dart';
 
 class GofileUploadServer {
-  GofileUploadServer({
-    this.data,
-    this.status,
-  });
+  GofileUploadServer({this.data, this.status});
 
   factory GofileUploadServer.fromJson(String str) =>
       GofileUploadServer.fromMap(json.decode(str));
@@ -21,10 +18,7 @@ class GofileUploadServer {
   final GofileUploadServerData? data;
   final String? status;
 
-  GofileUploadServer copyWith({
-    GofileUploadServerData? data,
-    String? status,
-  }) =>
+  GofileUploadServer copyWith({GofileUploadServerData? data, String? status}) =>
       GofileUploadServer(
         data: data ?? this.data,
         status: status ?? this.status,
@@ -32,36 +26,23 @@ class GofileUploadServer {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'data': data?.toMap(),
-        'status': status,
-      };
+  Map<String, dynamic> toMap() => {'data': data?.toMap(), 'status': status};
 }
 
 class GofileUploadServerData {
-  GofileUploadServerData({
-    this.server,
-  });
+  GofileUploadServerData({this.server});
 
   factory GofileUploadServerData.fromJson(String str) =>
       GofileUploadServerData.fromMap(json.decode(str));
 
   factory GofileUploadServerData.fromMap(Map<String, dynamic> json) =>
-      GofileUploadServerData(
-        server: json['server'],
-      );
+      GofileUploadServerData(server: json['server']);
   final String? server;
 
-  GofileUploadServerData copyWith({
-    String? server,
-  }) =>
-      GofileUploadServerData(
-        server: server ?? this.server,
-      );
+  GofileUploadServerData copyWith({String? server}) =>
+      GofileUploadServerData(server: server ?? this.server);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'server': server,
-      };
+  Map<String, dynamic> toMap() => {'server': server};
 }

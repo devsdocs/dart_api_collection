@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamCloneFile {
-  DoodstreamCloneFile({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamCloneFile({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamCloneFile.fromJson(String str) =>
       DoodstreamCloneFile.fromMap(json.decode(str));
@@ -32,11 +27,11 @@ class DoodstreamCloneFile {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamCloneFileResult {
@@ -68,10 +63,10 @@ class DoodstreamCloneFileResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'download_url': downloadUrl,
-        'embed_url': embedUrl,
-        'filecode': filecode,
-        'protected_download': protectedDownload,
-        'protected_embed': protectedEmbed,
-      };
+    'download_url': downloadUrl,
+    'embed_url': embedUrl,
+    'filecode': filecode,
+    'protected_download': protectedDownload,
+    'protected_embed': protectedEmbed,
+  };
 }

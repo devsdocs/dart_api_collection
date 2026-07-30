@@ -52,6 +52,6 @@ extension StreamtapeApiComponentExt on StreamtapeDownloadLink {
             isUpload: false,
           ),
         )
-        .then((_) async => File(saveDestinaton).exists());
+        .then((_) async => await File(saveDestinaton).exists());
   }
 }

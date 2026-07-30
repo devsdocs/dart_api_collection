@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishFolderCreate {
-  StreamwishFolderCreate({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishFolderCreate({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishFolderCreate.fromJson(String str) =>
       StreamwishFolderCreate.fromMap(json.decode(str));
@@ -34,48 +29,37 @@ class StreamwishFolderCreate {
     StreamwishFolderCreateResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFolderCreate(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFolderCreate(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFolderCreateResult {
-  StreamwishFolderCreateResult({
-    this.fldId,
-  });
+  StreamwishFolderCreateResult({this.fldId});
 
   factory StreamwishFolderCreateResult.fromJson(String str) =>
       StreamwishFolderCreateResult.fromMap(json.decode(str));
 
   factory StreamwishFolderCreateResult.fromMap(Map<String, dynamic> json) =>
-      StreamwishFolderCreateResult(
-        fldId: json['fld_id'],
-      );
+      StreamwishFolderCreateResult(fldId: json['fld_id']);
   final String? fldId;
 
-  StreamwishFolderCreateResult copyWith({
-    String? fldId,
-  }) =>
-      StreamwishFolderCreateResult(
-        fldId: fldId ?? this.fldId,
-      );
+  StreamwishFolderCreateResult copyWith({String? fldId}) =>
+      StreamwishFolderCreateResult(fldId: fldId ?? this.fldId);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'fld_id': fldId,
-      };
+  Map<String, dynamic> toMap() => {'fld_id': fldId};
 }

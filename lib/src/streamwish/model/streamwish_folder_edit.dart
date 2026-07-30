@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishFolderEdit {
-  StreamwishFolderEdit({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishFolderEdit({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishFolderEdit.fromJson(String str) =>
       StreamwishFolderEdit.fromMap(json.decode(str));
@@ -32,20 +27,19 @@ class StreamwishFolderEdit {
     String? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFolderEdit(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFolderEdit(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

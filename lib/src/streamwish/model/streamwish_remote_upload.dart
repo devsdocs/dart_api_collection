@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishRemoteUpload {
-  StreamwishRemoteUpload({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishRemoteUpload({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishRemoteUpload.fromJson(String str) =>
       StreamwishRemoteUpload.fromMap(json.decode(str));
@@ -34,48 +29,37 @@ class StreamwishRemoteUpload {
     StreamwishRemoteUploadResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishRemoteUpload(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishRemoteUpload(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishRemoteUploadResult {
-  StreamwishRemoteUploadResult({
-    this.filecode,
-  });
+  StreamwishRemoteUploadResult({this.filecode});
 
   factory StreamwishRemoteUploadResult.fromJson(String str) =>
       StreamwishRemoteUploadResult.fromMap(json.decode(str));
 
   factory StreamwishRemoteUploadResult.fromMap(Map<String, dynamic> json) =>
-      StreamwishRemoteUploadResult(
-        filecode: json['filecode'],
-      );
+      StreamwishRemoteUploadResult(filecode: json['filecode']);
   final String? filecode;
 
-  StreamwishRemoteUploadResult copyWith({
-    String? filecode,
-  }) =>
-      StreamwishRemoteUploadResult(
-        filecode: filecode ?? this.filecode,
-      );
+  StreamwishRemoteUploadResult copyWith({String? filecode}) =>
+      StreamwishRemoteUploadResult(filecode: filecode ?? this.filecode);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-      };
+  Map<String, dynamic> toMap() => {'filecode': filecode};
 }

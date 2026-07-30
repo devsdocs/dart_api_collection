@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamFileRename {
-  DoodstreamFileRename({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamFileRename({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamFileRename.fromJson(String str) =>
       DoodstreamFileRename.fromMap(json.decode(str));
@@ -30,9 +25,9 @@ class DoodstreamFileRename {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

@@ -32,20 +32,19 @@ class StreamwishRemoteUploadAction {
     int? requestsAvailable,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishRemoteUploadAction(
-        msg: msg ?? this.msg,
-        requestsAvailable: requestsAvailable ?? this.requestsAvailable,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishRemoteUploadAction(
+    msg: msg ?? this.msg,
+    requestsAvailable: requestsAvailable ?? this.requestsAvailable,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'requests_available': requestsAvailable,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'requests_available': requestsAvailable,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

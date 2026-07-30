@@ -23,7 +23,7 @@ class _DoodstreamRawApi {
   ///Get basic info of your account
   /// {@endtemplate}
   Future<String?> accountInfo() async =>
-      _client.getUri(_apiUri('account/info'));
+      await _client.getUri(_apiUri('account/info'));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.accountReports}
   ///Get reports of your account (default last 7 days)
@@ -32,25 +32,25 @@ class _DoodstreamRawApi {
     int? lastXDaysReport,
     DateTime? fromDate,
     DateTime? toDate,
-  }) async =>
-      _client.getUri(
-        _apiUri('account/stats', {
-          'last': '$lastXDaysReport',
-          'from_date': fromDate?.toJiffy.toYYYYMMDD,
-          'to_date': toDate?.toJiffy.toYYYYMMDD,
-        }),
-      );
+  }) async => await _client.getUri(
+    _apiUri('account/stats', {
+      'last': '$lastXDaysReport',
+      'from_date': fromDate?.toJiffy.toYYYYMMDD,
+      'to_date': toDate?.toJiffy.toYYYYMMDD,
+    }),
+  );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.dmcaList}
   ///Get DMCA reported files list (500 results per page)
   /// {@endtemplate}
-  Future<String?> dmcaList() async => _client.getUri(_apiUri('dmca/list'));
+  Future<String?> dmcaList() async =>
+      await _client.getUri(_apiUri('dmca/list'));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.getUploadServer}
   ///Get upload server for [localUpload]
   /// {@endtemplate}
   Future<String?> getUploadServer() async =>
-      _client.getUri(_apiUri('upload/server'));
+      await _client.getUri(_apiUri('upload/server'));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.localUpload}
   ///Upload local files using API with [getUploadServer] result
@@ -78,15 +78,9 @@ class _DoodstreamRawApi {
   /// {@template devsdocs.api_collection.doodstream.rawApi.clone}
   ///Copy / Clone your's or other's file
   /// {@endtemplate}
-  Future<String?> clone(
-    String fileCode, {
-    int? folderId,
-  }) async =>
-      _client.getUri(
-        _apiUri('file/clone', {
-          'file_code': fileCode,
-          'fld_id': '$folderId',
-        }),
+  Future<String?> clone(String fileCode, {int? folderId}) async =>
+      await _client.getUri(
+        _apiUri('file/clone', {'file_code': fileCode, 'fld_id': '$folderId'}),
       );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUpload}
@@ -96,38 +90,31 @@ class _DoodstreamRawApi {
     String url, {
     String? newTitle,
     int? folderId,
-  }) async =>
-      _client.getUri(
-        _apiUri('upload/url', {
-          'url': url,
-          'new_title': newTitle,
-          'fld_id': '$folderId',
-        }),
-      );
+  }) async => await _client.getUri(
+    _apiUri('upload/url', {
+      'url': url,
+      'new_title': newTitle,
+      'fld_id': '$folderId',
+    }),
+  );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadList}
   ///Remote Upload List & Status
   /// {@endtemplate}
   Future<String?> remoteUploadList() async =>
-      _client.getUri(_apiUri('urlupload/list'));
+      await _client.getUri(_apiUri('urlupload/list'));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadStatus}
   ///Remote Upload Status
   /// {@endtemplate}
-  Future<String?> remoteUploadStatus(
-    String fileCode,
-  ) async =>
-      _client.getUri(
-        _apiUri('urlupload/status', {
-          'file_code': fileCode,
-        }),
-      );
+  Future<String?> remoteUploadStatus(String fileCode) async => await _client
+      .getUri(_apiUri('urlupload/status', {'file_code': fileCode}));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadSlot}
   ///Get total & used remote upload slots
   /// {@endtemplate}
   Future<String?> remoteUploadSlot() async =>
-      _client.getUri(_apiUri('urlupload/slots'));
+      await _client.getUri(_apiUri('urlupload/slots'));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.remoteUploadAction}
   ///Perform various actions on remote upload
@@ -137,52 +124,36 @@ class _DoodstreamRawApi {
     bool? isClearErrors,
     bool? isClearAll,
     String? toBeDeletedRemoteUploadFileCode,
-  }) async =>
-      _client.getUri(
-        _apiUri('urlupload/actions', {
-          'restart_errors': isRestartErrors.toStringFlag,
-          'clear_errors': isClearErrors.toStringFlagOrNull,
-          'clear_all': isClearAll.toStringFlagOrNull,
-          'delete_code': toBeDeletedRemoteUploadFileCode,
-        }),
-      );
+  }) async => await _client.getUri(
+    _apiUri('urlupload/actions', {
+      'restart_errors': isRestartErrors.toStringFlag,
+      'clear_errors': isClearErrors.toStringFlagOrNull,
+      'clear_all': isClearAll.toStringFlagOrNull,
+      'delete_code': toBeDeletedRemoteUploadFileCode,
+    }),
+  );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.createFolder}
   ///Create a folder
   /// {@endtemplate}
-  Future<String?> createFolder(
-    String folderName, {
-    String? parentId,
-  }) async =>
-      _client.getUri(
-        _apiUri('folder/create', {
-          'name': folderName,
-          'parent_id': parentId,
-        }),
+  Future<String?> createFolder(String folderName, {String? parentId}) async =>
+      await _client.getUri(
+        _apiUri('folder/create', {'name': folderName, 'parent_id': parentId}),
       );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.renameFolder}
   ///Rename a folder
   /// {@endtemplate}
-  Future<String?> renameFolder(
-    String newName, {
-    required int folderId,
-  }) async =>
-      _client.getUri(
-        _apiUri('folder/rename', {
-          'name': newName,
-          'fld_id': '$folderId',
-        }),
+  Future<String?> renameFolder(String newName, {required int folderId}) async =>
+      await _client.getUri(
+        _apiUri('folder/rename', {'name': newName, 'fld_id': '$folderId'}),
       );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.listFolder}
   ///List a folder and it's sub-folders
   /// {@endtemplate}
-  Future<String?> listFolder(
-    int folderId, {
-    bool? isOnlyFolders,
-  }) async =>
-      _client.getUri(
+  Future<String?> listFolder(int folderId, {bool? isOnlyFolders}) async =>
+      await _client.getUri(
         _apiUri('folder/rename', {
           'only_folders': isOnlyFolders.toStringFlagOrNull,
           'fld_id': '$folderId',
@@ -196,50 +167,31 @@ class _DoodstreamRawApi {
     String? page,
     String? videosPerPage,
     int? folderId,
-  }) async =>
-      _client.getUri(
-        _apiUri('file/list', {
-          'page': page,
-          'per_page': videosPerPage,
-          'fld_id': '$folderId',
-        }),
-      );
+  }) async => await _client.getUri(
+    _apiUri('file/list', {
+      'page': page,
+      'per_page': videosPerPage,
+      'fld_id': '$folderId',
+    }),
+  );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileStatus}
   ///Check status of your file
   /// {@endtemplate}
-  Future<String?> fileStatus(
-    String fileCode,
-  ) async =>
-      _client.getUri(
-        _apiUri('file/check', {
-          'file_code': fileCode,
-        }),
-      );
+  Future<String?> fileStatus(String fileCode) async =>
+      await _client.getUri(_apiUri('file/check', {'file_code': fileCode}));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileInfo}
   ///Get file info
   /// {@endtemplate}
-  Future<String?> fileInfo(
-    String fileCode,
-  ) async =>
-      _client.getUri(
-        _apiUri('file/info', {
-          'file_code': fileCode,
-        }),
-      );
+  Future<String?> fileInfo(String fileCode) async =>
+      await _client.getUri(_apiUri('file/info', {'file_code': fileCode}));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileImage}
   ///Get file splash, single or thumbnail image
   /// {@endtemplate}
-  Future<String?> fileImage(
-    String fileCode,
-  ) async =>
-      _client.getUri(
-        _apiUri('file/image', {
-          'file_code': fileCode,
-        }),
-      );
+  Future<String?> fileImage(String fileCode) async =>
+      await _client.getUri(_apiUri('file/image', {'file_code': fileCode}));
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileRename}
   ///Rename your file
@@ -247,34 +199,21 @@ class _DoodstreamRawApi {
   Future<String?> fileRename(
     String newName, {
     required String fileCode,
-  }) async =>
-      _client.getUri(
-        _apiUri('file/rename', {
-          'title': newName,
-          'file_code': fileCode,
-        }),
-      );
+  }) async => await _client.getUri(
+    _apiUri('file/rename', {'title': newName, 'file_code': fileCode}),
+  );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileMove}
   ///Move your file
   /// {@endtemplate}
-  Future<String?> fileMove(
-    int folderId, {
-    required String fileCode,
-  }) async =>
-      _client.getUri(
-        _apiUri('file/rename', {
-          'fld_id': '$folderId',
-          'file_code': fileCode,
-        }),
+  Future<String?> fileMove(int folderId, {required String fileCode}) async =>
+      await _client.getUri(
+        _apiUri('file/rename', {'fld_id': '$folderId', 'file_code': fileCode}),
       );
 
   /// {@template devsdocs.api_collection.doodstream.rawApi.fileSearch}
   ///Search your files
   /// {@endtemplate}
-  Future<String?> fileSearch(String query) async => _client.getUri(
-        _apiUri('search/videos', {
-          'search_term': query,
-        }),
-      );
+  Future<String?> fileSearch(String query) async =>
+      await _client.getUri(_apiUri('search/videos', {'search_term': query}));
 }

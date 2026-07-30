@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamRenameFolder {
-  DoodstreamRenameFolder({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamRenameFolder({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamRenameFolder.fromJson(String str) =>
       DoodstreamRenameFolder.fromMap(json.decode(str));
@@ -30,9 +25,9 @@ class DoodstreamRenameFolder {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

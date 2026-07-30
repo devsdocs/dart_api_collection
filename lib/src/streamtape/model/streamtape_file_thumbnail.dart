@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeFileThumbnail {
-  StreamtapeFileThumbnail({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeFileThumbnail({this.msg, this.result, this.status});
 
   factory StreamtapeFileThumbnail.fromJson(String str) =>
       StreamtapeFileThumbnail.fromMap(json.decode(str));
@@ -26,18 +22,17 @@ class StreamtapeFileThumbnail {
     String? msg,
     String? result,
     int? status,
-  }) =>
-      StreamtapeFileThumbnail(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeFileThumbnail(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'status': status,
+  };
 }

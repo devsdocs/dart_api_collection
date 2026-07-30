@@ -3,10 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropFileDuplicate {
-  MixdropFileDuplicate({
-    this.result,
-    this.success,
-  });
+  MixdropFileDuplicate({this.result, this.success});
 
   factory MixdropFileDuplicate.fromJson(String str) =>
       MixdropFileDuplicate.fromMap(json.decode(str));
@@ -24,44 +21,33 @@ class MixdropFileDuplicate {
   MixdropFileDuplicate copyWith({
     MixdropFileDuplicateResult? result,
     bool? success,
-  }) =>
-      MixdropFileDuplicate(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropFileDuplicate(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropFileDuplicateResult {
-  MixdropFileDuplicateResult({
-    this.fileref,
-  });
+  MixdropFileDuplicateResult({this.fileref});
 
   factory MixdropFileDuplicateResult.fromJson(String str) =>
       MixdropFileDuplicateResult.fromMap(json.decode(str));
 
   factory MixdropFileDuplicateResult.fromMap(Map<String, dynamic> json) =>
-      MixdropFileDuplicateResult(
-        fileref: json['fileref'],
-      );
+      MixdropFileDuplicateResult(fileref: json['fileref']);
   final String? fileref;
 
-  MixdropFileDuplicateResult copyWith({
-    String? fileref,
-  }) =>
-      MixdropFileDuplicateResult(
-        fileref: fileref ?? this.fileref,
-      );
+  MixdropFileDuplicateResult copyWith({String? fileref}) =>
+      MixdropFileDuplicateResult(fileref: fileref ?? this.fileref);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'fileref': fileref,
-      };
+  Map<String, dynamic> toMap() => {'fileref': fileref};
 }

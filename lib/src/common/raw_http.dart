@@ -14,12 +14,11 @@ class RawHttp {
     Uri uri,
     String saveDestinaton, {
     required FileTransferProgress fileTransferProgress,
-  }) =>
-      download(
-        '$uri',
-        saveDestinaton,
-        fileTransferProgress: fileTransferProgress,
-      );
+  }) => download(
+    '$uri',
+    saveDestinaton,
+    fileTransferProgress: fileTransferProgress,
+  );
 
   Future<dynamic> download(
     String path,
@@ -32,10 +31,10 @@ class RawHttp {
       return data = (await _dio.download(
         path,
         saveDestinaton,
-        onReceiveProgress: (current, total) => transferProgress
-            .add(fileTransferProgress.copyWith(current: current, total: total)),
-      ))
-          .data;
+        onReceiveProgress: (current, total) => transferProgress.add(
+          fileTransferProgress.copyWith(current: current, total: total),
+        ),
+      )).data;
     } on DioException catch (e) {
       return data = e;
     } catch (_) {
@@ -47,8 +46,7 @@ class RawHttp {
     Uri uri, {
     required String data,
     Options? options,
-  }) async =>
-      delete('$uri', data: data, options: options);
+  }) async => await delete('$uri', data: data, options: options);
 
   Future<String?> delete(
     String path, {
@@ -57,8 +55,11 @@ class RawHttp {
   }) async {
     String? data;
     try {
-      return data =
-          (await _dio.delete<String>(path, data: data, options: options)).data;
+      return data = (await _dio.delete<String>(
+        path,
+        data: data,
+        options: options,
+      )).data;
     } on DioException catch (e) {
       return data = '$e';
     } catch (_) {
@@ -66,7 +67,7 @@ class RawHttp {
     }
   }
 
-  Future<String?> getUri(Uri uri) async => get('$uri');
+  Future<String?> getUri(Uri uri) async => await get('$uri');
 
   Future<String?> get(String path) async {
     String? data;
@@ -84,8 +85,7 @@ class RawHttp {
     Uri uri, {
     required String data,
     Options? options,
-  }) async =>
-      put('$uri', data: data, options: options);
+  }) async => await put('$uri', data: data, options: options);
 
   Future<String?> put(
     String path, {
@@ -95,8 +95,11 @@ class RawHttp {
     String? data;
 
     try {
-      return data =
-          (await _dio.put<String>(path, data: data, options: options)).data;
+      return data = (await _dio.put<String>(
+        path,
+        data: data,
+        options: options,
+      )).data;
     } on DioException catch (e) {
       return data = '$e';
     } catch (_) {
@@ -111,15 +114,14 @@ class RawHttp {
     FileTransferProgress? fileTransferProgress,
     Options? options,
     bool camelCaseContentDisposition = false,
-  }) async =>
-      post(
-        '$uri',
-        fields: fields,
-        files: files,
-        fileTransferProgress: fileTransferProgress,
-        options: options,
-        camelCaseContentDisposition: camelCaseContentDisposition,
-      );
+  }) async => await post(
+    '$uri',
+    fields: fields,
+    files: files,
+    fileTransferProgress: fileTransferProgress,
+    options: options,
+    camelCaseContentDisposition: camelCaseContentDisposition,
+  );
 
   Future<String?> post(
     String path, {
@@ -143,11 +145,10 @@ class RawHttp {
         options: options,
         onSendProgress: fileTransferProgress != null
             ? (current, total) => transferProgress.add(
-                  fileTransferProgress.copyWith(current: current, total: total),
-                )
+                fileTransferProgress.copyWith(current: current, total: total),
+              )
             : null,
-      ))
-          .data;
+      )).data;
     } on DioException catch (e) {
       return data = '$e';
     } catch (_) {

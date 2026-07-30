@@ -3,10 +3,7 @@
 part of '../../gofile.dart';
 
 class GofileGetAccount {
-  GofileGetAccount({
-    this.data,
-    this.status,
-  });
+  GofileGetAccount({this.data, this.status});
 
   factory GofileGetAccount.fromJson(String str) =>
       GofileGetAccount.fromMap(json.decode(str));
@@ -21,21 +18,12 @@ class GofileGetAccount {
   final GofileGetAccountData? data;
   final String? status;
 
-  GofileGetAccount copyWith({
-    GofileGetAccountData? data,
-    String? status,
-  }) =>
-      GofileGetAccount(
-        data: data ?? this.data,
-        status: status ?? this.status,
-      );
+  GofileGetAccount copyWith({GofileGetAccountData? data, String? status}) =>
+      GofileGetAccount(data: data ?? this.data, status: status ?? this.status);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'data': data?.toMap(),
-        'status': status,
-      };
+  Map<String, dynamic> toMap() => {'data': data?.toMap(), 'status': status};
 }
 
 class GofileGetAccountData {
@@ -82,28 +70,27 @@ class GofileGetAccountData {
     String? token,
     int? totalDownloadCount,
     int? totalSize,
-  }) =>
-      GofileGetAccountData(
-        email: email ?? this.email,
-        filesCount: filesCount ?? this.filesCount,
-        foldersCount: foldersCount ?? this.foldersCount,
-        rootFolder: rootFolder ?? this.rootFolder,
-        tier: tier ?? this.tier,
-        token: token ?? this.token,
-        totalDownloadCount: totalDownloadCount ?? this.totalDownloadCount,
-        totalSize: totalSize ?? this.totalSize,
-      );
+  }) => GofileGetAccountData(
+    email: email ?? this.email,
+    filesCount: filesCount ?? this.filesCount,
+    foldersCount: foldersCount ?? this.foldersCount,
+    rootFolder: rootFolder ?? this.rootFolder,
+    tier: tier ?? this.tier,
+    token: token ?? this.token,
+    totalDownloadCount: totalDownloadCount ?? this.totalDownloadCount,
+    totalSize: totalSize ?? this.totalSize,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'email': email,
-        'filesCount': filesCount,
-        'foldersCount': foldersCount,
-        'rootFolder': rootFolder,
-        'tier': tier,
-        'token': token,
-        'totalDownloadCount': totalDownloadCount,
-        'totalSize': totalSize,
-      };
+    'email': email,
+    'filesCount': filesCount,
+    'foldersCount': foldersCount,
+    'rootFolder': rootFolder,
+    'tier': tier,
+    'token': token,
+    'totalDownloadCount': totalDownloadCount,
+    'totalSize': totalSize,
+  };
 }

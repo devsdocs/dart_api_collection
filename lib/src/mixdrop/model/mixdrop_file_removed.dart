@@ -3,11 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropFileRemoved {
-  MixdropFileRemoved({
-    this.pages,
-    this.result,
-    this.success,
-  });
+  MixdropFileRemoved({this.pages, this.result, this.success});
 
   factory MixdropFileRemoved.fromJson(String str) =>
       MixdropFileRemoved.fromMap(json.decode(str));
@@ -30,31 +26,25 @@ class MixdropFileRemoved {
     int? pages,
     List<MixdropFileRemovedResult>? result,
     bool? success,
-  }) =>
-      MixdropFileRemoved(
-        pages: pages ?? this.pages,
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropFileRemoved(
+    pages: pages ?? this.pages,
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'pages': pages,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'success': success,
-      };
+    'pages': pages,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'success': success,
+  };
 }
 
 class MixdropFileRemovedResult {
-  MixdropFileRemovedResult({
-    this.date,
-    this.fileref,
-    this.status,
-    this.title,
-  });
+  MixdropFileRemovedResult({this.date, this.fileref, this.status, this.title});
 
   factory MixdropFileRemovedResult.fromJson(String str) =>
       MixdropFileRemovedResult.fromMap(json.decode(str));
@@ -76,20 +66,19 @@ class MixdropFileRemovedResult {
     String? fileref,
     String? status,
     String? title,
-  }) =>
-      MixdropFileRemovedResult(
-        date: date ?? this.date,
-        fileref: fileref ?? this.fileref,
-        status: status ?? this.status,
-        title: title ?? this.title,
-      );
+  }) => MixdropFileRemovedResult(
+    date: date ?? this.date,
+    fileref: fileref ?? this.fileref,
+    status: status ?? this.status,
+    title: title ?? this.title,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'date': date,
-        'fileref': fileref,
-        'status': status,
-        'title': title,
-      };
+    'date': date,
+    'fileref': fileref,
+    'status': status,
+    'title': title,
+  };
 }

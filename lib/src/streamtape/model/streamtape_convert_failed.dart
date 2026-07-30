@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeConvertFailed {
-  StreamtapeConvertFailed({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeConvertFailed({this.msg, this.result, this.status});
 
   factory StreamtapeConvertFailed.fromJson(String str) =>
       StreamtapeConvertFailed.fromMap(json.decode(str));
@@ -18,8 +14,9 @@ class StreamtapeConvertFailed {
         result: json['result'] == null
             ? []
             : List<StreamtapeConvertFailedResult>.from(
-                json['result']!
-                    .map((x) => StreamtapeConvertFailedResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => StreamtapeConvertFailedResult.fromMap(x),
+                ),
               ),
         status: json['status'],
       );
@@ -31,22 +28,21 @@ class StreamtapeConvertFailed {
     String? msg,
     List<StreamtapeConvertFailedResult>? result,
     int? status,
-  }) =>
-      StreamtapeConvertFailed(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeConvertFailed(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'status': status,
+  };
 }
 
 class StreamtapeConvertFailedResult {
@@ -89,26 +85,25 @@ class StreamtapeConvertFailedResult {
     int? progress,
     int? retries,
     String? status,
-  }) =>
-      StreamtapeConvertFailedResult(
-        folderid: folderid ?? this.folderid,
-        link: link ?? this.link,
-        linkid: linkid ?? this.linkid,
-        name: name ?? this.name,
-        progress: progress ?? this.progress,
-        retries: retries ?? this.retries,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeConvertFailedResult(
+    folderid: folderid ?? this.folderid,
+    link: link ?? this.link,
+    linkid: linkid ?? this.linkid,
+    name: name ?? this.name,
+    progress: progress ?? this.progress,
+    retries: retries ?? this.retries,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'folderid': folderid,
-        'link': link,
-        'linkid': linkid,
-        'name': name,
-        'progress': progress,
-        'retries': retries,
-        'status': status,
-      };
+    'folderid': folderid,
+    'link': link,
+    'linkid': linkid,
+    'name': name,
+    'progress': progress,
+    'retries': retries,
+    'status': status,
+  };
 }

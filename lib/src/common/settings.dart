@@ -33,16 +33,15 @@ class _LogConfig {
     bool responseHeader = true,
     bool responseBody = true,
     bool error = true,
-  }) =>
-      _instance ??= _LogConfig._internal(
-        enableLog: enableLog,
-        showRequest: request,
-        showRequestHeader: requestHeader,
-        showRequestBody: requestBody,
-        showResponseHeader: responseHeader,
-        showResponseBody: responseBody,
-        showError: error,
-      );
+  }) => _instance ??= _LogConfig._internal(
+    enableLog: enableLog,
+    showRequest: request,
+    showRequestHeader: requestHeader,
+    showRequestBody: requestBody,
+    showResponseHeader: responseHeader,
+    showResponseBody: responseBody,
+    showError: error,
+  );
 
   _LogConfig._internal({
     required this.enableLog,

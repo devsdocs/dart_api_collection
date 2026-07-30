@@ -3,10 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropRemoteUpload {
-  MixdropRemoteUpload({
-    this.result,
-    this.success,
-  });
+  MixdropRemoteUpload({this.result, this.success});
 
   factory MixdropRemoteUpload.fromJson(String str) =>
       MixdropRemoteUpload.fromMap(json.decode(str));
@@ -24,26 +21,21 @@ class MixdropRemoteUpload {
   MixdropRemoteUpload copyWith({
     MixdropRemoteUploadResult? result,
     bool? success,
-  }) =>
-      MixdropRemoteUpload(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropRemoteUpload(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropRemoteUploadResult {
-  MixdropRemoteUploadResult({
-    this.fileref,
-    this.id,
-    this.status,
-  });
+  MixdropRemoteUploadResult({this.fileref, this.id, this.status});
 
   factory MixdropRemoteUploadResult.fromJson(String str) =>
       MixdropRemoteUploadResult.fromMap(json.decode(str));
@@ -62,18 +54,17 @@ class MixdropRemoteUploadResult {
     String? fileref,
     int? id,
     String? status,
-  }) =>
-      MixdropRemoteUploadResult(
-        fileref: fileref ?? this.fileref,
-        id: id ?? this.id,
-        status: status ?? this.status,
-      );
+  }) => MixdropRemoteUploadResult(
+    fileref: fileref ?? this.fileref,
+    id: id ?? this.id,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'fileref': fileref,
-        'id': id,
-        'status': status,
-      };
+    'fileref': fileref,
+    'id': id,
+    'status': status,
+  };
 }

@@ -3,10 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropLocalUpload {
-  MixdropLocalUpload({
-    this.result,
-    this.success,
-  });
+  MixdropLocalUpload({this.result, this.success});
 
   factory MixdropLocalUpload.fromJson(String str) =>
       MixdropLocalUpload.fromMap(json.decode(str));
@@ -24,44 +21,33 @@ class MixdropLocalUpload {
   MixdropLocalUpload copyWith({
     MixdropLocalUploadResult? result,
     bool? success,
-  }) =>
-      MixdropLocalUpload(
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropLocalUpload(
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropLocalUploadResult {
-  MixdropLocalUploadResult({
-    this.fileref,
-  });
+  MixdropLocalUploadResult({this.fileref});
 
   factory MixdropLocalUploadResult.fromJson(String str) =>
       MixdropLocalUploadResult.fromMap(json.decode(str));
 
   factory MixdropLocalUploadResult.fromMap(Map<String, dynamic> json) =>
-      MixdropLocalUploadResult(
-        fileref: json['fileref'],
-      );
+      MixdropLocalUploadResult(fileref: json['fileref']);
   final String? fileref;
 
-  MixdropLocalUploadResult copyWith({
-    String? fileref,
-  }) =>
-      MixdropLocalUploadResult(
-        fileref: fileref ?? this.fileref,
-      );
+  MixdropLocalUploadResult copyWith({String? fileref}) =>
+      MixdropLocalUploadResult(fileref: fileref ?? this.fileref);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'fileref': fileref,
-      };
+  Map<String, dynamic> toMap() => {'fileref': fileref};
 }

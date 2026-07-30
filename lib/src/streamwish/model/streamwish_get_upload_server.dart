@@ -32,20 +32,19 @@ class StreamwishGetUploadServer {
     String? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishGetUploadServer(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishGetUploadServer(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

@@ -19,8 +19,9 @@ class StreamwishRemoteUploadStatus {
         result: json['result'] == null
             ? []
             : List<StreamwishRemoteUploadStatusResult>.from(
-                json['result']!
-                    .map((x) => StreamwishRemoteUploadStatusResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => StreamwishRemoteUploadStatusResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -37,24 +38,23 @@ class StreamwishRemoteUploadStatus {
     List<StreamwishRemoteUploadStatusResult>? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishRemoteUploadStatus(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishRemoteUploadStatus(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishRemoteUploadStatusResult {
@@ -71,14 +71,13 @@ class StreamwishRemoteUploadStatusResult {
 
   factory StreamwishRemoteUploadStatusResult.fromMap(
     Map<String, dynamic> json,
-  ) =>
-      StreamwishRemoteUploadStatusResult(
-        fileCode: json['file_code'],
-        fldId: json['fld_id'],
-        progress: json['progress'],
-        remoteUrl: json['remote_url'],
-        status: json['status'],
-      );
+  ) => StreamwishRemoteUploadStatusResult(
+    fileCode: json['file_code'],
+    fldId: json['fld_id'],
+    progress: json['progress'],
+    remoteUrl: json['remote_url'],
+    status: json['status'],
+  );
   final String? fileCode;
   final int? fldId;
   final int? progress;
@@ -91,22 +90,21 @@ class StreamwishRemoteUploadStatusResult {
     int? progress,
     String? remoteUrl,
     String? status,
-  }) =>
-      StreamwishRemoteUploadStatusResult(
-        fileCode: fileCode ?? this.fileCode,
-        fldId: fldId ?? this.fldId,
-        progress: progress ?? this.progress,
-        remoteUrl: remoteUrl ?? this.remoteUrl,
-        status: status ?? this.status,
-      );
+  }) => StreamwishRemoteUploadStatusResult(
+    fileCode: fileCode ?? this.fileCode,
+    fldId: fldId ?? this.fldId,
+    progress: progress ?? this.progress,
+    remoteUrl: remoteUrl ?? this.remoteUrl,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'file_code': fileCode,
-        'fld_id': fldId,
-        'progress': progress,
-        'remote_url': remoteUrl,
-        'status': status,
-      };
+    'file_code': fileCode,
+    'fld_id': fldId,
+    'progress': progress,
+    'remote_url': remoteUrl,
+    'status': status,
+  };
 }

@@ -34,22 +34,21 @@ class StreamwishFileDirectLink {
     StreamwishFileDirectLinkResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileDirectLink(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileDirectLink(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFileDirectLinkResult {
@@ -86,44 +85,38 @@ class StreamwishFileDirectLinkResult {
     String? fileName,
     String? playerImg,
     List<StreamwishFileDirectLinkResultVersion>? versions,
-  }) =>
-      StreamwishFileDirectLinkResult(
-        fileLength: fileLength ?? this.fileLength,
-        fileName: fileName ?? this.fileName,
-        playerImg: playerImg ?? this.playerImg,
-        versions: versions ?? this.versions,
-      );
+  }) => StreamwishFileDirectLinkResult(
+    fileLength: fileLength ?? this.fileLength,
+    fileName: fileName ?? this.fileName,
+    playerImg: playerImg ?? this.playerImg,
+    versions: versions ?? this.versions,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'file_length': fileLength,
-        'file_name': fileName,
-        'player_img': playerImg,
-        'versions': versions == null
-            ? []
-            : List<dynamic>.from(versions!.map((x) => x.toMap())),
-      };
+    'file_length': fileLength,
+    'file_name': fileName,
+    'player_img': playerImg,
+    'versions': versions == null
+        ? []
+        : List<dynamic>.from(versions!.map((x) => x.toMap())),
+  };
 }
 
 class StreamwishFileDirectLinkResultVersion {
-  StreamwishFileDirectLinkResultVersion({
-    this.name,
-    this.size,
-    this.url,
-  });
+  StreamwishFileDirectLinkResultVersion({this.name, this.size, this.url});
 
   factory StreamwishFileDirectLinkResultVersion.fromJson(String str) =>
       StreamwishFileDirectLinkResultVersion.fromMap(json.decode(str));
 
   factory StreamwishFileDirectLinkResultVersion.fromMap(
     Map<String, dynamic> json,
-  ) =>
-      StreamwishFileDirectLinkResultVersion(
-        name: json['name'],
-        size: json['size'],
-        url: json['url'],
-      );
+  ) => StreamwishFileDirectLinkResultVersion(
+    name: json['name'],
+    size: json['size'],
+    url: json['url'],
+  );
   final String? name;
   final int? size;
   final String? url;
@@ -132,18 +125,13 @@ class StreamwishFileDirectLinkResultVersion {
     String? name,
     int? size,
     String? url,
-  }) =>
-      StreamwishFileDirectLinkResultVersion(
-        name: name ?? this.name,
-        size: size ?? this.size,
-        url: url ?? this.url,
-      );
+  }) => StreamwishFileDirectLinkResultVersion(
+    name: name ?? this.name,
+    size: size ?? this.size,
+    url: url ?? this.url,
+  );
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'size': size,
-        'url': url,
-      };
+  Map<String, dynamic> toMap() => {'name': name, 'size': size, 'url': url};
 }

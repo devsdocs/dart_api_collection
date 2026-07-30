@@ -19,8 +19,9 @@ class StreamwishFileEncodings {
         result: json['result'] == null
             ? []
             : List<StreamwishFileEncodingsResult>.from(
-                json['result']!
-                    .map((x) => StreamwishFileEncodingsResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => StreamwishFileEncodingsResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -37,24 +38,23 @@ class StreamwishFileEncodings {
     List<StreamwishFileEncodingsResult>? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileEncodings(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileEncodings(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFileEncodingsResult {
@@ -93,24 +93,23 @@ class StreamwishFileEncodingsResult {
     String? quality,
     String? status,
     String? title,
-  }) =>
-      StreamwishFileEncodingsResult(
-        fileCode: fileCode ?? this.fileCode,
-        link: link ?? this.link,
-        progress: progress ?? this.progress,
-        quality: quality ?? this.quality,
-        status: status ?? this.status,
-        title: title ?? this.title,
-      );
+  }) => StreamwishFileEncodingsResult(
+    fileCode: fileCode ?? this.fileCode,
+    link: link ?? this.link,
+    progress: progress ?? this.progress,
+    quality: quality ?? this.quality,
+    status: status ?? this.status,
+    title: title ?? this.title,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'file_code': fileCode,
-        'link': link,
-        'progress': progress,
-        'quality': quality,
-        'status': status,
-        'title': title,
-      };
+    'file_code': fileCode,
+    'link': link,
+    'progress': progress,
+    'quality': quality,
+    'status': status,
+    'title': title,
+  };
 }

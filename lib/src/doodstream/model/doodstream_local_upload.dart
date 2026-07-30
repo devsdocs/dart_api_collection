@@ -19,8 +19,9 @@ class DoodstreamLocalUpload {
         result: json['result'] == null
             ? []
             : List<DoodstreamLocalUploadResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamLocalUploadResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamLocalUploadResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +36,13 @@ class DoodstreamLocalUpload {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamLocalUploadResult {
@@ -76,8 +77,9 @@ class DoodstreamLocalUploadResult {
         splashImg: json['splash_img'],
         status: json['status'],
         title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
+        uploaded: json['uploaded'] == null
+            ? null
+            : DateTime.parse(json['uploaded']),
       );
   final int? canplay;
   final String? downloadUrl;
@@ -95,17 +97,17 @@ class DoodstreamLocalUploadResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'download_url': downloadUrl,
-        'filecode': filecode,
-        'length': length,
-        'protected_dl': protectedDl,
-        'protected_embed': protectedEmbed,
-        'single_img': singleImg,
-        'size': size,
-        'splash_img': splashImg,
-        'status': status,
-        'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-      };
+    'canplay': canplay,
+    'download_url': downloadUrl,
+    'filecode': filecode,
+    'length': length,
+    'protected_dl': protectedDl,
+    'protected_embed': protectedEmbed,
+    'single_img': singleImg,
+    'size': size,
+    'splash_img': splashImg,
+    'status': status,
+    'title': title,
+    'uploaded': uploaded?.toIso8601String(),
+  };
 }

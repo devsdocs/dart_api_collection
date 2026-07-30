@@ -3,11 +3,7 @@
 part of '../../mixdrop.dart';
 
 class MixdropFolderList {
-  MixdropFolderList({
-    this.pages,
-    this.result,
-    this.success,
-  });
+  MixdropFolderList({this.pages, this.result, this.success});
 
   factory MixdropFolderList.fromJson(String str) =>
       MixdropFolderList.fromMap(json.decode(str));
@@ -28,27 +24,23 @@ class MixdropFolderList {
     int? pages,
     MixdropFolderListResult? result,
     bool? success,
-  }) =>
-      MixdropFolderList(
-        pages: pages ?? this.pages,
-        result: result ?? this.result,
-        success: success ?? this.success,
-      );
+  }) => MixdropFolderList(
+    pages: pages ?? this.pages,
+    result: result ?? this.result,
+    success: success ?? this.success,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'pages': pages,
-        'result': result?.toMap(),
-        'success': success,
-      };
+    'pages': pages,
+    'result': result?.toMap(),
+    'success': success,
+  };
 }
 
 class MixdropFolderListResult {
-  MixdropFolderListResult({
-    this.files,
-    this.folders,
-  });
+  MixdropFolderListResult({this.files, this.folders});
 
   factory MixdropFolderListResult.fromJson(String str) =>
       MixdropFolderListResult.fromMap(json.decode(str));
@@ -70,22 +62,21 @@ class MixdropFolderListResult {
   MixdropFolderListResult copyWith({
     List<FileElement>? files,
     List<Folder>? folders,
-  }) =>
-      MixdropFolderListResult(
-        files: files ?? this.files,
-        folders: folders ?? this.folders,
-      );
+  }) => MixdropFolderListResult(
+    files: files ?? this.files,
+    folders: folders ?? this.folders,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'files': files == null
-            ? []
-            : List<dynamic>.from(files!.map((x) => x.toMap())),
-        'folders': folders == null
-            ? []
-            : List<dynamic>.from(folders!.map((x) => x.toMap())),
-      };
+    'files': files == null
+        ? []
+        : List<dynamic>.from(files!.map((x) => x.toMap())),
+    'folders': folders == null
+        ? []
+        : List<dynamic>.from(folders!.map((x) => x.toMap())),
+  };
 }
 
 class FileElement {
@@ -108,19 +99,19 @@ class FileElement {
       FileElement.fromMap(json.decode(str));
 
   factory FileElement.fromMap(Map<String, dynamic> json) => FileElement(
-        added: json['added'],
-        deleted: json['deleted'],
-        duration: json['duration'],
-        fileref: json['fileref'],
-        isaudio: json['isaudio'],
-        isvideo: json['isvideo'],
-        size: json['size'],
-        status: json['status'],
-        subtitle: json['subtitle'],
-        thumb: json['thumb'],
-        title: json['title'],
-        url: json['url'],
-      );
+    added: json['added'],
+    deleted: json['deleted'],
+    duration: json['duration'],
+    fileref: json['fileref'],
+    isaudio: json['isaudio'],
+    isvideo: json['isvideo'],
+    size: json['size'],
+    status: json['status'],
+    subtitle: json['subtitle'],
+    thumb: json['thumb'],
+    title: json['title'],
+    url: json['url'],
+  );
   final String? added;
   final bool? deleted;
   final String? duration;
@@ -147,72 +138,57 @@ class FileElement {
     String? thumb,
     String? title,
     String? url,
-  }) =>
-      FileElement(
-        added: added ?? this.added,
-        deleted: deleted ?? this.deleted,
-        duration: duration ?? this.duration,
-        fileref: fileref ?? this.fileref,
-        isaudio: isaudio ?? this.isaudio,
-        isvideo: isvideo ?? this.isvideo,
-        size: size ?? this.size,
-        status: status ?? this.status,
-        subtitle: subtitle ?? this.subtitle,
-        thumb: thumb ?? this.thumb,
-        title: title ?? this.title,
-        url: url ?? this.url,
-      );
+  }) => FileElement(
+    added: added ?? this.added,
+    deleted: deleted ?? this.deleted,
+    duration: duration ?? this.duration,
+    fileref: fileref ?? this.fileref,
+    isaudio: isaudio ?? this.isaudio,
+    isvideo: isvideo ?? this.isvideo,
+    size: size ?? this.size,
+    status: status ?? this.status,
+    subtitle: subtitle ?? this.subtitle,
+    thumb: thumb ?? this.thumb,
+    title: title ?? this.title,
+    url: url ?? this.url,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'added': added,
-        'deleted': deleted,
-        'duration': duration,
-        'fileref': fileref,
-        'isaudio': isaudio,
-        'isvideo': isvideo,
-        'size': size,
-        'status': status,
-        'subtitle': subtitle is bool
-            ? subtitle
-            : subtitle is List<dynamic>
-                ? List<dynamic>.from(subtitle.map((x) => x))
-                : subtitle,
-        'thumb': thumb,
-        'title': title,
-        'url': url,
-      };
+    'added': added,
+    'deleted': deleted,
+    'duration': duration,
+    'fileref': fileref,
+    'isaudio': isaudio,
+    'isvideo': isvideo,
+    'size': size,
+    'status': status,
+    'subtitle': subtitle is bool
+        ? subtitle
+        : subtitle is List<dynamic>
+        ? List<dynamic>.from(subtitle.map((x) => x))
+        : subtitle,
+    'thumb': thumb,
+    'title': title,
+    'url': url,
+  };
 }
 
 class Folder {
-  Folder({
-    this.id,
-    this.title,
-  });
+  Folder({this.id, this.title});
 
   factory Folder.fromJson(String str) => Folder.fromMap(json.decode(str));
 
-  factory Folder.fromMap(Map<String, dynamic> json) => Folder(
-        id: json['id'],
-        title: json['title'],
-      );
+  factory Folder.fromMap(Map<String, dynamic> json) =>
+      Folder(id: json['id'], title: json['title']);
   final String? id;
   final String? title;
 
-  Folder copyWith({
-    String? id,
-    String? title,
-  }) =>
-      Folder(
-        id: id ?? this.id,
-        title: title ?? this.title,
-      );
+  Folder copyWith({String? id, String? title}) =>
+      Folder(id: id ?? this.id, title: title ?? this.title);
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'id': id,
-        'title': title,
-      };
+  Map<String, dynamic> toMap() => {'id': id, 'title': title};
 }

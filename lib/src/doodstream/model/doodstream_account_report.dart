@@ -19,8 +19,9 @@ class DoodstreamAccountReport {
         result: json['result'] == null
             ? []
             : List<DoodstreamAccountReportResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamAccountReportResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamAccountReportResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +36,13 @@ class DoodstreamAccountReport {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamAccountReportResult {
@@ -73,11 +74,11 @@ class DoodstreamAccountReportResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'day':
-            "${day!.year.toString().padLeft(4, '0')}-${day!.month.toString().padLeft(2, '0')}-${day!.day.toString().padLeft(2, '0')}",
-        'downloads': downloads,
-        'profit_total': profitTotal,
-        'profit_views': profitViews,
-        'views': views,
-      };
+    'day':
+        "${day!.year.toString().padLeft(4, '0')}-${day!.month.toString().padLeft(2, '0')}-${day!.day.toString().padLeft(2, '0')}",
+    'downloads': downloads,
+    'profit_total': profitTotal,
+    'profit_views': profitViews,
+    'views': views,
+  };
 }

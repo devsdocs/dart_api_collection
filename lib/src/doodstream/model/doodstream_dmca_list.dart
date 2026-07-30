@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamDmcaList {
-  DoodstreamDmcaList({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamDmcaList({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamDmcaList.fromJson(String str) =>
       DoodstreamDmcaList.fromMap(json.decode(str));
@@ -36,24 +31,23 @@ class DoodstreamDmcaList {
     List<DoodstreamDmcaListResult>? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      DoodstreamDmcaList(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => DoodstreamDmcaList(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamDmcaListResult {
@@ -96,24 +90,23 @@ class DoodstreamDmcaListResult {
     String? protectedDownload,
     String? protectedEmbed,
     DateTime? reportedOn,
-  }) =>
-      DoodstreamDmcaListResult(
-        disabledOn: disabledOn ?? this.disabledOn,
-        fileCode: fileCode ?? this.fileCode,
-        fldId: fldId ?? this.fldId,
-        protectedDownload: protectedDownload ?? this.protectedDownload,
-        protectedEmbed: protectedEmbed ?? this.protectedEmbed,
-        reportedOn: reportedOn ?? this.reportedOn,
-      );
+  }) => DoodstreamDmcaListResult(
+    disabledOn: disabledOn ?? this.disabledOn,
+    fileCode: fileCode ?? this.fileCode,
+    fldId: fldId ?? this.fldId,
+    protectedDownload: protectedDownload ?? this.protectedDownload,
+    protectedEmbed: protectedEmbed ?? this.protectedEmbed,
+    reportedOn: reportedOn ?? this.reportedOn,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'disabled_on': disabledOn?.toIso8601String(),
-        'file_code': fileCode,
-        'fld_id': fldId,
-        'protected_download': protectedDownload,
-        'protected_embed': protectedEmbed,
-        'reported_on': reportedOn?.toIso8601String(),
-      };
+    'disabled_on': disabledOn?.toIso8601String(),
+    'file_code': fileCode,
+    'fld_id': fldId,
+    'protected_download': protectedDownload,
+    'protected_embed': protectedEmbed,
+    'reported_on': reportedOn?.toIso8601String(),
+  };
 }

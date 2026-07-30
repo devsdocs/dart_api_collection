@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamUploadServer {
-  DoodstreamUploadServer({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamUploadServer({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamUploadServer.fromJson(String str) =>
       DoodstreamUploadServer.fromMap(json.decode(str));
@@ -32,20 +27,19 @@ class DoodstreamUploadServer {
     String? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      DoodstreamUploadServer(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => DoodstreamUploadServer(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result,
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result,
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }

@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamFileInfo {
-  DoodstreamFileInfo({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamFileInfo({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamFileInfo.fromJson(String str) =>
       DoodstreamFileInfo.fromMap(json.decode(str));
@@ -34,13 +29,13 @@ class DoodstreamFileInfo {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamFileInfoResult {
@@ -76,8 +71,9 @@ class DoodstreamFileInfoResult {
         splashImg: json['splash_img'],
         status: json['status'],
         title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
+        uploaded: json['uploaded'] == null
+            ? null
+            : DateTime.parse(json['uploaded']),
         views: json['views'],
       );
   final int? canplay;
@@ -97,18 +93,18 @@ class DoodstreamFileInfoResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'filecode': filecode,
-        'last_view': lastView,
-        'length': length,
-        'protected_dl': protectedDl,
-        'protected_embed': protectedEmbed,
-        'single_img': singleImg,
-        'size': size,
-        'splash_img': splashImg,
-        'status': status,
-        'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-        'views': views,
-      };
+    'canplay': canplay,
+    'filecode': filecode,
+    'last_view': lastView,
+    'length': length,
+    'protected_dl': protectedDl,
+    'protected_embed': protectedEmbed,
+    'single_img': singleImg,
+    'size': size,
+    'splash_img': splashImg,
+    'status': status,
+    'title': title,
+    'uploaded': uploaded?.toIso8601String(),
+    'views': views,
+  };
 }

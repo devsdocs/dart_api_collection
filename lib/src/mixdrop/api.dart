@@ -2,20 +2,14 @@ part of '../mixdrop.dart';
 
 class MixdropApi {
   MixdropApi(String email, String apiKey)
-      : _rawApi = _MixdropRawApi(email, apiKey);
+    : _rawApi = _MixdropRawApi(email, apiKey);
 
   final _MixdropRawApi _rawApi;
 
   _MixdropRawApi get rawApi => _rawApi;
 
-  Future<MixdropLocalUpload?> localUpload(
-    File file, {
-    int? folderId,
-  }) async {
-    final str = await _rawApi.localUpload(
-      file,
-      folderId: folderId,
-    );
+  Future<MixdropLocalUpload?> localUpload(File file, {int? folderId}) async {
+    final str = await _rawApi.localUpload(file, folderId: folderId);
 
     return str != null ? MixdropLocalUpload.fromJson(str) : null;
   }
@@ -38,26 +32,19 @@ class MixdropApi {
     return fetch != null ? MixdropRemoteUploadStatus.fromJson(fetch) : null;
   }
 
-  Future<MixdropFileInfo?> fileInfo(
-    List<String> fileRefs,
-  ) async {
+  Future<MixdropFileInfo?> fileInfo(List<String> fileRefs) async {
     final fetch = await _rawApi.fileInfo(fileRefs);
 
     return fetch != null ? MixdropFileInfo.fromJson(fetch) : null;
   }
 
-  Future<MixdropFileDuplicate?> fileDuplicate(
-    String fileRef,
-  ) async {
+  Future<MixdropFileDuplicate?> fileDuplicate(String fileRef) async {
     final fetch = await _rawApi.fileDuplicate(fileRef);
 
     return fetch != null ? MixdropFileDuplicate.fromJson(fetch) : null;
   }
 
-  Future<MixdropFileRename?> fileRename(
-    String fileRef,
-    String newName,
-  ) async {
+  Future<MixdropFileRename?> fileRename(String fileRef, String newName) async {
     final fetch = await _rawApi.fileRename(fileRef, newName);
 
     return fetch != null ? MixdropFileRename.fromJson(fetch) : null;

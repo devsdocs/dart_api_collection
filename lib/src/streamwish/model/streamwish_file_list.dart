@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishFileList {
-  StreamwishFileList({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishFileList({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishFileList.fromJson(String str) =>
       StreamwishFileList.fromMap(json.decode(str));
@@ -34,22 +29,21 @@ class StreamwishFileList {
     StreamwishFileListResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileList(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileList(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFileListResult {
@@ -68,8 +62,9 @@ class StreamwishFileListResult {
         files: json['files'] == null
             ? []
             : List<StreamwishFileListResultFileElement>.from(
-                json['files']!
-                    .map((x) => StreamwishFileListResultFileElement.fromMap(x)),
+                json['files']!.map(
+                  (x) => StreamwishFileListResultFileElement.fromMap(x),
+                ),
               ),
         pages: json['pages'],
         results: json['results'],
@@ -85,24 +80,23 @@ class StreamwishFileListResult {
     int? pages,
     int? results,
     int? resultsTotal,
-  }) =>
-      StreamwishFileListResult(
-        files: files ?? this.files,
-        pages: pages ?? this.pages,
-        results: results ?? this.results,
-        resultsTotal: resultsTotal ?? this.resultsTotal,
-      );
+  }) => StreamwishFileListResult(
+    files: files ?? this.files,
+    pages: pages ?? this.pages,
+    results: results ?? this.results,
+    resultsTotal: resultsTotal ?? this.resultsTotal,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'files': files == null
-            ? []
-            : List<dynamic>.from(files!.map((x) => x.toMap())),
-        'pages': pages,
-        'results': results,
-        'results_total': resultsTotal,
-      };
+    'files': files == null
+        ? []
+        : List<dynamic>.from(files!.map((x) => x.toMap())),
+    'pages': pages,
+    'results': results,
+    'results_total': resultsTotal,
+  };
 }
 
 class StreamwishFileListResultFileElement {
@@ -124,20 +118,20 @@ class StreamwishFileListResultFileElement {
 
   factory StreamwishFileListResultFileElement.fromMap(
     Map<String, dynamic> json,
-  ) =>
-      StreamwishFileListResultFileElement(
-        canplay: json['canplay'],
-        fileCode: json['file_code'],
-        fldId: json['fld_id'],
-        length: json['length'],
-        link: json['link'],
-        public: json['public'],
-        thumbnail: json['thumbnail'],
-        title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
-        views: json['views'],
-      );
+  ) => StreamwishFileListResultFileElement(
+    canplay: json['canplay'],
+    fileCode: json['file_code'],
+    fldId: json['fld_id'],
+    length: json['length'],
+    link: json['link'],
+    public: json['public'],
+    thumbnail: json['thumbnail'],
+    title: json['title'],
+    uploaded: json['uploaded'] == null
+        ? null
+        : DateTime.parse(json['uploaded']),
+    views: json['views'],
+  );
   final int? canplay;
   final String? fileCode;
   final int? fldId;
@@ -160,32 +154,31 @@ class StreamwishFileListResultFileElement {
     String? title,
     DateTime? uploaded,
     int? views,
-  }) =>
-      StreamwishFileListResultFileElement(
-        canplay: canplay ?? this.canplay,
-        fileCode: fileCode ?? this.fileCode,
-        fldId: fldId ?? this.fldId,
-        length: length ?? this.length,
-        link: link ?? this.link,
-        public: public ?? this.public,
-        thumbnail: thumbnail ?? this.thumbnail,
-        title: title ?? this.title,
-        uploaded: uploaded ?? this.uploaded,
-        views: views ?? this.views,
-      );
+  }) => StreamwishFileListResultFileElement(
+    canplay: canplay ?? this.canplay,
+    fileCode: fileCode ?? this.fileCode,
+    fldId: fldId ?? this.fldId,
+    length: length ?? this.length,
+    link: link ?? this.link,
+    public: public ?? this.public,
+    thumbnail: thumbnail ?? this.thumbnail,
+    title: title ?? this.title,
+    uploaded: uploaded ?? this.uploaded,
+    views: views ?? this.views,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'file_code': fileCode,
-        'fld_id': fldId,
-        'length': length,
-        'link': link,
-        'public': public,
-        'thumbnail': thumbnail,
-        'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-        'views': views,
-      };
+    'canplay': canplay,
+    'file_code': fileCode,
+    'fld_id': fldId,
+    'length': length,
+    'link': link,
+    'public': public,
+    'thumbnail': thumbnail,
+    'title': title,
+    'uploaded': uploaded?.toIso8601String(),
+    'views': views,
+  };
 }

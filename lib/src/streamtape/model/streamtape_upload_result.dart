@@ -3,11 +3,7 @@
 part of '../../streamtape.dart';
 
 class StreamtapeUploadResult {
-  StreamtapeUploadResult({
-    this.msg,
-    this.result,
-    this.status,
-  });
+  StreamtapeUploadResult({this.msg, this.result, this.status});
 
   factory StreamtapeUploadResult.fromJson(String str) =>
       StreamtapeUploadResult.fromMap(json.decode(str));
@@ -28,20 +24,19 @@ class StreamtapeUploadResult {
     String? msg,
     StreamtapeUploadResultDetail? result,
     int? status,
-  }) =>
-      StreamtapeUploadResult(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        status: status ?? this.status,
-      );
+  }) => StreamtapeUploadResult(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'status': status,
+  };
 }
 
 class StreamtapeUploadResultDetail {
@@ -80,24 +75,23 @@ class StreamtapeUploadResultDetail {
     String? sha256,
     String? size,
     String? url,
-  }) =>
-      StreamtapeUploadResultDetail(
-        contentType: contentType ?? this.contentType,
-        id: id ?? this.id,
-        name: name ?? this.name,
-        sha256: sha256 ?? this.sha256,
-        size: size ?? this.size,
-        url: url ?? this.url,
-      );
+  }) => StreamtapeUploadResultDetail(
+    contentType: contentType ?? this.contentType,
+    id: id ?? this.id,
+    name: name ?? this.name,
+    sha256: sha256 ?? this.sha256,
+    size: size ?? this.size,
+    url: url ?? this.url,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'content_type': contentType,
-        'id': id,
-        'name': name,
-        'sha256': sha256,
-        'size': size,
-        'url': url,
-      };
+    'content_type': contentType,
+    'id': id,
+    'name': name,
+    'sha256': sha256,
+    'size': size,
+    'url': url,
+  };
 }

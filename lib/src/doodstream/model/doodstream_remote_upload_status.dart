@@ -19,8 +19,9 @@ class DoodstreamRemoteUploadStatus {
         result: json['result'] == null
             ? []
             : List<DoodstreamRemoteUploadStatusResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamRemoteUploadStatusResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamRemoteUploadStatusResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +36,13 @@ class DoodstreamRemoteUploadStatus {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamRemoteUploadStatusResult {
@@ -60,17 +61,15 @@ class DoodstreamRemoteUploadStatusResult {
 
   factory DoodstreamRemoteUploadStatusResult.fromMap(
     Map<String, dynamic> json,
-  ) =>
-      DoodstreamRemoteUploadStatusResult(
-        bytesDownloaded: json['bytes_downloaded'],
-        bytesTotal: json['bytes_total'],
-        created:
-            json['created'] == null ? null : DateTime.parse(json['created']),
-        fileCode: json['file_code'],
-        folderId: json['folder_id'],
-        remoteUrl: json['remote_url'],
-        status: json['status'],
-      );
+  ) => DoodstreamRemoteUploadStatusResult(
+    bytesDownloaded: json['bytes_downloaded'],
+    bytesTotal: json['bytes_total'],
+    created: json['created'] == null ? null : DateTime.parse(json['created']),
+    fileCode: json['file_code'],
+    folderId: json['folder_id'],
+    remoteUrl: json['remote_url'],
+    status: json['status'],
+  );
   final int? bytesDownloaded;
   final int? bytesTotal;
   final DateTime? created;
@@ -82,12 +81,12 @@ class DoodstreamRemoteUploadStatusResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'bytes_downloaded': bytesDownloaded,
-        'bytes_total': bytesTotal,
-        'created': created?.toIso8601String(),
-        'file_code': fileCode,
-        'folder_id': folderId,
-        'remote_url': remoteUrl,
-        'status': status,
-      };
+    'bytes_downloaded': bytesDownloaded,
+    'bytes_total': bytesTotal,
+    'created': created?.toIso8601String(),
+    'file_code': fileCode,
+    'folder_id': folderId,
+    'remote_url': remoteUrl,
+    'status': status,
+  };
 }

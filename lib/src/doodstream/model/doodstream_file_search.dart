@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamFileSearch {
-  DoodstreamFileSearch({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamFileSearch({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamFileSearch.fromJson(String str) =>
       DoodstreamFileSearch.fromMap(json.decode(str));
@@ -19,8 +14,9 @@ class DoodstreamFileSearch {
         result: json['result'] == null
             ? []
             : List<DoodstreamFileSearchResult>.from(
-                json['result']!
-                    .map((x) => DoodstreamFileSearchResult.fromMap(x)),
+                json['result']!.map(
+                  (x) => DoodstreamFileSearchResult.fromMap(x),
+                ),
               ),
         serverTime: json['server_time'] == null
             ? null
@@ -35,13 +31,13 @@ class DoodstreamFileSearch {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result == null
-            ? []
-            : List<dynamic>.from(result!.map((x) => x.toMap())),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result == null
+        ? []
+        : List<dynamic>.from(result!.map((x) => x.toMap())),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamFileSearchResult {
@@ -67,8 +63,9 @@ class DoodstreamFileSearchResult {
         singleImg: json['single_img'],
         splashImg: json['splash_img'],
         title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
+        uploaded: json['uploaded'] == null
+            ? null
+            : DateTime.parse(json['uploaded']),
         views: json['views'],
       );
   final int? canplay;
@@ -83,13 +80,13 @@ class DoodstreamFileSearchResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'file_code': fileCode,
-        'length': length,
-        'single_img': singleImg,
-        'splash_img': splashImg,
-        'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-        'views': views,
-      };
+    'canplay': canplay,
+    'file_code': fileCode,
+    'length': length,
+    'single_img': singleImg,
+    'splash_img': splashImg,
+    'title': title,
+    'uploaded': uploaded?.toIso8601String(),
+    'views': views,
+  };
 }

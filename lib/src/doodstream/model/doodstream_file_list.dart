@@ -3,12 +3,7 @@
 part of '../../doodstream.dart';
 
 class DoodstreamListFile {
-  DoodstreamListFile({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  DoodstreamListFile({this.msg, this.result, this.serverTime, this.status});
 
   factory DoodstreamListFile.fromJson(String str) =>
       DoodstreamListFile.fromMap(json.decode(str));
@@ -32,11 +27,11 @@ class DoodstreamListFile {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class DoodstreamListFileResult {
@@ -69,13 +64,13 @@ class DoodstreamListFileResult {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'files': files == null
-            ? []
-            : List<dynamic>.from(files!.map((x) => x.toMap())),
-        'results': results,
-        'results_total': resultsTotal,
-        'total_pages': totalPages,
-      };
+    'files': files == null
+        ? []
+        : List<dynamic>.from(files!.map((x) => x.toMap())),
+    'results': results,
+    'results_total': resultsTotal,
+    'total_pages': totalPages,
+  };
 }
 
 class DoodstreamListFileElement {
@@ -105,8 +100,9 @@ class DoodstreamListFileElement {
         public: json['public'],
         singleImg: json['single_img'],
         title: json['title'],
-        uploaded:
-            json['uploaded'] == null ? null : DateTime.parse(json['uploaded']),
+        uploaded: json['uploaded'] == null
+            ? null
+            : DateTime.parse(json['uploaded']),
         views: json['views'],
       );
   final int? canplay;
@@ -123,15 +119,15 @@ class DoodstreamListFileElement {
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'canplay': canplay,
-        'download_url': downloadUrl,
-        'file_code': fileCode,
-        'fld_id': fldId,
-        'length': length,
-        'public': public,
-        'single_img': singleImg,
-        'title': title,
-        'uploaded': uploaded?.toIso8601String(),
-        'views': views,
-      };
+    'canplay': canplay,
+    'download_url': downloadUrl,
+    'file_code': fileCode,
+    'fld_id': fldId,
+    'length': length,
+    'public': public,
+    'single_img': singleImg,
+    'title': title,
+    'uploaded': uploaded?.toIso8601String(),
+    'views': views,
+  };
 }

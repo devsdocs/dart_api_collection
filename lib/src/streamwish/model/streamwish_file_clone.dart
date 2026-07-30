@@ -3,12 +3,7 @@
 part of '../../streamwish.dart';
 
 class StreamwishFileClone {
-  StreamwishFileClone({
-    this.msg,
-    this.result,
-    this.serverTime,
-    this.status,
-  });
+  StreamwishFileClone({this.msg, this.result, this.serverTime, this.status});
 
   factory StreamwishFileClone.fromJson(String str) =>
       StreamwishFileClone.fromMap(json.decode(str));
@@ -34,45 +29,35 @@ class StreamwishFileClone {
     StreamwishFileCloneResult? result,
     DateTime? serverTime,
     int? status,
-  }) =>
-      StreamwishFileClone(
-        msg: msg ?? this.msg,
-        result: result ?? this.result,
-        serverTime: serverTime ?? this.serverTime,
-        status: status ?? this.status,
-      );
+  }) => StreamwishFileClone(
+    msg: msg ?? this.msg,
+    result: result ?? this.result,
+    serverTime: serverTime ?? this.serverTime,
+    status: status ?? this.status,
+  );
 
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {
-        'msg': msg,
-        'result': result?.toMap(),
-        'server_time': serverTime?.toIso8601String(),
-        'status': status,
-      };
+    'msg': msg,
+    'result': result?.toMap(),
+    'server_time': serverTime?.toIso8601String(),
+    'status': status,
+  };
 }
 
 class StreamwishFileCloneResult {
-  StreamwishFileCloneResult({
-    this.filecode,
-    this.url,
-  });
+  StreamwishFileCloneResult({this.filecode, this.url});
 
   factory StreamwishFileCloneResult.fromJson(String str) =>
       StreamwishFileCloneResult.fromMap(json.decode(str));
 
   factory StreamwishFileCloneResult.fromMap(Map<String, dynamic> json) =>
-      StreamwishFileCloneResult(
-        filecode: json['filecode'],
-        url: json['url'],
-      );
+      StreamwishFileCloneResult(filecode: json['filecode'], url: json['url']);
   final String? filecode;
   final String? url;
 
-  StreamwishFileCloneResult copyWith({
-    String? filecode,
-    String? url,
-  }) =>
+  StreamwishFileCloneResult copyWith({String? filecode, String? url}) =>
       StreamwishFileCloneResult(
         filecode: filecode ?? this.filecode,
         url: url ?? this.url,
@@ -80,8 +65,5 @@ class StreamwishFileCloneResult {
 
   String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toMap() => {
-        'filecode': filecode,
-        'url': url,
-      };
+  Map<String, dynamic> toMap() => {'filecode': filecode, 'url': url};
 }

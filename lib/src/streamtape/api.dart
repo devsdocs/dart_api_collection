@@ -2,7 +2,7 @@ part of '../streamtape.dart';
 
 class StreamtapeApi {
   StreamtapeApi(String user, String apiKey)
-      : _rawApi = _StreamtapeRawApi(user, apiKey);
+    : _rawApi = _StreamtapeRawApi(user, apiKey);
 
   final _StreamtapeRawApi _rawApi;
 
@@ -43,10 +43,7 @@ class StreamtapeApi {
     return fetch != null ? StreamtapeUploadLink.fromJson(fetch) : null;
   }
 
-  Future<StreamtapeUploadResult?> localUpload(
-    File file,
-    String url,
-  ) async {
+  Future<StreamtapeUploadResult?> localUpload(File file, String url) async {
     final upload = await _rawApi.localUpload(file, url: url);
     return upload != null ? StreamtapeUploadResult.fromJson(upload) : null;
   }
@@ -65,16 +62,14 @@ class StreamtapeApi {
     return fetch != null ? StreamtapeRemoteUploadAdd.fromJson(fetch) : null;
   }
 
-//! If remoteUploadId is null, remove all current remote upload task
-  Future<StreamtapeCommonResult?> remoteUploadRemove([
-    String? id,
-  ]) async {
+  //! If remoteUploadId is null, remove all current remote upload task
+  Future<StreamtapeCommonResult?> remoteUploadRemove([String? id]) async {
     final fetch = await _rawApi.remoteUploadRemove(id);
 
     return fetch != null ? StreamtapeCommonResult.fromJson(fetch) : null;
   }
 
-//! If remoteUploadId is null or non exist, returning all remote upload status
+  //! If remoteUploadId is null or non exist, returning all remote upload status
   Future<StreamtapeRemoteUploadCheck?> remoteUploadCheck([
     String? remoteUploadId,
   ]) async {
